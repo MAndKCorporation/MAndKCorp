@@ -38,30 +38,38 @@
 		</style>
 	
 <style>
-#header{
-    background:#ffffff !important;
+#header {
+    background: #ffffff !important;
 }
-#header .header-brand{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    height:110px;
-    background:#fff;
-    position:relative;
-}
-
-#header .logo-left{
-    position:absolute;
-    left:20px;
+#header .header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 110px;
+    background: #fff;
+    position: relative;
 }
 
-#header .logo-left img{
-    height:85px;
-    width:auto;
+#header .logo-left {
+    position: absolute;
+    left: 20px;
 }
 
-#header .header-brand h1{
-    margin:0;
+#header .logo-left img {
+    height: 85px;
+    width: auto;
+}
+
+#header .header-brand h1 {
+    margin: 0;
+}
+
+/* NEW: Replaces the grey box with your fleet image and keeps text readable */
+#banner {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('images/banner-1.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
 }
 </style>
 
@@ -97,12 +105,12 @@
 		</ul>
 	</nav>
 			<!-- Banner -->
-				<section id="banner">
-					<header>
-						<h2>M&K Corp: <em>Smart Fleet Solutions and Reliable Corporate Logistics
-						<a href="about-us.html" class="button">Learn More</a>
-					</header>
-				</section>
+<section id="banner">
+	<header>
+		<h2>M&K Corp: <em>Smart Fleet Solutions and Reliable Corporate Logistics</em></h2>
+		<a href="about-us.html" class="button">Learn More</a>
+	</header>
+</section>
 
 			<!-- Highlights -->
 				<section class="wrapper style1">

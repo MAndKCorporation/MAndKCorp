@@ -2674,29 +2674,26 @@ input, select, textarea {
 /* Banner */
 
     #banner {
-        /* Force full width and specific height */
-        width: 85%;
-        height: 500px; /* Adjust this number if you want the banner taller or shorter */
+        width: 100%;
+        /* Adjusted height slightly smaller as requested to help proportions */
+        height: 400px; 
         
-        /* Remove padding to get rid of white sides */
         padding: 0;
         margin: 0;
         
-        /* Force image to fill the exact dimensions */
+        /* 'cover' fills the banner without stretching the image */
         background-image: url("images/banner.png");
         background-position: center center;
-        background-size: 100% 100%; 
+        background-size: cover; 
         background-repeat: no-repeat;
         
-        /* Flex settings to keep your text/button where you want them */
         display: flex;
-        align-items: flex-end; /* Keeps text at the bottom */
+        align-items: flex-end;
         justify-content: flex-start;
         position: relative;
     }
 
         #banner header {
-            /* Add padding here so the text doesn't touch the very edge */
             padding-left: 5%; 
             padding-bottom: 3em;
             text-align: left;
@@ -2714,7 +2711,6 @@ input, select, textarea {
             }
 
             #banner header .actions {
-                /* Keeps button on the right */
                 position: absolute;
                 right: 5%;
                 top: 50%;

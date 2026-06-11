@@ -2674,28 +2674,28 @@ input, select, textarea {
 /* Banner */
 
     #banner {
-        display: flex;
-        align-items: flex-end;
-        /* aspect-ratio ensures the banner maintains the shape of your image */
-        /* Change '16/9' to '21/9' or '3/1' if your image is ultra-wide */
-        aspect-ratio: 16 / 9; 
         width: 100%;
-        padding: 0 5% 3em 5%;
+        /* CALCULATE THIS: Divide image Width by Height (e.g., 1920 / 600 = 3.2). 
+           Use that here, e.g., aspect-ratio: 3.2 / 1; */
+        aspect-ratio: 3 / 1; 
         background-image: url("images/banner.png");
         background-position: center;
-        background-size: contain; /* Shows the full image */
+        background-size: 100% 100%; /* Forces image to fill the box */
         background-repeat: no-repeat;
+        display: flex;
+        align-items: flex-end;
+        padding: 0 5% 3em 5%;
     }
 
         #banner header {
             position: relative;
             text-align: left;
             width: 100%;
-            padding-right: 250px; /* Space for the button */
+            padding-right: 250px;
         }
 
             #banner header h2 {
-                font-size: 2.5em; /* Slightly larger text */
+                font-size: 2.5em;
                 margin-bottom: 0.25em;
             }
 
@@ -2704,7 +2704,6 @@ input, select, textarea {
                 margin-bottom: 0;
             }
 
-            /* Positions the button to the right, centered with text */
             #banner header .actions {
                 position: absolute;
                 right: 0;

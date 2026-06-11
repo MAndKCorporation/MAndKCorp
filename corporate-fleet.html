@@ -158,38 +158,42 @@
 										<h3>Request a Corporate Quote</h3>
 										<p>Provide your company details below, and our corporate accounts manager will draft a comprehensive service proposal for you.</p>
 										
-										<form action="https://formspree.io/f/mbdeagqa" method="POST">
-											<div class="row gtr-50">
-												<div class="col-12">
-													<input type="text" name="company_name" id="company_name" placeholder="Company Registered Name" required />
-												</div>
-												<div class="col-12">
-													<input type="text" name="contact_person" id="contact_person" placeholder="Contact Person Name" required />
-												</div>
-												<div class="col-12">
-													<input type="email" name="corporate_email" id="corporate_email" placeholder="Business Email Address" required />
-												</div>
-												<div class="col-12">
-													<input type="text" name="corporate_phone" id="corporate_phone" placeholder="Contact Phone Number" required />
-												</div>
-												<div class="col-12">
-													<select name="required_service" id="required_service" required>
-														<option value="">-- Primary Requirement --</option>
-														<option value="staff_transport">Staff Transport Services</option>
-														<option value="package_logistics">Small Package Logistics</option>
-														<option value="both_services">Both (Transport & Logistics)</option>
-													</select>
-												</div>
-												<div class="col-12">
-													<textarea name="requirements_summary" id="requirements_summary" placeholder="Provide a brief brief summary of your scheduling or courier logistics needs..." rows="5" required></textarea>
-												</div>
-												<div class="col-12">
-													<ul class="actions">
-														<li><input type="submit" class="button alt" value="Submit Corporate Request" /></li>
-													</ul>
-												</div>
-											</div>
-										</form>
+									<!-- Forminit Connected Corporate Quote Form -->
+<form action="https://forminit.com/f/5kzvzvvqjsy" method="POST">
+	<div class="row gtr-50">
+		<div class="col-12">
+			<input type="text" name="fi-text-company_name" id="company_name" placeholder="Company Registered Name" required />
+		</div>
+		<div class="col-12">
+			<input type="text" name="fi-sender-fullName" id="contact_person" placeholder="Contact Person Name" required />
+		</div>
+		<div class="col-12">
+			<input type="email" name="fi-sender-email" id="corporate_email" placeholder="Business Email Address" required />
+		</div>
+		<div class="col-12">
+			<input type="text" name="fi-sender-phone" id="corporate_phone" placeholder="Contact Phone Number" required />
+		</div>
+		
+		<!-- Dropdown Selection / Dropbox -->
+		<div class="col-12">
+			<select name="fi-text-required_service" id="required_service" required>
+				<option value="">-- Primary Requirement --</option>
+				<option value="staff_transport">Staff Transport Services</option>
+				<option value="package_logistics">Small Package Logistics</option>
+				<option value="both_services">Both (Transport & Logistics)</option>
+			</select>
+		</div>
+		
+		<div class="col-12">
+			<textarea name="fi-text-requirements_summary" id="requirements_summary" placeholder="Provide a brief brief summary of your scheduling or courier logistics needs..." rows="5" required></textarea>
+		</div>
+		<div class="col-12">
+			<ul class="actions">
+				<li><input type="submit" class="button alt" value="Submit Corporate Request" /></li>
+			</ul>
+		</div>
+	</div>
+</form>
 									</section>
 
 								</div>

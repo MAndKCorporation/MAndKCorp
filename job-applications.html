@@ -151,47 +151,48 @@
 										<p>All fields are strictly mandatory. You must fill out the form completely and upload your CV to submit.</p>
 										
 										<form action="https://forminit.com/f/5kzvzvvqjsy" method="POST" enctype="multipart/form-data">
-											<div class="row gtr-50">
-												<div class="col-12">
-													<input type="text" name="applicant_name" id="applicant_name" placeholder="Full Name" required="required" />
-												</div>
-												<div class="col-12">
-													<input type="email" name="applicant_email" id="applicant_email" placeholder="Email Address" required="required" />
-												</div>
-												<div class="col-12">
-													<input type="text" name="applicant_phone" id="applicant_phone" placeholder="Phone Number" required="required" />
-												</div>
-												<div class="col-12">
-													<input type="text" name="license_type" id="license_type" placeholder="Driver's License Code (e.g. Code B / EB)" required="required" />
-												</div>
-												<div class="col-12">
-													<textarea name="driving_experience" id="driving_experience" placeholder="Briefly describe your professional driving experience..." rows="4" required="required"></textarea>
-												</div>
-												
-												<div class="col-12 file-input-wrapper">
-	<label for="cv_file">Upload your CV / Curriculum Vitae:</label>
-	<input type="file" name="cv_file" id="cv_file" accept=".pdf,.docx" required="required" />
-	<small style="color: #666; display: block; margin-top: 3px; margin-bottom: 15px;">Accepted formats: PDF or DOCX only.</small>
-</div>
+	<div class="row gtr-50">
+		<div class="col-12">
+			<input type="text" name="fi-sender-fullName" id="applicant_name" placeholder="Full Name" required="required" />
+		</div>
+		<div class="col-12">
+			<input type="email" name="fi-sender-email" id="applicant_email" placeholder="Email Address" required="required" />
+		</div>
+		<div class="col-12">
+			<input type="text" name="fi-sender-phone" id="applicant_phone" placeholder="Phone Number" required="required" />
+		</div>
+		<div class="col-12">
+			<input type="text" name="fi-text-license_type" id="license_type" placeholder="Driver's License Code (e.g. Code B / EB)" required="required" />
+		</div>
+		<div class="col-12">
+			<textarea name="fi-text-driving_experience" id="driving_experience" placeholder="Briefly describe your professional driving experience..." rows="4" required="required"></textarea>
+		</div>
+		
+		<div class="col-12 file-input-wrapper">
+			<label for="cv_file">Upload your CV / Curriculum Vitae:</label>
+			<input type="file" name="fi-file-cv" id="cv_file" accept=".pdf,.docx" required="required" />
+			<small style="color: #666; display: block; margin-top: 3px; margin-bottom: 15px;">Accepted formats: PDF or DOCX only.</small>
+		</div>
 
-<div class="col-12 file-input-wrapper">
-	<label for="license_file">Upload your Driver's License:</label>
-	<input type="file" name="license_file" id="license_file" accept=".pdf,.jpg,.jpeg,.png" required="required" />
-	<small style="color: #666; display: block; margin-top: 3px; margin-bottom: 15px;">Accepted formats: PDF, JPG, or PNG images.</small>
-</div>
+		<div class="col-12 file-input-wrapper">
+			<label for="license_file">Upload your Driver's License:</label>
+			<input type="file" name="fi-file-license" id="license_file" accept=".pdf,.jpg,.jpeg,.png" required="required" />
+			<small style="color: #666; display: block; margin-top: 3px; margin-bottom: 15px;">Accepted formats: PDF, JPG, or PNG images.</small>
+		</div>
 
-<div class="col-12 file-input-wrapper">
-	<label for="prdp_file">Upload your Professional Driving Permit (PrDP):</label>
-	<input type="file" name="prdp_file" id="prdp_file" accept=".pdf,.jpg,.jpeg,.png" required="required" />
-	<small style="color: #666; display: block; margin-top: 3px; margin-bottom: 15px;">Accepted formats: PDF, JPG, or PNG images.</small>
-</div>
-												<div class="col-12">
-													<ul class="actions">
-														<li><input type="submit" class="button alt" value="Submit Application" /></li>
-													</ul>
-												</div>
-											</div>
-										</form>
+		<div class="col-12 file-input-wrapper">
+			<label for="prdp_file">Upload your Professional Driving Permit (PrDP):</label>
+			<input type="file" name="fi-file-prdp" id="prdp_file" accept=".pdf,.jpg,.jpeg,.png" required="required" />
+			<small style="color: #666; display: block; margin-top: 3px; margin-bottom: 15px;">Accepted formats: PDF, JPG, or PNG images.</small>
+		</div>
+		
+		<div class="col-12">
+			<ul class="actions">
+				<li><input type="submit" class="button alt" value="Submit Application" /></li>
+			</ul>
+		</div>
+	</div>
+</form>
 									</section>
 
 								</div>

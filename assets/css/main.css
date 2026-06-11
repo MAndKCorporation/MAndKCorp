@@ -3429,3 +3429,31 @@ input, select, textarea {
 #banner header p {
     color: #000000 !important; /* Changes the paragraph text to dark grey */
 }
+
+/* --- FIX: MOBILE VISIBILITY & TEXT READABILITY --- */
+
+/* 1. Force the banner to be visible on mobile */
+@media screen and (max-width: 768px) {
+    #banner {
+        display: flex !important;
+        height: 300px !important; /* Forces a specific height on phones */
+        background-size: cover !important;
+        background-position: center !important;
+    }
+    
+    #banner header h2 { font-size: 1.5em !important; }
+}
+
+/* 2. Make text visible (Text Shadow) */
+/* This adds a dark drop-shadow so white text is readable against the busy image */
+#banner header h2, 
+#banner header p {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9) !important;
+    color: #ffffff !important; /* Keep it white, but let the shadow make it pop */
+}
+
+/* 3. Dark Overlay (Optional) */
+/* If the image is still too bright, this darkens the image itself slightly */
+#banner {
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/css/images/banner.png') !important;
+}

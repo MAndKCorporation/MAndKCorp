@@ -2674,24 +2674,33 @@ input, select, textarea {
 /* Banner */
 
     #banner {
+        /* Force full width and specific height */
         width: 100%;
-        /* CALCULATE THIS: Divide image Width by Height (e.g., 1920 / 600 = 3.2). 
-           Use that here, e.g., aspect-ratio: 3.2 / 1; */
-        aspect-ratio: 3 / 1; 
+        height: 500px; /* Adjust this number if you want the banner taller or shorter */
+        
+        /* Remove padding to get rid of white sides */
+        padding: 0;
+        margin: 0;
+        
+        /* Force image to fill the exact dimensions */
         background-image: url("images/banner.png");
-        background-position: center;
-        background-size: 100% 100%; /* Forces image to fill the box */
+        background-position: center center;
+        background-size: 100% 100%; 
         background-repeat: no-repeat;
+        
+        /* Flex settings to keep your text/button where you want them */
         display: flex;
-        align-items: flex-end;
-        padding: 0 5% 3em 5%;
+        align-items: flex-end; /* Keeps text at the bottom */
+        justify-content: flex-start;
+        position: relative;
     }
 
         #banner header {
-            position: relative;
+            /* Add padding here so the text doesn't touch the very edge */
+            padding-left: 5%; 
+            padding-bottom: 3em;
             text-align: left;
             width: 100%;
-            padding-right: 250px;
         }
 
             #banner header h2 {
@@ -2705,12 +2714,12 @@ input, select, textarea {
             }
 
             #banner header .actions {
+                /* Keeps button on the right */
                 position: absolute;
-                right: 0;
+                right: 5%;
                 top: 50%;
                 transform: translateY(-50%);
                 margin: 0 !important;
-                width: auto;
             }
 /* Wrapper */
 

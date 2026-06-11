@@ -2671,16 +2671,24 @@ input, select, textarea {
 			margin-top: -1px;
 		}
 
-/* FORCE FIXED BANNER */
+/* Banner */
+
 #banner {
-    width: 80% !important;
-    margin: 0 auto !important;
-    height: 550px !important;
+    width: 90% !important;        /* Keeps the side margins you liked */
+    margin: 0 auto !important;    /* Centers it */
+    
+    /* REMOVED: height: 400px; */
+    /* ADDED: aspect-ratio sets the shape. 
+       If it's too short, change 4 to a higher number (e.g., 3/1, 2/1).
+       If it's too tall, change 4 to a lower number (e.g., 5/1). */
+    aspect-ratio: 4 / 1 !important; 
+    
     padding: 0 !important;
     background-image: url("images/banner.png") !important;
     background-position: center center !important;
-    background-size: cover !important;
+    background-size: cover !important; 
     background-repeat: no-repeat !important;
+    
     display: flex !important;
     align-items: flex-end !important;
     justify-content: flex-start !important;
@@ -2692,6 +2700,14 @@ input, select, textarea {
     padding-bottom: 3em !important;
     text-align: left !important;
     width: 100% !important;
+}
+
+#banner header .actions {
+    position: absolute !important;
+    right: 5% !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
 }
 /* Wrapper */
 

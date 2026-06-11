@@ -2671,51 +2671,28 @@ input, select, textarea {
 			margin-top: -1px;
 		}
 
-/* Banner */
+/* FORCE FIXED BANNER */
+#banner {
+    width: 90% !important;
+    margin: 0 auto !important;
+    height: 400px !important;
+    padding: 0 !important;
+    background-image: url("images/banner.png") !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: flex-start !important;
+    position: relative !important;
+}
 
-    #banner {
-        width: 90%;          /* This creates the white margins on the sides */
-        margin: 0 auto;      /* This centers the banner on the page */
-        height: 400px;       /* Keeps it high enough */
-        
-        padding: 0;
-        
-        /* 'cover' keeps the image perfectly proportioned */
-        background-image: url("images/banner.png");
-        background-position: center center;
-        background-size: cover; 
-        background-repeat: no-repeat;
-        
-        display: flex;
-        align-items: flex-end;
-        justify-content: flex-start;
-        position: relative;
-    }
-
-        #banner header {
-            padding-left: 5%; 
-            padding-bottom: 3em;
-            text-align: left;
-            width: 100%;
-        }
-
-            #banner header h2 {
-                font-size: 2.5em;
-                margin-bottom: 0.25em;
-            }
-
-            #banner header p {
-                font-size: 1.25em;
-                margin-bottom: 0;
-            }
-
-            #banner header .actions {
-                position: absolute;
-                right: 5%;
-                top: 50%;
-                transform: translateY(-50%);
-                margin: 0 !important;
-            }
+#banner header {
+    padding-left: 5% !important;
+    padding-bottom: 3em !important;
+    text-align: left !important;
+    width: 100% !important;
+}
 /* Wrapper */
 
 	.wrapper {

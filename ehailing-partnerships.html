@@ -195,63 +195,65 @@
 										<h3>Apply for a Vehicle</h3>
 										<p>Ready to get on the road? Complete the form below to initiate your application process. Our team will review your details immediately.</p>
 										
-								<form action="https://formspree.io/f/mbdeagqa" method="POST" enctype="multipart/form-data">
-											<div class="row gtr-50">
-												<div class="col-12">
-													<input type="text" name="driver_name" id="driver_name" placeholder="Full Name" required="required" />
-												</div>
-												<div class="col-12">
-													<input type="email" name="driver_email" id="driver_email" placeholder="Email Address" required="required" />
-												</div>
-												<div class="col-12">
-													<input type="text" name="driver_phone" id="driver_phone" placeholder="Phone Number" required="required" />
-												</div>
-												<div class="col-12">
-													<select name="preferred_vehicle" id="preferred_vehicle" required="required">
-														<option value="">-- Select Vehicle Class --</option>
-														<option value="compact">Compact (5-Seater)</option>
-														<option value="comfort">Standard Sedan (5-Seater)</option>
-														<option value="mpv">7-Seater MPV</option>
-													</select>
-												</div>
-												<div class="col-12">
-													<select name="active_platform" id="active_platform" required="required">
-														<option value="">-- Primary Platform --</option>
-														<option value="uber">Uber</option>
-														<option value="bolt">Bolt</option>
-														<option value="both">Both Uber & Bolt</option>
-														<option value="new">New Driver</option>
-													</select>
-												</div>
-												<div class="col-12">
-													<textarea name="driver_experience" id="driver_experience" placeholder="Briefly describe your e-hailing experience..." rows="4" required="required"></textarea>
-												</div>
-												
-												<div class="col-12 file-input-wrapper">
-													<label for="cv_file">Upload your CV / Curriculum Vitae:</label>
-													<input type="file" name="cv_file" id="cv_file" accept=".pdf,.docx" required="required" />
-													<small style="color: #666; display: block; margin-top: 3px;">PDF or DOCX only.</small>
-												</div>
+								<form action="https://forminit.com/f/5kzvzvvqjsy" method="POST" enctype="multipart/form-data">
+	<div class="row gtr-50">
+		<div class="col-12">
+			<input type="text" name="fi-sender-fullName" id="applicant_name" placeholder="Full Name" required="required" />
+		</div>
+		<div class="col-12">
+			<input type="email" name="fi-sender-email" id="applicant_email" placeholder="Email Address" required="required" />
+		</div>
+		<div class="col-12">
+			<input type="text" name="fi-sender-phone" id="applicant_phone" placeholder="Phone Number" required="required" />
+		</div>
+		
+		<div class="col-12">
+			<select name="fi-text-vehicle_class" id="vehicle_class" required="required">
+				<option value="">-- Select Vehicle Class --</option>
+				<option value="5_seater">5-Seater Passenger Vehicle (Sedan/Hatchback)</option>
+				<option value="7_seater">7-Seater Multi-Purpose Vehicle (MPV)</option>
+			</select>
+		</div>
+		
+		<div class="col-12">
+			<select name="fi-text-primary_platform" id="primary_platform" required="required">
+				<option value="">-- Primary Platform --</option>
+				<option value="uber">Uber</option>
+				<option value="bolt">Bolt</option>
+				<option value="indrive">inDrive</option>
+				<option value="multiple">Multiple Platforms</option>
+			</select>
+		</div>
+		
+		<div class="col-12">
+			<textarea name="fi-text-ehailing_experience" id="driving_experience" placeholder="Briefly describe your e-hailing experience..." rows="4" required="required"></textarea>
+		</div>
+		
+		<div class="col-12 file-input-wrapper">
+			<label for="cv_file">Upload your CV / Curriculum Vitae:</label>
+			<input type="file" name="fi-file-cv" id="cv_file" accept=".pdf,.docx" required="required" />
+			<small style="color: #666; display: block; margin-top: 3px; margin-bottom: 15px;">PDF or DOCX only.</small>
+		</div>
 
-												<div class="col-12 file-input-wrapper">
-													<label for="license_file">Upload your Driver's License:</label>
-													<input type="file" name="license_file" id="license_file" accept=".pdf,.docx" required="required" />
-													<small style="color: #666; display: block; margin-top: 3px;">PDF or DOCX only.</small>
-												</div>
+		<div class="col-12 file-input-wrapper">
+			<label for="license_file">Upload your Driver's License:</label>
+			<input type="file" name="fi-file-license" id="license_file" accept=".pdf,.docx,.jpg,.jpeg,.png" required="required" />
+			<small style="color: #666; display: block; margin-top: 3px; margin-bottom: 15px;">PDF, DOCX, JPG, or PNG images.</small>
+		</div>
 
-												<div class="col-12 file-input-wrapper">
-													<label for="prdp_file">Upload your Professional Driving Permit (PrDP):</label>
-													<input type="file" name="prdp_file" id="prdp_file" accept=".pdf,.docx" required="required" />
-													<small style="color: #666; display: block; margin-top: 3px;">PDF or DOCX only.</small>
-												</div>
-
-												<div class="col-12">
-													<ul class="actions">
-														<li><input type="submit" class="button alt" value="Submit Application" /></li>
-													</ul>
-												</div>
-											</div>
-										</form>
+		<div class="col-12 file-input-wrapper">
+			<label for="prdp_file">Upload your Professional Driving Permit (PrDP):</label>
+			<input type="file" name="fi-file-prdp" id="prdp_file" accept=".pdf,.docx,.jpg,.jpeg,.png" required="required" />
+			<small style="color: #666; display: block; margin-top: 3px; margin-bottom: 15px;">PDF, DOCX, JPG, or PNG images.</small>
+		</div>
+		
+		<div class="col-12">
+			<ul class="actions">
+				<li><input type="submit" class="button alt" value="Submit Application" /></li>
+			</ul>
+		</div>
+	</div>
+</form>
 												</div>
 											</div>
 										</form>

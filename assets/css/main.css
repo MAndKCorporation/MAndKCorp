@@ -2675,38 +2675,38 @@ input, select, textarea {
 
     #banner {
         display: flex;
-        align-items: flex-end; /* This moves the content block to the bottom (lower) */
-        padding: 0 2em 3em 5%; /* 3em padding at the bottom pushes it up slightly from the edge */
-        height: 20em;
+        align-items: flex-end; 
+        padding: 0 2em 3em 5%; 
+        height: 25em; /* Increased height slightly to accommodate the full image */
         background-image: url("images/banner.png");
         background-position: center;
-        background-size: cover;
+        background-size: contain; /* THIS SHOWS THE FULL IMAGE */
         background-repeat: no-repeat;
     }
 
         #banner header {
-            position: relative; /* Needed to anchor the button to the right */
+            position: relative; 
             text-align: left;
             width: 100%;
-            padding-right: 200px; /* Reserves space so text doesn't overlap the button */
+            padding-right: 200px;
         }
 
             #banner header h2 {
-                font-size: 2em; /* Smaller text */
+                font-size: 2em; 
                 margin-bottom: 0.25em;
             }
 
             #banner header p {
-                font-size: 1em; /* Smaller text */
+                font-size: 1em; 
                 margin-bottom: 0;
             }
 
-            /* This forces the button to the right side */
+            /* Forces the button to the right side */
             #banner header .actions {
                 position: absolute;
                 right: 0;
                 top: 50%;
-                transform: translateY(-50%); /* Centers it vertically with the text */
+                transform: translateY(-50%);
                 margin: 0 !important;
                 width: auto;
             }

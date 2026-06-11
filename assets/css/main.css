@@ -2675,7 +2675,7 @@ input, select, textarea {
 
     #banner {
         /* Force full width and specific height */
-        width: 100%;
+        width: 85%;
         height: 500px; /* Adjust this number if you want the banner taller or shorter */
         
         /* Remove padding to get rid of white sides */

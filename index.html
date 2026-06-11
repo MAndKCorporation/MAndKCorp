@@ -11,19 +11,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<style>
-			/* Logo Header Integration */
-			.header-logo-container {
-				display: flex;
-				justify-content: center;
+			/* Header Logo and Text Alignment styling */
+			#logo-container {
+				display: inline-flex;
 				align-items: center;
-				padding: 2em 0; /* Matches the vertical breathing room of the white footer blocks */
-				background: #ffffff;
+				justify-content: center;
+				gap: 15px; /* Spaces the logo image and the text header nicely */
+				text-decoration: none;
 			}
+			
 			.header-logo-img {
-				display: block;
-				max-height: 140px; /* Restricts vertical height to match structural white block dimensions precisely */
+				display: inline-block;
+				max-height: 70px; /* Restricts vertical height to precisely touch the top and bottom of standard header/footer white-line spacing bands */
 				width: auto;
 				height: auto;
+				vertical-align: middle;
 			}
 
 			/* WhatsApp Floating Button Styling */
@@ -57,11 +59,12 @@
 
 			<div id="header">
 
-					<div class="header-logo-container">
-						<a href="index.html">
-							<img src="images/image_11ad14.jpg" alt="M AND K CORPORATION Logo" class="header-logo-img" />
+					<h1>
+						<a href="index.html" id="logo-container">
+							<img src="images/image_113877.jpg" alt="M AND K CORPORATION Logo" class="header-logo-img" />
+							<span>M And K <em>Corporation (PTY) LTD</em></span>
 						</a>
-					</div>
+					</h1>
 
 					<nav id="nav">
 						<ul>
@@ -191,7 +194,7 @@
 							<section class="col-4 col-6-narrower col-12-mobilep">
 								<h3>Quick Links</h3>
 								<ul class="links">
-									<li><a href="#banner">Home</a></li>
+									<li><a href="index.html">Home</a></li>
 									<li><a href="corporate-fleet.html">Our Services</a></li>
 									<li><a href="about-us.html">About Us</a></li>
 									<li><a href="contact.html">Contact Support</a></li>

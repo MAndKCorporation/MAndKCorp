@@ -6,29 +6,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<style>
-			/* WhatsApp Floating Button Styling */
-			.whatsapp-float {
-				position: fixed;
-				width: 60px;
-				height: 60px;
-				bottom: 40px;
-				right: 40px;
-				background-color: #25d366;
+			/* WhatsApp Floating Button Styling - Fully Isolated */
+			a.whatsapp-float {
+				position: fixed !important;
+				width: 60px !important;
+				height: 60px !important;
+				bottom: 40px !important;
+				right: 40px !important;
+				background-color: #25d366 !important;
 				color: #fff !important;
-				border-radius: 50px;
-				text-align: center;
-				font-size: 30px;
-				box-shadow: 2px 2px 3px #999;
-				z-index: 100;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				text-decoration: none;
-				transition: transform 0.3s ease;
+				border-radius: 50px !important;
+				text-align: center !important;
+				font-size: 30px !important;
+				box-shadow: 2px 2px 3px #999 !important;
+				z-index: 9999 !important;
+				display: flex !important;
+				align-items: center !important;
+				justify-content: center !important;
+				text-decoration: none !important;
+				transition: transform 0.3s ease !important;
 			}
-			.whatsapp-float:hover {
-				transform: scale(1.1);
-				color: #fff;
+			a.whatsapp-float:hover {
+				transform: scale(1.1) !important;
+				color: #fff !important;
 			}
 			
 			/* Pricing Table styling adjustments */
@@ -49,6 +49,24 @@
 			table.pricing-table td {
 				padding: 10px;
 				border-bottom: 1px solid #ddd;
+			}
+
+			/* Custom File Upload Layout Styling */
+			.file-input-wrapper {
+				margin-bottom: 15px;
+			}
+			.file-input-wrapper label {
+				display: block;
+				font-weight: 600;
+				margin-bottom: 5px;
+			}
+			.file-input-wrapper input[type="file"] {
+				display: block;
+				width: 100%;
+				padding: 10px;
+				background: #fff;
+				border: solid 1px #ccc;
+				border-radius: 4px;
 			}
 		</style>
 	</head>
@@ -141,19 +159,19 @@
 										<h3>Apply for a Vehicle</h3>
 										<p>Ready to get on the road? Complete the form below to initiate your application process. Our team will review your details immediately.</p>
 										
-										<form action="https://https://formspree.io/f/mbdeagqa" method="POST">
+								<form action="https://formspree.io/f/mbdeagqa" method="POST" enctype="multipart/form-data">
 											<div class="row gtr-50">
 												<div class="col-12">
-													<input type="text" name="driver_name" id="driver_name" placeholder="Full Name" required />
+													<input type="text" name="driver_name" id="driver_name" placeholder="Full Name" required="required" />
 												</div>
 												<div class="col-12">
-													<input type="email" name="driver_email" id="driver_email" placeholder="Email Address" required />
+													<input type="email" name="driver_email" id="driver_email" placeholder="Email Address" required="required" />
 												</div>
 												<div class="col-12">
-													<input type="text" name="driver_phone" id="driver_phone" placeholder="Phone Number" required />
+													<input type="text" name="driver_phone" id="driver_phone" placeholder="Phone Number" required="required" />
 												</div>
 												<div class="col-12">
-													<select name="preferred_vehicle" id="preferred_vehicle" required>
+													<select name="preferred_vehicle" id="preferred_vehicle" required="required">
 														<option value="">-- Select Vehicle Class --</option>
 														<option value="compact">Compact (5-Seater)</option>
 														<option value="comfort">Standard Sedan (5-Seater)</option>
@@ -161,7 +179,7 @@
 													</select>
 												</div>
 												<div class="col-12">
-													<select name="active_platform" id="active_platform" required>
+													<select name="active_platform" id="active_platform" required="required">
 														<option value="">-- Primary Platform --</option>
 														<option value="uber">Uber</option>
 														<option value="bolt">Bolt</option>
@@ -170,12 +188,34 @@
 													</select>
 												</div>
 												<div class="col-12">
-													<textarea name="driver_experience" id="driver_experience" placeholder="Briefly describe your e-hailing experience..." rows="4"></textarea>
+													<textarea name="driver_experience" id="driver_experience" placeholder="Briefly describe your e-hailing experience..." rows="4" required="required"></textarea>
 												</div>
+												
+												<div class="col-12 file-input-wrapper">
+													<label for="cv_file">Upload your CV / Curriculum Vitae:</label>
+													<input type="file" name="cv_file" id="cv_file" accept=".pdf,.docx" required="required" />
+													<small style="color: #666; display: block; margin-top: 3px;">PDF or DOCX only.</small>
+												</div>
+
+												<div class="col-12 file-input-wrapper">
+													<label for="license_file">Upload your Driver's License:</label>
+													<input type="file" name="license_file" id="license_file" accept=".pdf,.docx" required="required" />
+													<small style="color: #666; display: block; margin-top: 3px;">PDF or DOCX only.</small>
+												</div>
+
+												<div class="col-12 file-input-wrapper">
+													<label for="prdp_file">Upload your Professional Driving Permit (PrDP):</label>
+													<input type="file" name="prdp_file" id="prdp_file" accept=".pdf,.docx" required="required" />
+													<small style="color: #666; display: block; margin-top: 3px;">PDF or DOCX only.</small>
+												</div>
+
 												<div class="col-12">
 													<ul class="actions">
 														<li><input type="submit" class="button alt" value="Submit Application" /></li>
 													</ul>
+												</div>
+											</div>
+										</form>
 												</div>
 											</div>
 										</form>

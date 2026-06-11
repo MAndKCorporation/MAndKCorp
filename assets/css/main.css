@@ -2675,25 +2675,19 @@ input, select, textarea {
 
 	#banner {
 		position: relative;
-		background-image: url("../images/banner.png");
-		background-position: center;
-		background-size: cover;
-		background-repeat: no-repeat;
+		background-image: url("../images/banner.png") !important;
+		background-position: center !important;
+		background-size: cover !important;
+		background-repeat: no-repeat !important;
+		background-color: transparent !important;
 		text-align: center;
 		padding: 7em 0;
 		cursor: default;
 	}
 
 		#banner:before {
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			/* Changed from solid/dark background to none to fix the black screen issue */
-			background: none; 
-			z-index: 1;
+			content: none !important;
+			display: none !important;
 		}
 
 		#banner * {
@@ -2715,6 +2709,7 @@ input, select, textarea {
 			margin: 0;
 			padding: 0;
 		}
+
 /* Wrapper */
 
 	.wrapper {

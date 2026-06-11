@@ -2675,33 +2675,36 @@ input, select, textarea {
 
     #banner {
         display: flex;
-        align-items: flex-end; 
-        padding: 0 2em 3em 5%; 
-        height: 25em; /* Increased height slightly to accommodate the full image */
+        align-items: flex-end;
+        /* aspect-ratio ensures the banner maintains the shape of your image */
+        /* Change '16/9' to '21/9' or '3/1' if your image is ultra-wide */
+        aspect-ratio: 16 / 9; 
+        width: 100%;
+        padding: 0 5% 3em 5%;
         background-image: url("images/banner.png");
         background-position: center;
-        background-size: contain; /* THIS SHOWS THE FULL IMAGE */
+        background-size: contain; /* Shows the full image */
         background-repeat: no-repeat;
     }
 
         #banner header {
-            position: relative; 
+            position: relative;
             text-align: left;
             width: 100%;
-            padding-right: 200px;
+            padding-right: 250px; /* Space for the button */
         }
 
             #banner header h2 {
-                font-size: 2em; 
+                font-size: 2.5em; /* Slightly larger text */
                 margin-bottom: 0.25em;
             }
 
             #banner header p {
-                font-size: 1em; 
+                font-size: 1.25em;
                 margin-bottom: 0;
             }
 
-            /* Forces the button to the right side */
+            /* Positions the button to the right, centered with text */
             #banner header .actions {
                 position: absolute;
                 right: 0;

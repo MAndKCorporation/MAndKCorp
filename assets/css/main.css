@@ -2681,7 +2681,7 @@ input, select, textarea {
     /* ADDED: aspect-ratio sets the shape. 
        If it's too short, change 4 to a higher number (e.g., 3/1, 2/1).
        If it's too tall, change 4 to a lower number (e.g., 5/1). */
-    aspect-ratio: 4 / 1 !important; 
+    aspect-ratio: 2 / 1 !important; 
     
     padding: 0 !important;
     background-image: url("images/banner.png") !important;

@@ -2673,9 +2673,9 @@ input, select, textarea {
 
 /* FORCE FIXED BANNER */
 #banner {
-    width: 90% !important;
+    width: 80% !important;
     margin: 0 auto !important;
-    height: 400px !important;
+    height: 550px !important;
     padding: 0 !important;
     background-image: url("images/banner.png") !important;
     background-position: center center !important;

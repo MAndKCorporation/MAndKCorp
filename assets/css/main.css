@@ -3419,3 +3419,13 @@ input, select, textarea {
     transform: translateY(-50%) !important;
     margin: 0 !important;
 }
+
+/* --- Force Text Color to Dark --- */
+
+#banner header h2 {
+    color: #000000 !important; /* Changes the title to black */
+}
+
+#banner header p {
+    color: #000000 !important; /* Changes the paragraph text to dark grey */
+}

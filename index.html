@@ -11,6 +11,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<style>
+			/* Logo Header Integration */
+			.header-logo-container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 2em 0; /* Matches the vertical breathing room of the white footer blocks */
+				background: #ffffff;
+			}
+			.header-logo-img {
+				display: block;
+				max-height: 140px; /* Restricts vertical height to match structural white block dimensions precisely */
+				width: auto;
+				height: auto;
+			}
+
 			/* WhatsApp Floating Button Styling */
 			.whatsapp-float {
 				position: fixed;
@@ -37,77 +52,72 @@
 			}
 		</style>
 	</head>
-	</head>
 	<body class="is-preload">
 		<div id="page-wrapper">
 
-			<!-- Header -->
-				<div id="header">
+			<div id="header">
 
-					<!-- Logo -->
-						<h1><a href="index.html" id="logo">M And K <em>Corporation (PTY) LTD</em></a></h1>
+					<div class="header-logo-container">
+						<a href="index.html">
+							<img src="images/image_11ad14.jpg" alt="M AND K CORPORATION Logo" class="header-logo-img" />
+						</a>
+					</div>
 
-<nav id="nav">
-		<ul>
-			<li><a href="index.html">Home</a></li>
-			<li>
-				<a href="#">Our Services</a>
-				<ul>
-					<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
-					<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
-					<li><a href="job-applications.html">Job Applications</a></li>
-				</ul>
-			</li>
-			<li><a href="contact.html">Contact Us</a></li>
-			<li><a href="about-us.html">About Us</a></li>
-		</ul>
-	</nav>
-			<!-- Banner -->
-				<section id="banner">
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="index.html">Home</a></li>
+							<li>
+								<a href="#">Our Services</a>
+								<ul>
+									<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+									<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
+									<li><a href="job-applications.html">Job Applications</a></li>
+								</ul>
+							</li>
+							<li><a href="contact.html">Contact Us</a></li>
+							<li><a href="about-us.html">About Us</a></li>
+						</ul>
+					</nav>
+				</div>
+
+			<section id="banner">
 					<header>
-						<h2>M&K Corp: <em>Smart Fleet Solutions and Reliable Corporate Logistics by <a href="http://html5up.net">HTML5 UP</a></em></h2>
+						<h2>M&K Corp: <em>Smart Fleet Solutions and Reliable Corporate Logistics</em></h2>
 						<a href="about-us.html" class="button">Learn More</a>
 					</header>
 				</section>
 
-			<!-- Highlights -->
-				<section class="wrapper style1">
+			<section class="wrapper style1">
 					<div class="container">
-    <div class="row gtr-200">
+						<div class="row gtr-200">
+							<section class="col-4 col-12-narrower">
+								<div class="box highlight">
+									<i class="icon solid major fa-users"></i>
+									<h3>Corporate Staff Transport</h3>
+									<p>Reliable, premium 5-to-7 seater shuttle solutions for corporate teams, executive transfers, and employee commutes across Cape Town.</p>
+								</div>
+							</section>
 
-        <section class="col-4 col-12-narrower">
-            <div class="box highlight">
-                <i class="icon solid major fa-users"></i>
-                <h3>Corporate Staff Transport</h3>
-                <p>Reliable, premium 5-to-7 seater shuttle solutions for corporate teams, executive transfers, and employee commutes across Cape Town.</p>
-            </div>
-        </section>
+							<section class="col-4 col-12-narrower">
+								<div class="box highlight">
+									<i class="icon solid major fa-box-open"></i>
+									<h3>Small Package Logistics</h3>
+									<p>Efficient and secure point-to-point transport for corporate documents, small packages, and high-priority business deliveries.</p>
+								</div>
+							</section>
 
-        <section class="col-4 col-12-narrower">
-            <div class="box highlight">
-                <i class="icon solid major fa-box-open"></i>
-                <h3>Small Package Logistics</h3>
-                <p>Efficient and secure point-to-point transport for corporate documents, small packages, and high-priority business deliveries.</p>
-            </div>
-        </section>
-
-        <section class="col-4 col-12-narrower">
-            <div class="box highlight">
-                <i class="icon solid major fa-award"></i>
-                <h3>100% B-BBEE Level 1</h3>
-                <p>A proudly South African enterprise committed to local job creation, professional driver training, and economic growth in the Western Cape.</p>
-            </div>
-        </section>
-
-    </div>
-</div>
+							<section class="col-4 col-12-narrower">
+								<div class="box highlight">
+									<i class="icon solid major fa-award"></i>
+									<h3>100% B-BBEE Level 1</h3>
+									<p>A proudly South African enterprise committed to local job creation, professional driver training, and economic growth in the Western Cape.</p>
+								</div>
 							</section>
 						</div>
 					</div>
 				</section>
 
-			<!-- Gigantic Heading -->
-				<section class="wrapper style2">
+			<section class="wrapper style2">
 					<div class="container">
 						<header class="major">
 							<h2>Your Trusted Level 1 B-BBEE Mobility Partner</h2>
@@ -116,8 +126,7 @@
 					</div>
 				</section>
 
-			<!-- Posts -->
-				<section class="wrapper style1">
+			<section class="wrapper style1">
 					<div class="container">
 						<div class="row">
 							<section class="col-6 col-12-narrower">
@@ -145,7 +154,7 @@
 									<a href="#" class="image left"><img src="images/pic03.png" alt="Jobs" /></a>
 									<div class="inner">
 										<h3>135% Level 1 B-BBEE Procurement</h3>
-										<p>artnering with us directly enhances your enterprise and supplier development (ESD) scorecard. We provide fully compliant, black-owned corporate logistics solutions that meet rigorous procurement standards without compromising on operational excellence.</p>
+										<p>Partnering with us directly enhances your enterprise and supplier development (ESD) scorecard. We provide fully compliant, black-owned corporate logistics solutions that meet rigorous procurement standards without compromising on operational excellence.</p>
 									</div>
 								</div>
 							</section>
@@ -162,43 +171,43 @@
 					</div>
 				</section>
 
-			<!-- CTA -->
-				<section id="cta" class="wrapper style3">
+			<section id="cta" class="wrapper style3">
 					<div class="container">
 						<header>
 							<h2>Are you ready to continue your quest?</h2>
-							<a href="#" class="button">Click YES</a>
+							<a href="contact.html" class="button">Contact Us Today</a>
 						</header>
 					</div>
 				</section>
 
-			<!-- Footer -->
-				<div id="footer">
+			<div id="footer">
 					<div class="container">
 						<div class="row">
-<section class="col-4 col-12-narrower col-12-mobilep">
-    <h3>M AND K Corporation</h3>
-    <p>Providing smart fleet solutions, premium corporate staff transport, and reliable logistics management. Committed to driving efficiency and corporate excellence across South Africa.</p>
-</section>
-
-<section class="col-4 col-6-narrower col-12-mobilep">
-    <h3>Quick Links</h3>
-    <ul class="links">
-        <li><a href="#banner">Home</a></li>
-        <li><a href="#features">Our Services</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#contact.html">Contact Support</a></li>
-    </ul>
-</section>
-
-<section class="col-4 col-6-narrower col-12-mobilep">
-    <h3>Corporate Information</h3>
-    <p style="margin-bottom: 0.5rem; color: inherit;"><strong>M AND K Corporation (Pty) Ltd</strong></p>
-    <p style="margin-bottom: 0.5rem; color: inherit;">Reg No: 2026 / 358412 / 07</p>
-    <p style="color: inherit;">B-BBEE Status: Level 1 Contributor (100% Black Owned)</p>
-</section>
+							<section class="col-4 col-12-narrower col-12-mobilep">
+								<h3>M AND K Corporation</h3>
+								<p>Providing smart fleet solutions, premium corporate staff transport, and reliable logistics management. Committed to driving efficiency and corporate excellence across South Africa.</p>
 							</section>
-							<section class="col-6 col-12-narrower">
+
+							<section class="col-4 col-6-narrower col-12-mobilep">
+								<h3>Quick Links</h3>
+								<ul class="links">
+									<li><a href="#banner">Home</a></li>
+									<li><a href="corporate-fleet.html">Our Services</a></li>
+									<li><a href="about-us.html">About Us</a></li>
+									<li><a href="contact.html">Contact Support</a></li>
+								</ul>
+							</section>
+
+							<section class="col-4 col-6-narrower col-12-mobilep">
+								<h3>Corporate Information</h3>
+								<p style="margin-bottom: 0.5rem; color: inherit;"><strong>M AND K Corporation (Pty) Ltd</strong></p>
+								<p style="margin-bottom: 0.5rem; color: inherit;">Reg No: 2026 / 417012 / 07</p>
+								<p style="color: inherit;">B-BBEE Status: Level 1 Contributor (100% Black Owned)</p>
+							</section>
+						</div>
+
+						<div class="row">
+							<section class="col-12">
 								<h3>Get In Touch</h3>
 								<form>
 									<div class="row gtr-50">
@@ -220,94 +229,57 @@
 								</form>
 							</section>
 						</div>
-					</div>
-<div id="footer">
-    <div class="container">
-        
-        <div class="row">
-            <div class="col-12">
-                <h3 style="text-align: center; margin-bottom: 2em; letter-spacing: 2px; font-size: 1.2em; color: #222222; font-weight: bold;">BOARD OF DIRECTORS</h3>
-            </div>
-            
-            <div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
-                <h4 style="margin-bottom: 0.3em; font-weight: bold; color: #1c1c1c;">Mustapha Jacobs</h4>
-                <p style="font-style: italic; color: #bbb; margin: 0;">Co-Founder & Managing Director</p>
-            </div>
 
-            <div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
-                <h4 style="margin-bottom: 0.3em; font-weight: bold; color: #1c1c1c;">Kaylim Clark</h4>
-                <p style="font-style: italic; color: #bbb; margin: 0;">Co-Founder & Managing Director</p>
-            </div>
+						<div class="row" style="margin-top: 3em; border-top: solid 1px rgba(255,255,255,0.05); padding-top: 3em;">
+							<div class="col-12">
+								<h3 style="text-align: center; margin-bottom: 2em; letter-spacing: 2px; font-size: 1.2em; color: #fff; font-weight: bold;">BOARD OF DIRECTORS</h3>
+							</div>
+							
+							<div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
+								<h4 style="margin-bottom: 0.3em; font-weight: bold; color: #fff;">Mustapha Jacobs</h4>
+								<p style="font-style: italic; color: #bbb; margin: 0;">Co-Founder & Managing Director</p>
+							</div>
 
-            <div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
-                <h4 style="margin-bottom: 0.3em; font-weight: bold; color: #1c1c1c;">Keathan Kester</h4>
-                <p style="font-style: italic; color: #bbb; margin: 0;">Co-Founder & Managing Director</p>
-            </div>
-        </div>
+							<div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
+								<h4 style="margin-bottom: 0.3em; font-weight: bold; color: #fff;">Kaylim Clark</h4>
+								<p style="font-style: italic; color: #bbb; margin: 0;">Co-Founder & Managing Director</p>
+							</div>
 
-    </div>
+							<div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
+								<h4 style="margin-bottom: 0.3em; font-weight: bold; color: #fff;">Keathan Kester</h4>
+								<p style="font-style: italic; color: #bbb; margin: 0;">Co-Founder & Managing Director</p>
+							</div>
+						</div>
 
-    <div id="copyright">
-        <ul>
-            <li>&copy; M AND K Corporation (Pty) Ltd. All rights reserved.</li>
-            <li>Reg No: 2026/417012/07</li>
-            <li>Design: <a href="http://html5up.net" target="_blank" rel="noopener noreferrer">HTML5 UP</a></li>
-        </ul>
-    </div>
-</div>
-
-					<!-- Icons -->
-</section>
-					
 						<ul class="icons">
 							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
 							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
 							<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-							<li><a href="#" class="icon brands fa-google-plus-g"><span class="label">Google+</span></a></li>
 						</ul>
-					<div class="copyright">
+
+						<div class="copyright">
 							<ul class="menu">
-								<li>&copy; M AND K Corporation. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>&copy; M AND K Corporation (Pty) Ltd. All rights reserved.</li>
+								<li>Reg No: 2026/417012/07</li>
+								<li>Design: <a href="http://html5up.net" target="_blank" rel="noopener noreferrer">HTML5 UP</a></li>
 							</ul>
 						</div>
-
+					</div>
 				</div>
 
 		</div>
 
-		<a href="https://wa.me/27663577165" class="whatsapp-float" target="_blank">
+		<a href="https://wa.me/27663577165" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
 			<i class="fab fa-whatsapp"></i>
 		</a>
 
 		<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>
-
-					<!-- Copyright -->
-						<div class="copyright">
-							<ul class="menu">
-								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-
-				</div>
-
-		</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.dropotron.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
 	</body>
 </html>

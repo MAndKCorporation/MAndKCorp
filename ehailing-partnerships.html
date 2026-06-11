@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>E-Hailing Partnerships - M AND K Corporation</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			/* WhatsApp Floating Button Styling */
+			.whatsapp-float {
+				position: fixed;
+				width: 60px;
+				height: 60px;
+				bottom: 40px;
+				right: 40px;
+				background-color: #25d366;
+				color: #fff !important;
+				border-radius: 50px;
+				text-align: center;
+				font-size: 30px;
+				box-shadow: 2px 2px 3px #999;
+				z-index: 100;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-decoration: none;
+				transition: transform 0.3s ease;
+			}
+			.whatsapp-float:hover {
+				transform: scale(1.1);
+				color: #fff;
+			}
+			
+			/* Pricing Table styling adjustments */
+			.pricing-table-wrapper {
+				margin: 2em 0;
+			}
+			table.pricing-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-bottom: 1.5em;
+			}
+			table.pricing-table th {
+				background: #282828;
+				color: #fff;
+				text-align: left;
+				padding: 10px;
+			}
+			table.pricing-table td {
+				padding: 10px;
+				border-bottom: 1px solid #ddd;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<div id="header">
+
+					<h1><a href="index.html" id="logo">M AND K <em>Corporation</em></a></h1>
+
+					<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li>
+									<a href="#">Our Services</a>
+									<ul>
+										<li class="current"><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+										</ul>
+								</li>
+								<li><a href="contact.html">Contact Us</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<section class="wrapper style1">
+					<div class="container">
+						<div class="row gtr-200">
+							<div class="col-8 col-12-narrower">
+								<div id="content">
+
+									<article>
+											<header>
+												<h2>E-Hailing Partnerships</h2>
+												<p>Drive to own. No strict credit checks. Built for Uber and Bolt platforms.</p>
+											</header>
+
+											<p>At M AND K Corporation, we understand that traditional vehicle finance can be an uphill battle. That’s why we offer specialized <strong>Vehicle Rental Lease Agreements</strong> turning into a flexible <strong>Rent-to-Own program</strong>. Our contracts are structured explicitly as non-credit agreements, providing dedicated drivers a direct route to vehicle ownership without conventional financing hurdles.</p>
+
+											<h3>Program Highlights</h3>
+											<ul>
+												<li><strong>Platform Ready:</strong> Fully compliant and optimized for Uber and Bolt systems.</li>
+												<li><strong>Non-Credit Agreement:</strong> Evaluation is based on your earning potential and driving track record, not your classic credit score.</li>
+												<li><strong>Path to Ownership:</strong> Your weekly lease installments bring you closer to owning the vehicle entirely.</li>
+											</ul>
+
+											<h3>Flexible Fleet Pricing</h3>
+											<p>We supply high-quality, fuel-efficient passenger cars (5-7 seaters) built to maximize your margins. Weekly pricing varies dynamically based on the specific vehicle classification you choose:</p>
+											
+											<div class="pricing-table-wrapper">
+												<table class="pricing-table">
+													<thead>
+														<tr>
+															<th>Vehicle Category</th>
+															<th>Typical Options</th>
+															<th>Weekly Pricing</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td><strong>Compact Hatch / Sedan</strong></td>
+															<td>Fuel-efficient 5-seaters (Ideal for UberGo / Bolt Go)</td>
+															<td><em>Determined by vehicle choice</em></td>
+														</tr>
+														<tr>
+															<td><strong>Standard Comfort Sedan</strong></td>
+															<td>Spacious passenger cars (Ideal for UberX / Bolt Comfort)</td>
+															<td><em>Determined by vehicle choice</em></td>
+														</tr>
+														<tr>
+															<td><strong>Family Multi-Purpose (MPV)</strong></td>
+															<td>Versatile 7-seaters (Ideal for UberXL)</td>
+															<td><em>Determined by vehicle choice</em></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</article>
+
+								</div>
+							</div>
+							
+							<div class="col-4 col-12-narrower">
+								<div id="sidebar">
+
+									<section>
+										<h3>Apply for a Vehicle</h3>
+										<p>Ready to get on the road? Complete the form below to initiate your application process. Our team will review your details immediately.</p>
+										
+										<form action="https://https://formspree.io/f/mbdeagqa" method="POST">
+											<div class="row gtr-50">
+												<div class="col-12">
+													<input type="text" name="driver_name" id="driver_name" placeholder="Full Name" required />
+												</div>
+												<div class="col-12">
+													<input type="email" name="driver_email" id="driver_email" placeholder="Email Address" required />
+												</div>
+												<div class="col-12">
+													<input type="text" name="driver_phone" id="driver_phone" placeholder="Phone Number" required />
+												</div>
+												<div class="col-12">
+													<select name="preferred_vehicle" id="preferred_vehicle" required>
+														<option value="">-- Select Vehicle Class --</option>
+														<option value="compact">Compact (5-Seater)</option>
+														<option value="comfort">Standard Sedan (5-Seater)</option>
+														<option value="mpv">7-Seater MPV</option>
+													</select>
+												</div>
+												<div class="col-12">
+													<select name="active_platform" id="active_platform" required>
+														<option value="">-- Primary Platform --</option>
+														<option value="uber">Uber</option>
+														<option value="bolt">Bolt</option>
+														<option value="both">Both Uber & Bolt</option>
+														<option value="new">New Driver</option>
+													</select>
+												</div>
+												<div class="col-12">
+													<textarea name="driver_experience" id="driver_experience" placeholder="Briefly describe your e-hailing experience..." rows="4"></textarea>
+												</div>
+												<div class="col-12">
+													<ul class="actions">
+														<li><input type="submit" class="button alt" value="Submit Application" /></li>
+													</ul>
+												</div>
+											</div>
+										</form>
+									</section>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			<div id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="https://github.com" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+					<div class="copyright">
+						<ul class="menu">
+							<li>&copy; M AND K Corporation. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+				</div>
+
+		</div>
+
+		<a href="https://wa.me/27663577165" class="whatsapp-float" target="_blank">
+			<i class="fab fa-whatsapp"></i>
+		</a>
+
+		<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

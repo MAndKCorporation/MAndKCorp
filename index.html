@@ -36,46 +36,67 @@
 				color: #fff;
 			}
 		</style>
-	</head>
+	
+<style>
+#header{
+    background:#ffffff !important;
+}
+#header .header-brand{
+    position:relative;
+    min-height:180px;
+    background:#ffffff;
+}
+#header .header-brand .logo-left{
+    position:absolute;
+    left:20px;
+    top:50%;
+    transform:translateY(-50%);
+}
+#header .header-brand .logo-left img{
+    height:140px;
+    width:auto;
+    display:block;
+}
+#header .header-brand h1{
+    margin:0;
+    text-align:center;
+    line-height:180px;
+}
+#header .header-brand h1 a{
+    display:inline-block;
+}
+</style>
+
+</head>
 	</head>
 	<body class="is-preload">
 		<div id="page-wrapper">
 
-<!-- Header -->
-				<div id="header" style="position: relative; padding: 3.5em 0; background: #ffffff;">
+			<!-- Header -->
+				<div id="header">
 
-					<!-- Left Corner Logo (Fits flush against top and bottom with NO gaps) -->
-					<div style="position: absolute; left: 0; top: 0; bottom: 0; height: 100%; z-index: 10; display: flex; align-items: center;">
-						<a href="index.html" style="display: block; height: 100%; border: 0; margin: 0; padding: 0;">
-							<img src="images/logo1.jpeg" alt="M AND K CORPORATION Logo" style="height: 100%; width: auto; display: block; object-fit: contain; margin: 0; padding: 0; border: 0;" />
-						</a>
-					</div>
+					<!-- Logo -->
+<div class="header-brand">
+    <div class="logo-left">
+        <img src="logo1.jpeg" alt="M AND K Corporation Logo">
+    </div>
+    <h1><a href="index.html" id="logo">M And K <em>Corporation (PTY) LTD</em></a></h1>
+</div>
 
-					<!-- Perfectly Centered Company Name Text -->
-					<h1 style="margin: 0; padding: 0; text-align: center; width: 100%; display: block;">
-						<a href="index.html" id="logo" style="display: inline-block; text-decoration: none; margin: 0; padding: 0;">
-							M And K <em>Corporation (PTY) LTD</em>
-						</a>
-					</h1>
-
-					<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li class="current"><a href="index.html">Home</a></li>
-								<li>
-									<a href="#">Our Services</a>
-									<ul>
-										<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
-										<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
-										<li><a href="job-applications.html">Job Applications</a></li>
-									</ul>
-								</li>
-								<li><a href="contact.html">Contact Us</a></li>
-								<li><a href="about-us.html">About Us</a></li>
-							</ul>
-						</nav>
-
-				</div>
+<nav id="nav">
+		<ul>
+			<li><a href="index.html">Home</a></li>
+			<li>
+				<a href="#">Our Services</a>
+				<ul>
+					<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+					<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
+					<li><a href="job-applications.html">Job Applications</a></li>
+				</ul>
+			</li>
+			<li><a href="contact.html">Contact Us</a></li>
+			<li><a href="about-us.html">About Us</a></li>
+		</ul>
 	</nav>
 			<!-- Banner -->
 				<section id="banner">

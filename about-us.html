@@ -3,16 +3,14 @@
 	Arcana by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
 	<head>
 		<title>About Us - M AND K CORPORATION (PTY) LTD</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	<style>
+		<style>
 			/* WhatsApp Floating Button Styling - Fully Isolated */
 			a.whatsapp-float {
 				position: fixed !important;
@@ -37,51 +35,85 @@
 				transform: scale(1.1) !important;
 				color: #fff !important;
 			}
-			/* Restores template icon defaults */
+
+			/* Force directors grid layout to stay 3-columns on PC and stack on phone */
+			.board-row {
+				display: flex !important;
+				flex-wrap: wrap !important;
+			}
+			
+			.director-card {
+				text-align: center !important;
+				margin-bottom: 2em !important;
+			}
+
+			/* Safely style the template icons without breaking layouts */
 			.box.highlight i.major {
 				display: inline-block !important;
 				position: relative !important;
-				width: auto !important;
-				height: auto !important;
-				background: none !important;
+				width: 70px !important;
+				height: 70px !important;
+				line-height: 70px !important;
+				background: #258dc8 !important; /* Signature theme blue circle background */
+				color: #ffffff !important;
+				border-radius: 50% !important;
+				font-size: 1.8em !important;
+				margin: 0 auto 1.5em auto !important;
 				box-shadow: none !important;
 			}
+
+			/* Style text adjustments inside the board card container */
+			.director-card h3 {
+				color: #1c1c1c !important; /* Sharp corporate dark text */
+				font-weight: 700 !important;
+				margin-bottom: 0.2em !important;
+			}
+
+			.director-card p.title {
+				font-style: italic !important;
+				color: #666666 !important; 
+				margin-bottom: 1em !important;
+				font-weight: 600 !important;
+			}
+
+			.director-card p.bio {
+				font-size: 0.95em !important;
+				line-height: 1.6 !important;
+				text-align: justify !important;
+				color: #555555 !important;
+			}
 		</style>
-		
 	</head>
 	<body class="is-preload">
 		<div id="page-wrapper">
 
-			<!-- Header -->
-				<div id="header">
+			<div id="header">
 
-					<!-- Logo -->
-						<h1><a href="index.html" id="logo">M And K <em>Corporation (PTY) LTD</em></a></h1>
+					<h1><a href="index.html" id="logo">M And K <em>Corporation (PTY) LTD</em></a></h1>
 
-				<nav id="nav">
-		<ul>
-			<li><a href="index.html">Home</a></li>
-			<li>
-				<a href="#">Our Services</a>
-				<ul>
-					<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
-					<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
-					<li><a href="job-applications.html">Job Applications</a></li>
-				</ul>
-			</li>
-			<li><a href="contact.html">Contact Us</a></li>
-			<li><a href="about-us.html">About Us</a></li>
-		</ul>
-	</nav>
+					<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li>
+									<a href="#">Our Services</a>
+									<ul>
+										<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+										<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
+										<li><a href="job-applications.html">Job Applications</a></li>
+									</ul>
+								</li>
+								<li class="current"><a href="about-us.html">About Us</a></li>
+								<li><a href="contact.html">Contact Us</a></li>
+							</ul>
+						</nav>
+
 				</div>
 
-			<!-- Main Content Section -->
-				<section class="wrapper style1">
+			<section class="wrapper style1">
 					<div class="container">
 						<div id="content">
 
-							<!-- Our Story / Genesis -->
-								<article>
+							<article>
 									<header class="major">
 										<h2>Our Journey & Founding</h2>
 										<p>How three visionary directors united to redefine corporate mobility and fleet logistics in South Africa.</p>
@@ -106,70 +138,46 @@
 					</div>
 				</section>
 
-			<!-- Leadership Team Section -->
-				<section class="wrapper style2">
+			<section class="wrapper style2">
 					<div class="container">
 						<header class="major" style="text-align: center; margin-bottom: 3em;">
 							<h2>The Board of Directors</h2>
 							<p>The leadership driving our strategic operations, compliance, and community economic impact.</p>
 						</header>
 						
-						<div class="row gtr-200">
-							<!-- Director 1 -->
-							<section class="col-4 col-12-narrower" style="text-align: center;">
+						<div class="row gtr-200 board-row">
+							<section class="col-4 col-12-narrower director-card">
 								<div class="box highlight" style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 6px;">
-									<i class="icon solid major fa-user-tie" style="color: #fff; font-size: 2.5em; margin-bottom: 0.5em;"></i>
-									<h3 style="color: #1c1c1c; margin-bottom: 0.2em; font-weight: bold;">Mustapha Jacobs</h3>
-									<p style="font-style: italic; color: #ccc; margin-bottom: 1em;">Co-Founder & Managing Director</p>
-									<p style="font-size: 0.95em; line-height: 1.6; text-align: justify;">Directs the overarching corporate strategy, technological deployment, and technical architecture of the corporation's fleet platforms, driving systemic growth and regional expansion.</p>
-								</div>
-							</section>
-							</div>
-							</section>
-						</div>
-					</div>
-				</div>
-
-                          <!-- Director 2 -->
-							<section class="col-4 col-12-narrower" style="text-align: center;">
-								<div class="box highlight" style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 6px;">
-									<i class="icon solid major fa-chart-line" style="color: #fff; font-size: 2.5em; margin-bottom: 0.5em;"></i>
-									<h3 style="color: #1c1c1c; margin-bottom: 0.2em; font-weight: bold;">Kaylim Clark</h3>
-									<p style="font-style: italic; color: #ccc; margin-bottom: 1em;">Co-Founder & Managing Director</p>
-									<p style="font-size: 0.95em; line-height: 1.6; text-align: justify;">Oversees corporate operational frameworks, driver relation structures, and regional resource scheduling, ensuring high reliability across our localized transport models.</p>
+									<i class="icon solid major fa-user-tie"></i>
+									<h3>Mustapha Jacobs</h3>
+									<p class="title">Co-Founder & Managing Director</p>
+									<p class="bio">Directs the overarching corporate strategy, technological deployment, and technical architecture of the corporation's fleet platforms, driving systemic growth and regional expansion.</p>
 								</div>
 							</section>
 
-							<!-- Director 3 -->
-							<section class="col-4 col-12-narrower" style="text-align: center;">
+							<section class="col-4 col-12-narrower director-card">
 								<div class="box highlight" style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 6px;">
-									<i class="icon solid major fa-shield-alt" style="color: #fff; font-size: 2.5em; margin-bottom: 0.5em;"></i>
-									<h3 style="color: #1c1c1c; margin-bottom: 0.2em; font-weight: bold;">Keathan Kester</h3>
-									<p style="font-style: italic; color: #ccc; margin-bottom: 1em;">Co-Founder & Managing Director</p>
-									<p style="font-size: 0.95em; line-height: 1.6; text-align: justify;">Manages regulatory enterprise compliance, asset safety management, and B-BBEE supplier procurement coordination to build strong, compliant corporate partnerships.</p>
+									<i class="icon solid major fa-chart-line"></i>
+									<h3>Kaylim Clark</h3>
+									<p class="title">Co-Founder & Managing Director</p>
+									<p class="bio">Oversees corporate operational frameworks, driver relation structures, and regional resource scheduling, ensuring high reliability across our localized transport models.</p>
+								</div>
+							</section>
+
+							<section class="col-4 col-12-narrower director-card">
+								<div class="box highlight" style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 6px;">
+									<i class="icon solid major fa-shield-alt"></i>
+									<h3>Keathan Kester</h3>
+									<p class="title">Co-Founder & Managing Director</p>
+									<p class="bio">Manages regulatory enterprise compliance, asset safety management, and B-BBEE supplier procurement coordination to build strong, compliant corporate partnerships.</p>
 								</div>
 							</section>
 						</div>
+
 					</div>
 				</section>
-				</div>
 
-		<a href="https://wa.me/27663577165" class="whatsapp-float" target="_blank">
-			<i class="fab fa-whatsapp"></i>
-		</a>
-
-		<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>
-
-			<!-- Footer Section (Matches your index page exactly) -->
-				<div id="footer">
+			<div id="footer">
 					<div class="container">
 						<div class="row">
 							<section class="col-4 col-12-narrower col-12-mobilep">
@@ -181,8 +189,8 @@
 								<h3>Quick Links</h3>
 								<ul class="links">
 									<li><a href="index.html">Home</a></li>
-									<li><a href="#">Our Services</a></li>
-									<li><a href="About us.html">About Us</a></li>
+									<li><a href="ehailing-partnerships.html">Our Services</a></li>
+									<li><a href="about-us.html">About Us</a></li>
 									<li><a href="contact.html">Contact Support</a></li>
 								</ul>
 							</section>
@@ -211,13 +219,16 @@
 
 		</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<a href="https://wa.me/27663577165" class="whatsapp-float" target="_blank">
+			<i class="fab fa-whatsapp"></i>
+		</a>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.dropotron.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
 	</body>
 </html>

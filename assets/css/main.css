@@ -2673,40 +2673,43 @@ input, select, textarea {
 
 /* Banner */
 
-	#banner {
-		position: relative;
-		background-image: url("images/banner.png") !important;
-		background-position: center !important;
-		background-size: cover !important;
-		background-repeat: no-repeat !important;
-		background-color: transparent !important;
-		text-align: left;
-		padding: 6em 2em 4em 10%;
-	}
+    #banner {
+        display: flex;
+        align-items: flex-end; /* This moves the content block to the bottom (lower) */
+        padding: 0 2em 3em 5%; /* 3em padding at the bottom pushes it up slightly from the edge */
+        height: 20em;
+        background-image: url("images/banner.png");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
 
-		#banner header {
-			display: inline-block;
-			background: rgba(255, 255, 255, 0.9);
-			padding: 3em;
-			border-radius: 5px;
-			box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.1);
-			text-align: left;
-		}
+        #banner header {
+            position: relative; /* Needed to anchor the button to the right */
+            text-align: left;
+            width: 100%;
+            padding-right: 200px; /* Reserves space so text doesn't overlap the button */
+        }
 
-			#banner header h2 {
-				font-size: 2em;
-				margin-bottom: 0.5em;
-			}
+            #banner header h2 {
+                font-size: 2em; /* Smaller text */
+                margin-bottom: 0.25em;
+            }
 
-			#banner header p {
-				font-size: 1em;
-				margin-bottom: 0;
-			}
+            #banner header p {
+                font-size: 1em; /* Smaller text */
+                margin-bottom: 0;
+            }
 
-			#banner header .button {
-				margin: 1em 0 0 0;
-			}
-
+            /* This forces the button to the right side */
+            #banner header .actions {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%); /* Centers it vertically with the text */
+                margin: 0 !important;
+                width: auto;
+            }
 /* Wrapper */
 
 	.wrapper {

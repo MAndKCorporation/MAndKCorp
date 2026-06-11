@@ -2674,49 +2674,47 @@ input, select, textarea {
 /* Banner */
 
 	#banner {
-		background-image: url("../../images/banner.png");
-		background-position: center center;
-		background-size: cover;
-		height: 28em;
-		text-align: center;
 		position: relative;
+		background-image: url("../images/banner.png");
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+		text-align: center;
+		padding: 7em 0;
+		cursor: default;
 	}
 
-		#banner header {
+		#banner:before {
+			content: '';
 			position: absolute;
-			bottom: 0;
 			left: 0;
+			top: 0;
 			width: 100%;
-			background: #212121;
-			background: rgba(27, 27, 27, 0.75);
-			color: #fff;
-			padding: 1.5em 0;
+			height: 100%;
+			/* Changed from solid/dark background to none to fix the black screen issue */
+			background: none; 
+			z-index: 1;
 		}
 
-			#banner header h2 {
-				display: inline-block;
-				margin: 0;
-				font-size: 1.25em;
-				vertical-align: middle;
-			}
+		#banner * {
+			position: relative;
+			z-index: 2;
+		}
 
-				#banner header h2 em {
-					opacity: 0.75;
-				}
+		#banner h2 {
+			color: #fff;
+			font-size: 2.5em;
+			font-weight: 600;
+			margin: 0 0 0.5em 0;
+			padding: 0;
+		}
 
-				#banner header h2 a {
-					border-bottom-color: rgba(255, 255, 255, 0.5);
-				}
-
-					#banner header h2 a:hover {
-						border-bottom-color: transparent;
-					}
-
-			#banner header .button {
-				vertical-align: middle;
-				margin-left: 1em;
-			}
-
+		#banner p {
+			color: rgba(255, 255, 255, 0.75);
+			font-size: 1.25em;
+			margin: 0;
+			padding: 0;
+		}
 /* Wrapper */
 
 	.wrapper {

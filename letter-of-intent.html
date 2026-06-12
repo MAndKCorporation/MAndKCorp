@@ -20,6 +20,25 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: #0056b3;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover {
+            color: #004494;
+            text-decoration: underline;
+        }
+        .back-btn span {
+            margin-right: 5px;
+            font-size: 1.1rem;
         }
         h1, h2 {
             color: #111;
@@ -102,6 +121,8 @@
 <body>
 
 <div class="container">
+    <a href="index.html" class="back-btn"><span>&larr;</span> Back to Home</a>
+
     <h1>Letter of Intent (LOI)</h1>
     <p class="subtitle"><strong>M And K Corporation (Pty) Ltd</strong><br>Reg No: 2026/417012/07</p>
     
@@ -110,50 +131,46 @@
         The undersigned party hereby expresses intent to utilize the passenger transport or logistics/vehicle rental services provided by <strong>M And K Corporation (Pty) Ltd</strong> (Reg No: 2026/417012/07). This document serves as a formal expression of interest to enter into a definitive rental or service agreement, subject to vehicle availability and final contract verification. It does not constitute a binding financial obligation until a final lease or service level agreement (SLA) is fully executed by both parties.
     </div>
 
-  <!-- 1. CHANGE THE ACTION TO YOUR FORMINIT ENDPOINT -->
-<form id="loiForm" action="https://forminit.com/f/5kzvzvvqjsy" method="POST">
-    
-    <h2>Client Information</h2>
-    
-    <div class="form-group">
-        <label for="companyName">Company / Individual Full Name</label>
-        <!-- Forminit reads the 'name' attributes below to organize your inbox data -->
-        <input type="text" id="companyName" name="fi-text-company-name" required>
-    </div>
-
-    <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="fi-sender-email" required>
-    </div>
-
-    <div class="form-group">
-        <label for="serviceType">Required Service / Vehicle Type</label>
-        <select id="serviceType" name="fi-text-service-type" required>
-            <option value="" disabled selected>Select an option...</option>
-            <option value="5-7 Seater Passenger Fleet">5-7 Seater Passenger Car Rental</option>
-            <option value="Corporate E-Hailing Logistics">Corporate E-Hailing / Logistics Services</option>
-            <option value="Other Transport Services">Other Fleet Services</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="startDate">Estimated Start Date</label>
-        <input type="date" id="startDate" name="fi-text-target-start-date" required>
-    </div>
-
-    <div class="form-group">
-        <label>Digital Signature</label>
-        <div class="signature-container">
-            <canvas id="signature-pad"></canvas>
-        </div>
-        <button type="button" class="clear-btn" id="clear">Clear Signature</button>
+    <!-- NOTE: enctype="multipart/form-data" is absolutely required for file uploads -->
+    <form id="loiForm" action="https://forminit.com/f/5kzvzvvqjsy" method="POST" enctype="multipart/form-data">
         
-        <!-- Forminit handles the signature data as a long text string -->
-        <input type="hidden" id="signature64" name="fi-text-signature-image">
-    </div>
+        <h2>Client Information</h2>
+        
+        <div class="form-group">
+            <label for="companyName">Company / Individual Full Name</label>
+            <input type="text" id="companyName" name="fi-text-company-name" required>
+        </div>
 
-    <button type="submit" class="submit-btn">Submit Letter of Intent</button>
-</form>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="fi-sender-email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="serviceType">Required Service / Vehicle Type</label>
+            <select id="serviceType" name="fi-text-service-type" required>
+                <option value="" disabled selected>Select an option...</option>
+                <option value="5-7 Seater Passenger Fleet">5-7 Seater Passenger Car Rental</option>
+                <option value="Corporate E-Hailing Logistics">Corporate E-Hailing / Logistics Services</option>
+                <option value="Other Transport Services">Other Fleet Services</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Estimated Start Date</label>
+            <input type="date" id="startDate" name="fi-text-target-start-date" required>
+        </div>
+
+        <div class="form-group">
+            <label>Digital Signature</label>
+            <div class="signature-container">
+                <canvas id="signature-pad"></canvas>
+            </div>
+            <button type="button" class="clear-btn" id="clear">Clear Signature</button>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Letter of Intent</button>
+    </form>
 </div>
 
 <script>
@@ -179,18 +196,56 @@
         signaturePad.clear();
     });
 
-    // Form Submission Logic
+    // Helper function to turn Base64 URLs into actual files (Blobs)
+    function dataURLtoBlob(dataURL) {
+        const arr = dataURL.split(','), mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+    }
+
+    // Form Submission Overhaul
     const form = document.getElementById('loiForm');
     form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Stop default plain text submission
+
         if (signaturePad.isEmpty()) {
-            e.preventDefault();
             alert("Please provide a signature before submitting.");
             return;
         }
 
-        // Convert the signature canvas to a Base64 Image string and save it to the hidden input
+        // 1. Get signature as Base64 text string, then instantly convert it to a file blob
         const dataURL = signaturePad.toDataURL('image/png');
-        document.getElementById('signature64').value = dataURL;
+        const blob = dataURLtoBlob(dataURL);
+
+        // 2. Gather all normal form fields into an AJAX form package
+        const formData = new FormData(form);
+
+        // 3. Inject the file blob into the transmission. Forminit captures 'fi-file-' as an attachment.
+        formData.append("fi-file-signature", blob, "signature.png");
+
+        // 4. Fire the form off to Forminit via background request (Fetch)
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // Smooth redirection back home or to a successful confirmation landing page
+                alert("Letter of Intent submitted successfully!");
+                window.location.href = "index.html"; 
+            } else {
+                alert("An error occurred during submission. Please try again.");
+            }
+        })
+        .catch(error => {
+            console.error("Submission Error:", error);
+            alert("Network error. Please check your connection and try again.");
+        });
     });
 </script>
 

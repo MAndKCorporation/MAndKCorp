@@ -132,23 +132,24 @@
         The undersigned party hereby expresses intent to utilize the passenger transport or logistics/vehicle rental services provided by <strong>M And K Corporation (Pty) Ltd</strong> (Reg No: 2026/417012/07). This document serves as a formal expression of interest to enter into a definitive rental or service agreement, subject to vehicle availability and final contract verification. It does not constitute a binding financial obligation until a final lease or service level agreement (SLA) is fully executed by both parties.
     </div>
 
-    <form id="loiForm" action="https://forminit.com/f/5kzvzvvqjsy" method="POST" enctype="multipart/form-data">
+    <!-- REPLACE THE ACTION URL BELOW WITH YOUR ACTUAL MAKE.COM CUSTOM WEBHOOK URL -->
+    <form id="loiForm" action="https://hook.us2.make.com/4g7a2id1lvytp2kp69lvodupeditelpp" method="POST" enctype="multipart/form-data">
         
         <h2>Client Information</h2>
         
         <div class="form-group">
             <label for="companyName">Company / Individual Full Name</label>
-            <input type="text" id="companyName" name="fi-text-company-name" required>
+            <input type="text" id="companyName" name="companyName" required>
         </div>
 
         <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="fi-sender-email" required>
+            <input type="email" id="email" name="clientEmail" required>
         </div>
 
         <div class="form-group">
             <label for="serviceType">Required Service / Vehicle Type</label>
-            <select id="serviceType" name="fi-text-service-type" required>
+            <select id="serviceType" name="serviceType" required>
                 <option value="" disabled selected>Select an option...</option>
                 <option value="5-7 Seater Passenger Fleet">5-7 Seater Passenger Car Rental</option>
                 <option value="Corporate E-Hailing Logistics">Corporate E-Hailing / Logistics Services</option>
@@ -158,7 +159,7 @@
 
         <div class="form-group">
             <label for="startDate">Estimated Start Date</label>
-            <input type="date" id="startDate" name="fi-text-target-start-date" required>
+            <input type="date" id="startDate" name="startDate" required>
         </div>
 
         <div class="form-group">
@@ -185,11 +186,8 @@
         });
     }
 
-    // Safely adjust canvas resolution without breaking tracking
     function resizeCanvas() {
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
-        
-        // Save the drawing if there is one before resizing
         const data = signaturePad ? signaturePad.toData() : null;
         
         canvas.width = canvas.offsetWidth * ratio;
@@ -198,50 +196,44 @@
         
         if (signaturePad) {
             signaturePad.clear();
-            if (data) signaturePad.fromData(data); // Restore signature if it existed
+            if (data) signaturePad.fromData(data); 
         } else {
             initSignaturePad();
         }
     }
 
-    // Run initialization
     initSignaturePad();
     window.addEventListener('resize', resizeCanvas);
-    // Slight delay ensures the CSS container has loaded its actual width
     setTimeout(resizeCanvas, 200); 
 
-    // Clear Button Logic
     document.getElementById('clear').addEventListener('click', (e) => {
-        e.preventDefault(); // Stop any accidental form triggers
+        e.preventDefault(); 
         signaturePad.clear();
     });
 
-    // Form Submission Process
+    // Form Submission Pipeline to Make.com
     const form = document.getElementById('loiForm');
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Stop default HTML submission immediately
+        e.preventDefault(); 
 
-        // Double check signature presence safely
         if (!signaturePad || signaturePad.isEmpty()) {
             alert("Please sign in the digital signature box before submitting.");
             return;
         }
 
-        // Visual feedback so the client knows it's processing
         const submitBtn = form.querySelector('.submit-btn');
         const originalBtnText = submitBtn.innerText;
         submitBtn.innerText = "Generating PDF & Submitting...";
         submitBtn.disabled = true;
 
         try {
-            // 1. Capture Form Inputs
             const companyName = document.getElementById('companyName').value;
             const clientEmail = document.getElementById('email').value;
             const serviceType = document.getElementById('serviceType').value;
             const startDate = document.getElementById('startDate').value;
             const signatureImage = signaturePad.toDataURL('image/png');
 
-            // 2. Build the PDF generation template layout string
+            // Build PDF Generation Target Layout Element
             const pdfWorkerElement = document.createElement('div');
             pdfWorkerElement.style.padding = '40px';
             pdfWorkerElement.style.fontFamily = 'Arial, sans-serif';
@@ -251,7 +243,7 @@
                 <div style="border-bottom: 3px solid #0056b3; padding-bottom: 10px; margin-bottom: 25px;">
                     <h1 style="font-size: 24px; color: #0056b3; margin: 0; text-transform: uppercase;">M And K Corporation (Pty) Ltd</h1>
                     <p style="font-size: 11px; color: #555; margin: 4px 0 0 0;">Registration Number: 2026/417012/07</p>
-                    <p style="font-size: 14px; font-weight: bold; margin-top: 15px; color: #111;">LETTER OF INTENT (LOI) — REQUISITION</p>
+                    <p style="font-size: 14px; font-weight: bold; margin-top: 15px; color: #111;">LETTER OF INTENT (LOI) &mdash; TRANSPORT REQUEST</p>
                 </div>
 
                 <div style="background-color: #fafbfc; border: 1px solid #d1d5db; padding: 15px; border-radius: 4px; font-size: 13px; margin-bottom: 30px; text-align: justify; line-height: 1.5;">
@@ -303,7 +295,6 @@
                 </div>
             `;
 
-            // 3. Set the HTML to PDF configuration parameters
             const pdfOptions = {
                 margin: [10, 15, 10, 15],
                 filename: `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`,
@@ -312,20 +303,19 @@
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // Check if library loaded correctly before executing build
             if (typeof html2pdf === 'undefined') {
-                alert("PDF generation engine is still loading. Please wait 2 seconds and try again.");
+                alert("PDF engine is still loading. Please wait a second and retry.");
                 submitBtn.innerText = originalBtnText;
                 submitBtn.disabled = false;
                 return;
             }
 
-            // 4. Generate PDF as a clean binary blob package and send via Forminit
+            // Generate binary blob layout and send to Make Webhook
             html2pdf().set(pdfOptions).from(pdfWorkerElement).outputBlob().then(function(pdfBlob) {
                 const formData = new FormData(form);
                 
-                // Package the PDF binary into the standard Forminit key structure
-                formData.append("fi-file-document", pdfBlob, `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+                // Append the generated document into the multipart form stream
+                formData.append("loi_document", pdfBlob, `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`);
 
                 fetch(form.action, {
                     method: 'POST',
@@ -333,17 +323,17 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert("Letter of Intent and generated PDF document submitted successfully!");
+                        alert("Your Letter of Intent has been transmitted successfully!");
                         window.location.href = "index.html"; 
                     } else {
-                        alert("Forminit rejected the form submission. Check your Forminit form ID.");
+                        alert("The submission reached Make, but returned an operational error.");
                         submitBtn.innerText = originalBtnText;
                         submitBtn.disabled = false;
                     }
                 })
                 .catch(error => {
-                    console.error("Submission Error:", error);
-                    alert("Network error. Please check your internet connection.");
+                    console.error("Transmission Error:", error);
+                    alert("Network connection error. Check your connection status.");
                     submitBtn.innerText = originalBtnText;
                     submitBtn.disabled = false;
                 });
@@ -356,7 +346,7 @@
 
         } catch (globalError) {
             console.error("Execution Error:", globalError);
-            alert("Something went wrong inside the page handler script.");
+            alert("Internal exception caught by window execution handler.");
             submitBtn.innerText = originalBtnText;
             submitBtn.disabled = false;
         }

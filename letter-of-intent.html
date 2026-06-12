@@ -310,47 +310,45 @@
                 return;
             }
 
-            // Generate binary blob and send directly to your Make Webhook
-            html2pdf().set(pdfOptions).from(pdfWorkerElement).outputBlob().then(function(pdfBlob) {
-                const formData = new FormData(form);
-                
-                // Append the generated PDF binary stream directly under the key 'loi_document'
-                formData.append("loi_document", pdfBlob, `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+        //  CORRECT WAY
+const element = document.getElementById('your-form-container-id'); // Whatever your target element is
 
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert("Your Letter of Intent has been transmitted successfully!");
-                        window.location.href = "index.html"; 
-                    } else {
-                        alert("The submission reached Make, but returned an error configuration response.");
-                        submitBtn.innerText = originalBtnText;
-                        submitBtn.disabled = false;
-                    }
-                })
-                .catch(error => {
-                    console.error("Transmission Error:", error);
-                    alert("Network connection error. Check your connection status.");
-                    submitBtn.innerText = originalBtnText;
-                    submitBtn.disabled = false;
-                });
-            }).catch(pdfErr => {
-                console.error("PDF Engine Error:", pdfErr);
-                alert("An error occurred while compiling the PDF visual elements.");
-                submitBtn.innerText = originalBtnText;
-                submitBtn.disabled = false;
-            });
+const options = {
+    margin:       10,
+    filename:     'Letter_of_Intent.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
 
-        } catch (globalError) {
-            console.error("Execution Error:", globalError);
-            alert("Internal exception caught by window execution handler.");
-            submitBtn.innerText = originalBtnText;
-            submitBtn.disabled = false;
-        }
+// Use .output('blob') inside the promise chain
+html2pdf().set(options).from(element).output('blob').then(function(pdfBlob) {
+    
+    // Now create your FormData to send to Make.com
+    const formData = new FormData();
+    formData.append('file', pdfBlob, 'Letter_of_Intent.pdf');
+    formData.append('name', document.getElementById('companyNameInputId').value); 
+    formData.append('email', document.getElementById('emailInputId').value);
+    formData.append('service', document.getElementById('serviceSelectId').value);
+    formData.append('date', document.getElementById('dateInputId').value);
+
+    // Send it off to your Make Webhook
+    return fetch('https://hook.eu1.make.com/your-webhook-id', { // Replace with your actual Make URL
+        method: 'POST',
+        body: formData
     });
+})
+.then(response => {
+    if (response.ok) {
+        alert('Letter of Intent submitted successfully!');
+    } else {
+        alert('Server error processing your submission.');
+    }
+})
+.catch(error => {
+    console.error('Error during submission:', error);
+    alert('An error occurred. Please check console.');
+});
 </script>
 
 </body>

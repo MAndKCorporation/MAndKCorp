@@ -110,48 +110,50 @@
         The undersigned party hereby expresses intent to utilize the passenger transport or logistics/vehicle rental services provided by <strong>M And K Corporation (Pty) Ltd</strong> (Reg No: 2026/417012/07). This document serves as a formal expression of interest to enter into a definitive rental or service agreement, subject to vehicle availability and final contract verification. It does not constitute a binding financial obligation until a final lease or service level agreement (SLA) is fully executed by both parties.
     </div>
 
-    <!-- REPLACE 'YOUR_FORM_ID' WITH YOUR ACTUAL FORMSPREE ID -->
-    <form id="loiForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+  <!-- 1. CHANGE THE ACTION TO YOUR FORMINIT ENDPOINT -->
+<form id="loiForm" action="https://forminit.com/f/5kzvzvvqjsy" method="POST">
+    
+    <h2>Client Information</h2>
+    
+    <div class="form-group">
+        <label for="companyName">Company / Individual Full Name</label>
+        <!-- Forminit reads the 'name' attributes below to organize your inbox data -->
+        <input type="text" id="companyName" name="fi-text-company-name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="fi-sender-email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="serviceType">Required Service / Vehicle Type</label>
+        <select id="serviceType" name="fi-text-service-type" required>
+            <option value="" disabled selected>Select an option...</option>
+            <option value="5-7 Seater Passenger Fleet">5-7 Seater Passenger Car Rental</option>
+            <option value="Corporate E-Hailing Logistics">Corporate E-Hailing / Logistics Services</option>
+            <option value="Other Transport Services">Other Fleet Services</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="startDate">Estimated Start Date</label>
+        <input type="date" id="startDate" name="fi-text-target-start-date" required>
+    </div>
+
+    <div class="form-group">
+        <label>Digital Signature</label>
+        <div class="signature-container">
+            <canvas id="signature-pad"></canvas>
+        </div>
+        <button type="button" class="clear-btn" id="clear">Clear Signature</button>
         
-        <h2>Client Information</h2>
-        
-        <div class="form-group">
-            <label for="companyName">Company / Individual Full Name</label>
-            <input type="text" id="companyName" name="Company Name" required>
-        </div>
+        <!-- Forminit handles the signature data as a long text string -->
+        <input type="hidden" id="signature64" name="fi-text-signature-image">
+    </div>
 
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="Email" required>
-        </div>
-
-        <div class="form-group">
-            <label for="serviceType">Required Service / Vehicle Type</label>
-            <select id="serviceType" name="Service Type" required>
-                <option value="" disabled selected>Select an option...</option>
-                <option value="5-7 Seater Passenger Fleet">5-7 Seater Passenger Car Rental</option>
-                <option value="Corporate E-Hailing Logistics">Corporate E-Hailing / Logistics Services</option>
-                <option value="Other Transport Services">Other Fleet Services</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="startDate">Estimated Start Date</label>
-            <input type="date" id="startDate" name="Target Start Date" required>
-        </div>
-
-        <div class="form-group">
-            <label>Digital Signature</label>
-            <div class="signature-container">
-                <canvas id="signature-pad"></canvas>
-            </div>
-            <button type="button" class="clear-btn" id="clear">Clear Signature</button>
-            <!-- Hidden input to store the signature image data URL -->
-            <input type="hidden" id="signature64" name="Signature Image">
-        </div>
-
-        <button type="submit" class="submit-btn">Submit Letter of Intent</button>
-    </form>
+    <button type="submit" class="submit-btn">Submit Letter of Intent</button>
+</form>
 </div>
 
 <script>

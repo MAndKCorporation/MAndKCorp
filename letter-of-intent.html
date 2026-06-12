@@ -115,8 +115,9 @@
             background: #004494;
         }
     </style>
-    <!-- Include Signature Pad Library -->
+    <!-- Include Signature Pad and html2pdf Engines -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -131,7 +132,6 @@
         The undersigned party hereby expresses intent to utilize the passenger transport or logistics/vehicle rental services provided by <strong>M And K Corporation (Pty) Ltd</strong> (Reg No: 2026/417012/07). This document serves as a formal expression of interest to enter into a definitive rental or service agreement, subject to vehicle availability and final contract verification. It does not constitute a binding financial obligation until a final lease or service level agreement (SLA) is fully executed by both parties.
     </div>
 
-    <!-- NOTE: enctype="multipart/form-data" is absolutely required for file uploads -->
     <form id="loiForm" action="https://forminit.com/f/5kzvzvvqjsy" method="POST" enctype="multipart/form-data">
         
         <h2>Client Information</h2>
@@ -180,7 +180,6 @@
         backgroundColor: 'rgb(255, 255, 255)'
     });
 
-    // Resize canvas dynamically to fit its container
     function resizeCanvas() {
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
         canvas.width = canvas.offsetWidth * ratio;
@@ -191,60 +190,118 @@
     window.onresize = resizeCanvas;
     resizeCanvas();
 
-    // Clear Button Logic
     document.getElementById('clear').addEventListener('click', () => {
         signaturePad.clear();
     });
 
-    // Helper function to turn Base64 URLs into actual files (Blobs)
-    function dataURLtoBlob(dataURL) {
-        const arr = dataURL.split(','), mime = arr[0].match(/:(.*?);/)[1];
-        const bstr = atob(arr[1]);
-        let n = bstr.length;
-        const u8arr = new Uint8Array(n);
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new Blob([u8arr], { type: mime });
-    }
-
-    // Form Submission Overhaul
     const form = document.getElementById('loiForm');
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Stop default plain text submission
+        e.preventDefault();
 
         if (signaturePad.isEmpty()) {
             alert("Please provide a signature before submitting.");
             return;
         }
 
-        // 1. Get signature as Base64 text string, then instantly convert it to a file blob
-        const dataURL = signaturePad.toDataURL('image/png');
-        const blob = dataURLtoBlob(dataURL);
+        // 1. Capture Form Inputs
+        const companyName = document.getElementById('companyName').value;
+        const clientEmail = document.getElementById('email').value;
+        const serviceType = document.getElementById('serviceType').value;
+        const startDate = document.getElementById('startDate').value;
+        const signatureImage = signaturePad.toDataURL('image/png');
 
-        // 2. Gather all normal form fields into an AJAX form package
-        const formData = new FormData(form);
+        // 2. Build the PDF generation structure on the fly
+        const pdfWorkerElement = document.createElement('div');
+        pdfWorkerElement.style.padding = '30px';
+        pdfWorkerElement.style.fontFamily = 'Arial, sans-serif';
+        pdfWorkerElement.style.color = '#2b2b2b';
 
-        // 3. Inject the file blob into the transmission. Forminit captures 'fi-file-' as an attachment.
-        formData.append("fi-file-signature", blob, "signature.png");
+        pdfWorkerElement.innerHTML = `
+            <div style="border-bottom: 3px solid #0056b3; padding-bottom: 10px; margin-bottom: 20px;">
+                <h1 style="font-size: 24px; color: #0056b3; margin: 0; text-transform: uppercase;">M And K Corporation (Pty) Ltd</h1>
+                <p style="font-size: 11px; color: #555; margin: 4px 0 0 0;">Registration Number: 2026/417012/07</p>
+                <p style="font-size: 14px; font-weight: bold; margin-top: 10px; color: #111;">LETTER OF INTENT (LOI) — REQUISITION</p>
+            </div>
 
-        // 4. Fire the form off to Forminit via background request (Fetch)
-        fetch(form.action, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                // Smooth redirection back home or to a successful confirmation landing page
-                alert("Letter of Intent submitted successfully!");
-                window.location.href = "index.html"; 
-            } else {
-                alert("An error occurred during submission. Please try again.");
-            }
-        })
-        .catch(error => {
-            console.error("Submission Error:", error);
-            alert("Network error. Please check your connection and try again.");
+            <div style="background-color: #fafbfc; border: 1px solid #d1d5db; padding: 15px; border-radius: 4px; font-size: 13px; margin-bottom: 25px; text-align: justify; line-height: 1.5;">
+                <strong>TERMS OF INTENT:</strong><br>
+                The undersigned party hereby expresses intent to utilize the passenger transport or logistics/vehicle rental services provided by <strong>M And K Corporation (Pty) Ltd</strong> (Reg No: 2026/417012/07). This document serves as a formal expression of interest to enter into a definitive rental or service agreement, subject to vehicle availability and final contract verification. It does not constitute a binding financial obligation until a final lease or service level agreement (SLA) is fully executed by both parties.
+            </div>
+
+            <h3 style="color: #0056b3; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px; text-transform: uppercase; font-size: 14px;">Client Profile & Specifics</h3>
+            <table style="width: 100%; font-size: 13px; margin-bottom: 30px; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; width: 35%; border-bottom: 1px dashed #e5e7eb;">Company / Client Name:</td>
+                    <td style="padding: 8px 0; border-bottom: 1px dashed #e5e7eb;">${companyName}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Contact Email Address:</td>
+                    <td style="padding: 8px 0; border-bottom: 1px dashed #e5e7eb;">${clientEmail}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Requested Fleet Category:</td>
+                    <td style="padding: 8px 0; border-bottom: 1px dashed #e5e7eb;">${serviceType}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Estimated Launch Date:</td>
+                    <td style="padding: 8px 0; border-bottom: 1px dashed #e5e7eb;">${startDate}</td>
+                </tr>
+            </table>
+
+            <h3 style="color: #0056b3; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px; text-transform: uppercase; font-size: 14px;">Signatures & Sign-off</h3>
+            <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+                <div style="width: 45%; border: 1px solid #e5e7eb; background: #fafbfc; padding: 12px; border-radius: 4px; text-align: center;">
+                    <p style="margin: 0 0 10px 0; font-weight: bold; color: #0056b3; font-size: 12px; text-align: left;">For the Client:</p>
+                    <img src="${signatureImage}" style="max-height: 60px; max-width: 100%; margin-bottom: 5px;" alt="Client Signature" />
+                    <div style="border-top: 1px solid #777; padding-top: 4px; font-size: 11px; font-weight: bold;">Authorized Signatory</div>
+                    <div style="font-size: 10px; color: #555; margin-top: 4px; text-align: left;">Date: ${new Date().toLocaleDateString()}</div>
+                </div>
+
+                <div style="width: 45%; border: 1px solid #e5e7eb; background: #fafbfc; padding: 12px; border-radius: 4px; text-align: center;">
+                    <p style="margin: 0 0 10px 0; font-weight: bold; color: #0056b3; font-size: 12px; text-align: left;">For M And K Corporation:</p>
+                    <div style="height: 60px;"></div>
+                    <div style="border-top: 1px solid #777; padding-top: 4px; font-size: 11px; font-weight: bold;">Director / Operations</div>
+                    <div style="font-size: 10px; color: #555; margin-top: 4px; text-align: left;">Date: ____________________</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 50px; text-align: center; font-size: 10px; color: #777; border-top: 1px solid #e5e7eb; padding-top: 8px;">
+                M And K Corporation (Pty) Ltd &bull; Cape Town, Western Cape, South Africa
+            </div>
+        `;
+
+        // 3. Set the PDF layout parameters
+        const pdfOptions = {
+            margin: 15,
+            filename: `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // 4. Generate PDF as a blob and pass it right into Forminit transmission
+        html2pdf().set(pdfOptions).from(pdfWorkerElement).outputBlob().then(function(pdfBlob) {
+            const formData = new FormData(form);
+            
+            // Append the compiled document PDF directly as an attachment for Forminit to parse
+            formData.append("fi-file-document", pdfBlob, `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Letter of Intent and PDF document submitted successfully!");
+                    window.location.href = "index.html"; 
+                } else {
+                    alert("An error occurred during submission. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Submission Error:", error);
+                alert("Network error. Please check your connection and try again.");
+            });
         });
     });
 </script>

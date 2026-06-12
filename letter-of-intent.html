@@ -132,7 +132,7 @@
         The undersigned party hereby expresses intent to utilize the passenger transport or logistics/vehicle rental services provided by <strong>M And K Corporation (Pty) Ltd</strong> (Reg No: 2026/417012/07). This document serves as a formal expression of interest to enter into a definitive rental or service agreement, subject to vehicle availability and final contract verification. It does not constitute a binding financial obligation until a final lease or service level agreement (SLA) is fully executed by both parties.
     </div>
 
-    <!-- REPLACE THE ACTION URL BELOW WITH YOUR ACTUAL MAKE.COM CUSTOM WEBHOOK URL -->
+    <!-- ⚠️ PASTE YOUR UNIQUE MAKE.COM WEBHOOK URL IN THE ACTION ATTRIBUTE BELOW ⚠️ -->
     <form id="loiForm" action="https://hook.us2.make.com/4g7a2id1lvytp2kp69lvodupeditelpp" method="POST" enctype="multipart/form-data">
         
         <h2>Client Information</h2>
@@ -233,7 +233,7 @@
             const startDate = document.getElementById('startDate').value;
             const signatureImage = signaturePad.toDataURL('image/png');
 
-            // Build PDF Generation Target Layout Element
+            // Build PDF Generation Target Layout Element (No CSS Flexbox to prevent rendering crashes)
             const pdfWorkerElement = document.createElement('div');
             pdfWorkerElement.style.padding = '40px';
             pdfWorkerElement.style.fontFamily = 'Arial, sans-serif';
@@ -310,11 +310,11 @@
                 return;
             }
 
-            // Generate binary blob layout and send to Make Webhook
+            // Generate binary blob and send directly to your Make Webhook
             html2pdf().set(pdfOptions).from(pdfWorkerElement).outputBlob().then(function(pdfBlob) {
                 const formData = new FormData(form);
                 
-                // Append the generated document into the multipart form stream
+                // Append the generated PDF binary stream directly under the key 'loi_document'
                 formData.append("loi_document", pdfBlob, `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`);
 
                 fetch(form.action, {
@@ -326,7 +326,7 @@
                         alert("Your Letter of Intent has been transmitted successfully!");
                         window.location.href = "index.html"; 
                     } else {
-                        alert("The submission reached Make, but returned an operational error.");
+                        alert("The submission reached Make, but returned an error configuration response.");
                         submitBtn.innerText = originalBtnText;
                         submitBtn.disabled = false;
                     }

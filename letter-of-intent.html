@@ -68,7 +68,7 @@
             margin-bottom: 8px;
             font-weight: 600;
         }
-        input[type="text"], input[type="email"], input[type="date"], select {
+        input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -147,6 +147,11 @@
         </div>
 
         <div class="form-group">
+            <label for="phone">Contact Phone Number</label>
+            <input type="tel" id="phone" name="clientPhone" required>
+        </div>
+
+        <div class="form-group">
             <label for="serviceType">Required Service / Vehicle Type</label>
             <select id="serviceType" name="serviceType" required>
                 <option value="" disabled selected>Select an option...</option>
@@ -177,11 +182,9 @@
     const canvas = document.getElementById('signature-pad');
     let signaturePad;
 
-    // Fixed resize logic to properly sync canvas coordinates with browser scaling
     function resizeCanvas() {
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
         
-        // Record existing path structure if drawing has already occurred
         let existingData = null;
         if (signaturePad && !signaturePad.isEmpty()) {
             existingData = signaturePad.toData();
@@ -190,7 +193,7 @@
         canvas.width = canvas.offsetWidth * ratio;
         canvas.height = canvas.offsetHeight * ratio;
         const ctx = canvas.getContext("2d");
-        ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform matrix to prevent stacking scale bugs
+        ctx.setTransform(1, 0, 0, 1, 0, 0); 
         ctx.scale(ratio, ratio);
         
         if (signaturePad) {
@@ -201,17 +204,14 @@
         }
     }
 
-    // Initialize SignaturePad cleanly
     signaturePad = new SignaturePad(canvas, {
         backgroundColor: 'rgb(255, 255, 255)',
         penColor: 'rgb(0, 0, 0)',
         velocityFilterWeight: 0.7
     });
 
-    // Run resizing routines initially
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-    // Safety timeout to handle CSS layouts that render delayed
     setTimeout(resizeCanvas, 300); 
 
     document.getElementById('clear').addEventListener('click', (e) => {
@@ -219,7 +219,6 @@
         signaturePad.clear();
     });
 
-    // Form Submission Pipeline to Make.com
     const form = document.getElementById('loiForm');
     form.addEventListener('submit', function(e) {
         e.preventDefault(); 
@@ -244,11 +243,11 @@
         try {
             const companyName = document.getElementById('companyName').value;
             const clientEmail = document.getElementById('email').value;
+            const clientPhone = document.getElementById('phone').value;
             const serviceType = document.getElementById('serviceType').value;
             const startDate = document.getElementById('startDate').value;
             const signatureImage = signaturePad.toDataURL('image/png');
 
-            // Build PDF Generation Target Layout Element
             const pdfWorkerElement = document.createElement('div');
             pdfWorkerElement.style.padding = '40px';
             pdfWorkerElement.style.fontFamily = 'Arial, sans-serif';
@@ -275,6 +274,10 @@
                     <tr>
                         <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Contact Email Address:</td>
                         <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${clientEmail}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Contact Phone Number:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${clientPhone}</td>
                     </tr>
                     <tr>
                         <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Requested Fleet Category:</td>
@@ -318,12 +321,12 @@
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // Process payload to file stream Blob format
             html2pdf().set(pdfOptions).from(pdfWorkerElement).output('blob').then(function(pdfBlob) {
                 const formData = new FormData();
                 formData.append('file', pdfBlob, `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`);
                 formData.append('companyName', companyName);
                 formData.append('clientEmail', clientEmail);
+                formData.append('clientPhone', clientPhone);
                 formData.append('serviceType', serviceType);
                 formData.append('startDate', startDate);
 

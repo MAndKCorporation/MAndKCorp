@@ -86,6 +86,7 @@
         canvas {
             width: 100%;
             height: 100%;
+            display: block;
             cursor: crosshair;
         }
         .clear-btn {
@@ -115,7 +116,6 @@
             background: #004494;
         }
     </style>
-    <!-- Include Signature Pad and html2pdf Engines -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
@@ -174,36 +174,45 @@
 </div>
 
 <script>
-    // Initialize Signature Pad
     const canvas = document.getElementById('signature-pad');
     let signaturePad;
 
-    function initSignaturePad() {
-        signaturePad = new SignaturePad(canvas, {
-            backgroundColor: 'rgb(255, 255, 255)',
-            penColor: 'rgb(0, 0, 0)'
-        });
-    }
-
+    // Fixed resize logic to properly sync canvas coordinates with browser scaling
     function resizeCanvas() {
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
-        const data = signaturePad ? signaturePad.toData() : null;
+        
+        // Record existing path structure if drawing has already occurred
+        let existingData = null;
+        if (signaturePad && !signaturePad.isEmpty()) {
+            existingData = signaturePad.toData();
+        }
         
         canvas.width = canvas.offsetWidth * ratio;
         canvas.height = canvas.offsetHeight * ratio;
-        canvas.getContext("2d").scale(ratio, ratio);
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform matrix to prevent stacking scale bugs
+        ctx.scale(ratio, ratio);
         
         if (signaturePad) {
             signaturePad.clear();
-            if (data) signaturePad.fromData(data); 
-        } else {
-            initSignaturePad();
+            if (existingData) {
+                signaturePad.fromData(existingData);
+            }
         }
     }
 
-    initSignaturePad();
+    // Initialize SignaturePad cleanly
+    signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgb(255, 255, 255)',
+        penColor: 'rgb(0, 0, 0)',
+        velocityFilterWeight: 0.7
+    });
+
+    // Run resizing routines initially
+    resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-    setTimeout(resizeCanvas, 200); 
+    // Safety timeout to handle CSS layouts that render delayed
+    setTimeout(resizeCanvas, 300); 
 
     document.getElementById('clear').addEventListener('click', (e) => {
         e.preventDefault(); 
@@ -309,7 +318,7 @@
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // Run html2pdf sequence, capture the blob, build Multi-part form payload, and send to Make webhook
+            // Process payload to file stream Blob format
             html2pdf().set(pdfOptions).from(pdfWorkerElement).output('blob').then(function(pdfBlob) {
                 const formData = new FormData();
                 formData.append('file', pdfBlob, `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`);

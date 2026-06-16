@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter of Intent - M AND K CORPORATION (PTY) LTD</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: #0056b3;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover {
+            color: #004494;
+            text-decoration: underline;
+        }
+        .back-btn span {
+            margin-right: 5px;
+            font-size: 1.1rem;
+        }
+        h1, h2 {
+            color: #111;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .loi-text {
+            background: #f5f5f5;
+            padding: 20px;
+            border-left: 4px solid #0056b3;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            border-radius: 4px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .signature-container {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            width: 100%;
+            height: 200px;
+            position: relative;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            cursor: crosshair;
+        }
+        .clear-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background: #0056b3;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .submit-btn:hover {
+            background: #004494;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-btn"><span>&larr;</span> Back to Home</a>
+
+    <h1>Letter of Intent (LOI)</h1>
+    <p class="subtitle"><strong>M And K Corporation (Pty) Ltd</strong><br>Reg No: 2026/417012/07</p>
+    
+    <div class="loi-text">
+        <strong>TERMS OF INTENT:</strong><br>
+        The undersigned party hereby expresses intent to utilize the passenger transport or logistics/vehicle rental services provided by <strong>M And K Corporation (Pty) Ltd</strong> (Reg No: 2026/417012/07). This document serves as a formal expression of interest to enter into a definitive rental or service agreement, subject to vehicle availability and final contract verification. It does not constitute a binding financial obligation until a final lease or service level agreement (SLA) is fully executed by both parties.
+    </div>
+
+    <form id="loiForm" action="https://hook.us2.make.com/4g7a2id1lvytp2kp69lvodupeditelpp" method="POST" enctype="multipart/form-data">
+        
+        <h2>Client Information</h2>
+        
+        <div class="form-group">
+            <label for="companyName">Company / Individual Full Name</label>
+            <input type="text" id="companyName" name="companyName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="clientEmail" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Contact Phone Number</label>
+            <input type="tel" id="phone" name="clientPhone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="serviceType">Required Service / Vehicle Type</label>
+            <select id="serviceType" name="serviceType" required>
+                <option value="" disabled selected>Select an option...</option>
+                <option value="5-7 Seater Passenger Fleet">5-7 Seater Passenger Car Rental</option>
+                <option value="Corporate E-Hailing Logistics">Corporate E-Hailing / Logistics Services</option>
+                <option value="Other Transport Services">Other Fleet Services</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Estimated Start Date</label>
+            <input type="date" id="startDate" name="startDate" required>
+        </div>
+
+        <div class="form-group">
+            <label>Digital Signature</label>
+            <div class="signature-container">
+                <canvas id="signature-pad"></canvas>
+            </div>
+            <button type="button" class="clear-btn" id="clear">Clear Signature</button>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Letter of Intent</button>
+    </form>
+</div>
+
+<script>
+    const canvas = document.getElementById('signature-pad');
+    let signaturePad;
+
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        
+        let existingData = null;
+        if (signaturePad && !signaturePad.isEmpty()) {
+            existingData = signaturePad.toData();
+        }
+        
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(1, 0, 0, 1, 0, 0); 
+        ctx.scale(ratio, ratio);
+        
+        if (signaturePad) {
+            signaturePad.clear();
+            if (existingData) {
+                signaturePad.fromData(existingData);
+            }
+        }
+    }
+
+    signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgb(255, 255, 255)',
+        penColor: 'rgb(0, 0, 0)',
+        velocityFilterWeight: 0.7
+    });
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    setTimeout(resizeCanvas, 300); 
+
+    document.getElementById('clear').addEventListener('click', (e) => {
+        e.preventDefault(); 
+        signaturePad.clear();
+    });
+
+    const form = document.getElementById('loiForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); 
+
+        if (!signaturePad || signaturePad.isEmpty()) {
+            alert("Please sign in the digital signature box before submitting.");
+            return;
+        }
+
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalBtnText = submitBtn.innerText;
+        submitBtn.innerText = "Generating PDF & Submitting...";
+        submitBtn.disabled = true;
+
+        if (typeof html2pdf === 'undefined') {
+            alert("PDF engine is still loading. Please wait a second and retry.");
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+            return;
+        }
+
+        try {
+            const companyName = document.getElementById('companyName').value;
+            const clientEmail = document.getElementById('email').value;
+            const clientPhone = document.getElementById('phone').value;
+            const serviceType = document.getElementById('serviceType').value;
+            const startDate = document.getElementById('startDate').value;
+            const signatureImage = signaturePad.toDataURL('image/png');
+
+            const pdfWorkerElement = document.createElement('div');
+            pdfWorkerElement.style.padding = '40px';
+            pdfWorkerElement.style.fontFamily = 'Arial, sans-serif';
+            pdfWorkerElement.style.color = '#2b2b2b';
+
+            pdfWorkerElement.innerHTML = `
+                <div style="border-bottom: 3px solid #0056b3; padding-bottom: 10px; margin-bottom: 25px;">
+                    <h1 style="font-size: 24px; color: #0056b3; margin: 0; text-transform: uppercase;">M And K Corporation (Pty) Ltd</h1>
+                    <p style="font-size: 11px; color: #555; margin: 4px 0 0 0;">Registration Number: 2026/417012/07</p>
+                    <p style="font-size: 14px; font-weight: bold; margin-top: 15px; color: #111;">LETTER OF INTENT (LOI) &mdash; TRANSPORT REQUEST</p>
+                </div>
+
+                <div style="background-color: #fafbfc; border: 1px solid #d1d5db; padding: 15px; border-radius: 4px; font-size: 13px; margin-bottom: 30px; text-align: justify; line-height: 1.5;">
+                    <strong>TERMS OF INTENT:</strong><br>
+                    The undersigned party hereby expresses intent to utilize the passenger transport or logistics/vehicle rental services provided by <strong>M And K Corporation (Pty) Ltd</strong> (Reg No: 2026/417012/07). This document serves as a formal expression of interest to enter into a definitive rental or service agreement, subject to vehicle availability and final contract verification. It does not constitute a binding financial obligation until a final lease or service level agreement (SLA) is fully executed by both parties.
+                </div>
+
+                <h3 style="color: #0056b3; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px; text-transform: uppercase; font-size: 13px; margin-bottom: 15px;">Client Profile & Specifics</h3>
+                <table style="width: 100%; font-size: 13px; margin-bottom: 40px; border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 10px 0; font-weight: bold; width: 35%; border-bottom: 1px dashed #e5e7eb;">Company / Client Name:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${companyName}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Contact Email Address:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${clientEmail}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Contact Phone Number:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${clientPhone}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Requested Fleet Category:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${serviceType}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Estimated Launch Date:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${startDate}</td>
+                    </tr>
+                </table>
+
+                <h3 style="color: #0056b3; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px; text-transform: uppercase; font-size: 13px; margin-bottom: 20px;">Signatures & Sign-off</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="width: 45%; border: 1px solid #e5e7eb; background: #fafbfc; padding: 15px; border-radius: 4px; text-align: center; vertical-align: top;">
+                            <p style="margin: 0 0 15px 0; font-weight: bold; color: #0056b3; font-size: 12px; text-align: left;">For the Client:</p>
+                            <img src="${signatureImage}" style="max-height: 50px; max-width: 100%; display: block; margin: 0 auto 10px auto;" alt="Client Signature" />
+                            <div style="border-top: 1px solid #777; padding-top: 5px; font-size: 11px; font-weight: bold;">Authorized Signatory</div>
+                            <div style="font-size: 10px; color: #555; margin-top: 6px; text-align: left;">Date: ${new Date().toLocaleDateString()}</div>
+                        </td>
+                        <td style="width: 10%;"></td>
+                        <td style="width: 45%; border: 1px solid #e5e7eb; background: #fafbfc; padding: 15px; border-radius: 4px; text-align: center; vertical-align: top;">
+                            <p style="margin: 0 0 15px 0; font-weight: bold; color: #0056b3; font-size: 12px; text-align: left;">For M And K Corporation:</p>
+                            <div style="height: 50px;"></div>
+                            <div style="border-top: 1px solid #777; padding-top: 5px; font-size: 11px; font-weight: bold;">Director / Operations</div>
+                            <div style="font-size: 10px; color: #555; margin-top: 6px; text-align: left;">Date: ____________________</div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="margin-top: 60px; text-align: center; font-size: 10px; color: #777; border-top: 1px solid #e5e7eb; padding-top: 10px;">
+                    M And K Corporation (Pty) Ltd &bull; Cape Town, Western Cape, South Africa
+                </div>
+            `;
+
+            const pdfOptions = {
+                margin: [10, 15, 10, 15],
+                filename: `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, logging: false, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(pdfOptions).from(pdfWorkerElement).output('blob').then(function(pdfBlob) {
+                const formData = new FormData();
+                formData.append('file', pdfBlob, `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+                formData.append('companyName', companyName);
+                formData.append('clientEmail', clientEmail);
+                formData.append('clientPhone', clientPhone);
+                formData.append('serviceType', serviceType);
+                formData.append('startDate', startDate);
+                formData.append('signature', signatureImage);
+
+                return fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Letter of Intent generated and submitted successfully!');
+                    form.reset();
+                    signaturePad.clear();
+                } else {
+                    alert('Webhook caught an error processing your document.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during processing pipeline:', error);
+                alert('An error occurred. Please verify your connection.');
+            })
+            .finally(() => {
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            });
+
+        } catch (err) {
+            console.error(err);
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>

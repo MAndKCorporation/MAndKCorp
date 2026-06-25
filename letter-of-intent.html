@@ -118,7 +118,6 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -184,7 +183,6 @@
         <input type="hidden" name="serviceType" id="hidServiceType">
         <input type="hidden" name="startDate" id="hidStartDate">
         <input type="hidden" name="signatureImage" id="hidSignatureImage">
-        <input type="hidden" name="pdfBase64" id="hidPdfBase64">
     </form>
 </div>
 
@@ -194,8 +192,8 @@
 
     function resizeCanvas() {
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
-        
         let existingData = null;
+        
         if (signaturePad && !signaturePad.isEmpty()) {
             existingData = signaturePad.toData();
         }
@@ -239,116 +237,30 @@
         }
 
         const submitBtn = uiForm.querySelector('.submit-btn');
-        submitBtn.innerText = "Generating PDF & Submitting...";
+        submitBtn.innerText = "Submitting Information...";
         submitBtn.disabled = true;
 
-        if (typeof html2pdf === 'undefined') {
-            alert("PDF engine is still loading. Please wait a second and retry.");
-            submitBtn.innerText = "Submit Letter of Intent";
-            submitBtn.disabled = false;
-            return;
-        }
-
         try {
+            // Extract UI field values
             const companyName = document.getElementById('companyName').value;
             const clientEmail = document.getElementById('email').value;
             const clientPhone = document.getElementById('phone').value;
             const serviceType = document.getElementById('serviceType').value;
             const startDate = document.getElementById('startDate').value;
+            
+            // Extract signature image string using image/png format layout
             const signatureImage = signaturePad.toDataURL('image/png');
 
-            const pdfWorkerElement = document.createElement('div');
-            pdfWorkerElement.style.padding = '40px';
-            pdfWorkerElement.style.fontFamily = 'Arial, sans-serif';
-            pdfWorkerElement.style.color = '#2b2b2b';
+            // Map values straight into the backend native delivery parameters
+            document.getElementById('hidCompanyName').value = companyName;
+            document.getElementById('hidClientEmail').value = clientEmail;
+            document.getElementById('hidClientPhone').value = clientPhone;
+            document.getElementById('hidServiceType').value = serviceType;
+            document.getElementById('hidStartDate').value = startDate;
+            document.getElementById('hidSignatureImage').value = signatureImage;
 
-            pdfWorkerElement.innerHTML = `
-                <div style="border-bottom: 3px solid #0056b3; padding-bottom: 10px; margin-bottom: 25px;">
-                    <h1 style="font-size: 24px; color: #0056b3; margin: 0; text-transform: uppercase;">M And K Corporation (Pty) Ltd</h1>
-                    <p style="font-size: 11px; color: #555; margin: 4px 0 0 0;">Registration Number: 2026/417012/07</p>
-                    <p style="font-size: 14px; font-weight: bold; margin-top: 15px; color: #111;">LETTER OF INTENT (LOI) &mdash; TRANSPORT REQUEST</p>
-                </div>
-
-                <div style="background-color: #fafbfc; border: 1px solid #d1d5db; padding: 15px; border-radius: 4px; font-size: 13px; margin-bottom: 30px; text-align: justify; line-height: 1.5;">
-                    <strong>TERMS OF INTENT:</strong><br>
-                    The undersigned party hereby expresses intent to utilize the passenger transport or logistics/vehicle rental services provided by <strong>M And K Corporation (Pty) Ltd</strong> (Reg No: 2026/417012/07). This document serves as a formal expression of interest to enter into a definitive rental or service agreement, subject to vehicle availability and final contract verification. It does not constitute a binding financial obligation until a final lease or service level agreement (SLA) is fully executed by both parties.
-                </div>
-
-                <h3 style="color: #0056b3; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px; text-transform: uppercase; font-size: 13px; margin-bottom: 15px;">Client Profile & Specifics</h3>
-                <table style="width: 100%; font-size: 13px; margin-bottom: 40px; border-collapse: collapse;">
-                    <tr>
-                        <td style="padding: 10px 0; font-weight: bold; width: 35%; border-bottom: 1px dashed #e5e7eb;">Company / Client Name:</td>
-                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${companyName}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Contact Email Address:</td>
-                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${clientEmail}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Contact Phone Number:</td>
-                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${clientPhone}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Requested Fleet Category:</td>
-                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${serviceType}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #e5e7eb;">Estimated Launch Date:</td>
-                        <td style="padding: 10px 0; border-bottom: 1px dashed #e5e7eb;">${startDate}</td>
-                    </tr>
-                </table>
-
-                <h3 style="color: #0056b3; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px; text-transform: uppercase; font-size: 13px; margin-bottom: 20px;">Signatures & Sign-off</h3>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                        <td style="width: 45%; border: 1px solid #e5e7eb; background: #fafbfc; padding: 15px; border-radius: 4px; text-align: center; vertical-align: top;">
-                            <p style="margin: 0 0 15px 0; font-weight: bold; color: #0056b3; font-size: 12px; text-align: left;">For the Client:</p>
-                            <img src="${signatureImage}" style="max-height: 50px; max-width: 100%; display: block; margin: 0 auto 10px auto;" alt="Client Signature" />
-                            <div style="border-top: 1px solid #777; padding-top: 5px; font-size: 11px; font-weight: bold;">Authorized Signatory</div>
-                            <div style="font-size: 10px; color: #555; margin-top: 6px; text-align: left;">Date: ${new Date().toLocaleDateString()}</div>
-                        </td>
-                        <td style="width: 10%;"></td>
-                        <td style="width: 45%; border: 1px solid #e5e7eb; background: #fafbfc; padding: 15px; border-radius: 4px; text-align: center; vertical-align: top;">
-                            <p style="margin: 0 0 15px 0; font-weight: bold; color: #0056b3; font-size: 12px; text-align: left;">For M And K Corporation:</p>
-                            <div style="height: 50px;"></div>
-                            <div style="border-top: 1px solid #777; padding-top: 5px; font-size: 11px; font-weight: bold;">Director / Operations</div>
-                            <div style="font-size: 10px; color: #555; margin-top: 6px; text-align: left;">Date: ____________________</div>
-                        </td>
-                    </tr>
-                </table>
-
-                <div style="margin-top: 60px; text-align: center; font-size: 10px; color: #777; border-top: 1px solid #e5e7eb; padding-top: 10px;">
-                    M And K Corporation (Pty) Ltd &bull; Cape Town, Western Cape, South Africa
-                </div>
-            `;
-
-            const pdfOptions = {
-                margin: [10, 15, 10, 15],
-                filename: `LOI_${companyName.replace(/[^a-z0-9]/gi, '_')}.pdf`,
-                image: { type: 'png', quality: 0.98 },
-                html2canvas: { scale: 2, logging: false, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            // Generate document as Base64 string to securely submit natively without triggering CORS
-            html2pdf().set(pdfOptions).from(pdfWorkerElement).outputPdf('datauristring').then(function(pdfBase64String) {
-                
-                // Map text strings to hidden form element nodes
-                document.getElementById('hidCompanyName').value = companyName;
-                document.getElementById('hidClientEmail').value = clientEmail;
-                document.getElementById('hidClientPhone').value = clientPhone;
-                document.getElementById('hidServiceType').value = serviceType;
-                document.getElementById('hidStartDate').value = startDate;
-                
-                // Pass pure format.png Base64 image data
-                document.getElementById('hidSignatureImage').value = signatureImage;
-                
-                // Pass the fully generated PDF document string
-                document.getElementById('hidPdfBase64').value = pdfBase64String;
-
-                // Fire native submission across domains (CORS bypass)
-                document.getElementById('hiddenSubmissionForm').submit();
-            });
+            // Submit data package natively
+            document.getElementById('hiddenSubmissionForm').submit();
 
         } catch (err) {
             console.error(err);

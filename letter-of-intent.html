@@ -227,38 +227,25 @@
         signaturePad.clear();
     });
 
-    // Helper function to crop the canvas down to the minimal signature ink bounding box
-    function getCroppedSignatureDataUrl(originalCanvas) {
+    // Trims empty white padding pixels around the hand-drawn ink matrix
+    function getCroppedCanvas(originalCanvas) {
         const ctx = originalCanvas.getContext('2d');
         const width = originalCanvas.width;
         const height = originalCanvas.height;
         
-        // Pull pixel values (RGBA format array)
         const imgData = ctx.getImageData(0, 0, width, height);
         const data = imgData.data;
         
-        // Establish extreme boundaries
         let minX = width, maxX = 0, minY = height, maxY = 0;
         let foundContent = false;
 
-        // Loop through pixels to identify non-white/non-transparent spaces
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
-                const alphaIndex = (y * width + x) * 4 + 3;
                 const rIndex = (y * width + x) * 4;
                 const gIndex = (y * width + x) * 4 + 1;
                 const bIndex = (y * width + x) * 4 + 2;
 
-                const alpha = data[alphaIndex];
-                const r = data[rIndex];
-                const g = data[gIndex];
-                const b = data[bIndex];
-
-                // Check if pixel is drawn on (not fully transparent and not pure background white)
-                const isNotWhite = (r < 250 || g < 250 || b < 250);
-                const isNotTransparent = alpha > 10;
-
-                if (isNotTransparent && isNotWhite) {
+                if (data[rIndex] < 240 || data[gIndex] < 240 || data[bIndex] < 240) {
                     if (x < minX) minX = x;
                     if (x > maxX) maxX = x;
                     if (y < minY) minY = y;
@@ -268,12 +255,8 @@
             }
         }
 
-        // If something went wrong or the pad is completely blank, return full size
-        if (!foundContent) {
-            return originalCanvas.toDataURL('image/png');
-        }
+        if (!foundContent) return originalCanvas;
 
-        // Add small padding (e.g., 8px) so ink lines don't hug the canvas edge too tightly
         const padding = 8;
         minX = Math.max(0, minX - padding);
         minY = Math.max(0, minY - padding);
@@ -283,20 +266,13 @@
         const croppedWidth = maxX - minX;
         const croppedHeight = maxY - minY;
 
-        // Create an off-screen temporary canvas resized exclusively to the ink matrix dimensions
         const cropCanvas = document.createElement('canvas');
         cropCanvas.width = croppedWidth;
         cropCanvas.height = croppedHeight;
         const cropCtx = cropCanvas.getContext('2d');
 
-        // Draw the extracted segment from the main signature element onto the clean workspace
-        cropCtx.drawImage(
-            originalCanvas, 
-            minX, minY, croppedWidth, croppedHeight, // Source layout area
-            0, 0, croppedWidth, croppedHeight        // Destination footprint
-        );
-
-        return cropCanvas.toDataURL('image/png');
+        cropCtx.drawImage(originalCanvas, minX, minY, croppedWidth, croppedHeight, 0, 0, croppedWidth, croppedHeight);
+        return cropCanvas;
     }
 
     const uiForm = document.getElementById('loiForm');
@@ -312,34 +288,48 @@
         submitBtn.innerText = "Submitting Information...";
         submitBtn.disabled = true;
 
-        try {
-            // Extract UI field values
-            const companyName = document.getElementById('companyName').value;
-            const clientEmail = document.getElementById('email').value;
-            const clientPhone = document.getElementById('phone').value;
-            const serviceType = document.getElementById('serviceType').value;
-            const startDate = document.getElementById('startDate').value;
+        // Get the cropped canvas object
+        const croppedCanvas = getCroppedCanvas(canvas);
+
+        // Convert the cropped canvas directly into a real binary PNG file
+        croppedCanvas.toBlob(function(blob) {
             
-            // Generate cropped minimalist signature base64 string
-            const signatureImage = getCroppedSignatureDataUrl(canvas);
+            // Package all fields into a multipart FormData payload
+            const formData = new FormData();
+            formData.append('companyName', document.getElementById('companyName').value);
+            formData.append('clientEmail', document.getElementById('email').value);
+            formData.append('clientPhone', document.getElementById('phone').value);
+            formData.append('serviceType', document.getElementById('serviceType').value);
+            formData.append('startDate', document.getElementById('startDate').value);
+            
+            // Append the actual file payload securely with a filename extension
+            formData.append('signatureImage', blob, 'signature.png');
 
-            // Map values straight into the backend native delivery parameters
-            document.getElementById('hidCompanyName').value = companyName;
-            document.getElementById('hidClientEmail').value = clientEmail;
-            document.getElementById('hidClientPhone').value = clientPhone;
-            document.getElementById('hidServiceType').value = serviceType;
-            document.getElementById('hidStartDate').value = startDate;
-            document.getElementById('hidSignatureImage').value = signatureImage;
+            // Send the true binary payload directly to Make.com via Fetch API
+            fetch('https://hook.us2.make.com/pvdrmqssamhkvqo2vojbxkth55vjsegr', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redirect to your homepage or success page on success
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Submission failed. Please try again.');
+                    submitBtn.innerText = "Submit Letter of Intent";
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('An error occurred during submission.');
+                submitBtn.innerText = "Submit Letter of Intent";
+                submitBtn.disabled = false;
+            });
 
-            // Submit data package natively
-            document.getElementById('hiddenSubmissionForm').submit();
-
-        } catch (err) {
-            console.error(err);
-            submitBtn.innerText = "Submit Letter of Intent";
-            submitBtn.disabled = false;
-        }
+        }, 'image/png');
     });
 </script>
+
 </body>
 </html>

@@ -227,6 +227,78 @@
         signaturePad.clear();
     });
 
+    // Helper function to crop the canvas down to the minimal signature ink bounding box
+    function getCroppedSignatureDataUrl(originalCanvas) {
+        const ctx = originalCanvas.getContext('2d');
+        const width = originalCanvas.width;
+        const height = originalCanvas.height;
+        
+        // Pull pixel values (RGBA format array)
+        const imgData = ctx.getImageData(0, 0, width, height);
+        const data = imgData.data;
+        
+        // Establish extreme boundaries
+        let minX = width, maxX = 0, minY = height, maxY = 0;
+        let foundContent = false;
+
+        // Loop through pixels to identify non-white/non-transparent spaces
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const alphaIndex = (y * width + x) * 4 + 3;
+                const rIndex = (y * width + x) * 4;
+                const gIndex = (y * width + x) * 4 + 1;
+                const bIndex = (y * width + x) * 4 + 2;
+
+                const alpha = data[alphaIndex];
+                const r = data[rIndex];
+                const g = data[gIndex];
+                const b = data[bIndex];
+
+                // Check if pixel is drawn on (not fully transparent and not pure background white)
+                const isNotWhite = (r < 250 || g < 250 || b < 250);
+                const isNotTransparent = alpha > 10;
+
+                if (isNotTransparent && isNotWhite) {
+                    if (x < minX) minX = x;
+                    if (x > maxX) maxX = x;
+                    if (y < minY) minY = y;
+                    if (y > maxY) maxY = y;
+                    foundContent = true;
+                }
+            }
+        }
+
+        // If something went wrong or the pad is completely blank, return full size
+        if (!foundContent) {
+            return originalCanvas.toDataURL('image/png');
+        }
+
+        // Add small padding (e.g., 8px) so ink lines don't hug the canvas edge too tightly
+        const padding = 8;
+        minX = Math.max(0, minX - padding);
+        minY = Math.max(0, minY - padding);
+        maxX = Math.min(width, maxX + padding);
+        maxY = Math.min(height, maxY + padding);
+
+        const croppedWidth = maxX - minX;
+        const croppedHeight = maxY - minY;
+
+        // Create an off-screen temporary canvas resized exclusively to the ink matrix dimensions
+        const cropCanvas = document.createElement('canvas');
+        cropCanvas.width = croppedWidth;
+        cropCanvas.height = croppedHeight;
+        const cropCtx = cropCanvas.getContext('2d');
+
+        // Draw the extracted segment from the main signature element onto the clean workspace
+        cropCtx.drawImage(
+            originalCanvas, 
+            minX, minY, croppedWidth, croppedHeight, // Source layout area
+            0, 0, croppedWidth, croppedHeight        // Destination footprint
+        );
+
+        return cropCanvas.toDataURL('image/png');
+    }
+
     const uiForm = document.getElementById('loiForm');
     uiForm.addEventListener('submit', function(e) {
         e.preventDefault(); 
@@ -248,8 +320,8 @@
             const serviceType = document.getElementById('serviceType').value;
             const startDate = document.getElementById('startDate').value;
             
-            // Extract signature image string using image/png format layout
-            const signatureImage = signaturePad.toDataURL('image/png');
+            // Generate cropped minimalist signature base64 string
+            const signatureImage = getCroppedSignatureDataUrl(canvas);
 
             // Map values straight into the backend native delivery parameters
             document.getElementById('hidCompanyName').value = companyName;

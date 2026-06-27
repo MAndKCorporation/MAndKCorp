@@ -76,6 +76,8 @@
 					background: #ffffff !important;
 					display: block !important;
 					position: relative !important;
+					padding-top: 0 !important;
+					margin-top: 0 !important;
 				}
 				#header .header-brand {
 					display: flex !important;
@@ -91,6 +93,28 @@
 				#header .header-brand h1 {
 					font-size: 1.25em;
 					text-align: center;
+				}
+
+				/* Nuclear option: completely wipes out the generated dark top bars and menu toggles */
+				#navButton, 
+				.navButton, 
+				#titleBar,
+				.titleBar,
+				#navPanel,
+				.navPanel,
+				[class*="navButton"],
+				[id*="navButton"],
+				[class*="titleBar"],
+				[id*="titleBar"] {
+					display: none !important;
+					visibility: hidden !important;
+					opacity: 0 !important;
+					height: 0 !important;
+				}
+				
+				body, #page-wrapper {
+					padding-top: 0 !important;
+					margin-top: 0 !important;
 				}
 			}
 		</style>

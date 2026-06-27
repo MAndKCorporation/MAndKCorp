@@ -142,7 +142,7 @@
             </ul>
         </li>
         <!-- New Main Tab Added Below -->
-       <li><a href="letter-of-intent.html" data-no-blob="true" onclick="window.location.href='letter-of-intent.html';">Letter of Intent</a></li>
+      <li><a href="letter-of-intent.html" id="loi-link">Letter of Intent</a></li>
         <li><a href="contact.html">Contact Us</a></li>
         <li><a href="about-us.html">About Us</a></li>
     </ul>
@@ -355,6 +355,13 @@
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
-
+		<script>
+	document.getElementById('loi-link').addEventListener('click', function(e) {
+		// Stop the template's mobile script from freezing the link
+		e.stopPropagation(); 
+		// Force the browser to open the page
+		window.location.href = 'letter-of-intent.html';
+	}, true); // The 'true' forces this to execute BEFORE the template script can intercept it
+</script>
 	</body>
 </html>

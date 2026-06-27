@@ -70,12 +70,19 @@
 				background-repeat: no-repeat !important;
 			}
 
-			/* Fixes absolute logo overlap crashing on mobile screens */
+			/* Fixes absolute logo overlap crashing on mobile screens and forces white display banner */
 			@media screen and (max-width: 768px) {
+				#header {
+					background: #ffffff !important;
+					display: block !important;
+					position: relative !important;
+				}
 				#header .header-brand {
+					display: flex !important;
 					flex-direction: column;
 					height: auto;
 					padding: 15px 10px;
+					background: #ffffff !important;
 				}
 				#header .logo-left {
 					position: static;

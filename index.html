@@ -131,18 +131,17 @@
 				</div>
 
 				<nav id="nav">
-    <ul>
+    <ul style="display: flex !important; visibility: visible !important; opacity: 1 !important;">
         <li class="current"><a href="index.html">Home</a></li>
-        <li>
-            <a href="#">Our Services</a>
+        <li class="nav-dropdown-custom">
+            <a href="#" onclick="return false;">Our Services</a>
             <ul>
                 <li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
                 <li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
                 <li><a href="job-applications.html">Job Applications</a></li>
             </ul>
         </li>
-        <!-- New Main Tab Added Below -->
-      <li><a href="letter-of-intent.html" id="loi-link">Letter of Intent</a></li>
+        <li><a href="letter-of-intent.html" onmousedown="window.location.href='letter-of-intent.html'; return false;" onclick="return false;">Letter of Intent</a></li>
         <li><a href="contact.html">Contact Us</a></li>
         <li><a href="about-us.html">About Us</a></li>
     </ul>

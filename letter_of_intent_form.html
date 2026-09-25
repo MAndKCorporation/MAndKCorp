@@ -62,7 +62,7 @@
                 <span class="inline-block bg-indigo-700 text-indigo-100 text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Official Document</span>
                 <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Letter of Intent (LOI)</h2>
                 <p class="text-indigo-200 text-sm sm:text-base leading-relaxed">
-                    Submit your formal expression of interest for our vehicle Rent-to-Own program. Complete the required driver metrics below to instantly generate your legal LOI draft.
+                    Submit your formal expression of interest for our vehicle Rent-to-Own program. Complete the required driver metrics and sign below to instantly generate your legal LOI draft.
                 </p>
             </div>
         </div>
@@ -180,6 +180,24 @@
                     <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-address">Please enter your complete residential address.</p>
                 </div>
 
+                <!-- Signature Pad Section -->
+                <div class="pt-2">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600">Applicant Signature *</label>
+                        <button type="button" id="clear-signature" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center space-width-1">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Clear Signature
+                        </button>
+                    </div>
+                    
+                    <div class="border border-slate-300 rounded-xl bg-slate-50 overflow-hidden relative touch-none">
+                        <canvas id="signature-pad" class="w-full h-40 cursor-crosshair block"></canvas>
+                        <div id="signature-placeholder" class="absolute inset-0 flex items-center justify-center pointer-events-none text-slate-400 text-sm select-none">
+                            Sign inside this box using your finger or mouse
+                        </div>
+                    </div>
+                    <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-signature">Please provide your signature before submitting.</p>
+                </div>
+
                 <!-- Terms Checkbox -->
                 <div class="flex items-start space-x-3 pt-2">
                     <input type="checkbox" id="terms" required class="mt-1 w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
@@ -207,7 +225,7 @@
                 </div>
                 <div>
                     <h3 class="text-base font-bold text-emerald-900">Letter of Intent Generated Successfully!</h3>
-                    <p class="text-xs text-emerald-700">Your professional LOI is ready. You can review the document below, copy the text to your clipboard, or download it as a text file.</p>
+                    <p class="text-xs text-emerald-700">Your professional LOI is ready with your embedded signature. You can review the document below, copy the text, or download it.</p>
                 </div>
             </div>
 
@@ -223,6 +241,20 @@
                 
                 <div class="p-6 sm:p-10 font-mono text-xs sm:text-sm text-slate-700 bg-white leading-relaxed whitespace-pre-line border-b border-slate-200 max-h-[450px] overflow-y-auto selection:bg-indigo-100" id="loi-text-preview">
                     <!-- Dynamic text inserted here -->
+                </div>
+
+                <!-- Signature Image Display Container -->
+                <div class="px-6 sm:px-10 py-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Captured Signature String (Base64):</p>
+                        <p id="signature-string-preview" class="text-[10px] text-slate-400 font-mono truncate max-w-md bg-white p-2 rounded border border-slate-200"></p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1">Signature Render</p>
+                        <div class="bg-white border border-slate-300 rounded p-1 inline-block">
+                            <img id="signature-img-render" src="" alt="Applicant Signature" class="h-12 object-contain">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-slate-50 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
@@ -266,8 +298,90 @@
             const copyLabel = document.getElementById('copy-label');
             const downloadBtn = document.getElementById('download-btn');
             const docDateSpan = document.getElementById('doc-date');
+            
+            // Signature Elements
+            const canvas = document.getElementById('signature-pad');
+            const ctx = canvas.getContext('2d');
+            const clearSignatureBtn = document.getElementById('clear-signature');
+            const signaturePlaceholder = document.getElementById('signature-placeholder');
+            const signatureStringPreview = document.getElementById('signature-string-preview');
+            const signatureImgRender = document.getElementById('signature-img-render');
 
             let generatedLOIText = '';
+            let signatureDataUrl = '';
+            let isDrawing = false;
+            let hasSigned = false;
+
+            // Resize canvas resolution for sharpness
+            function initCanvas() {
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width * window.devicePixelRatio;
+                canvas.height = rect.height * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+                ctx.strokeStyle = '#1e293b';
+                ctx.lineWidth = 2.5;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+            }
+            initCanvas();
+            window.addEventListener('resize', initCanvas);
+
+            // Mouse and Touch drawing event handlers
+            function getCoordinates(e) {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return {
+                    x: clientX - rect.left,
+                    y: clientY - rect.top
+                };
+            }
+
+            function startPosition(e) {
+                e.preventDefault();
+                isDrawing = true;
+                hasSigned = true;
+                signaturePlaceholder.style.display = 'none';
+                document.getElementById('err-signature').classList.add('hidden');
+                const coords = getCoordinates(e);
+                ctx.beginPath();
+                ctx.moveTo(coords.x, coords.y);
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                const coords = getCoordinates(e);
+                ctx.lineTo(coords.x, coords.y);
+                ctx.stroke();
+            }
+
+            function endPosition(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                isDrawing = false;
+                ctx.beginPath();
+                signatureDataUrl = canvas.toDataURL('image/png');
+            }
+
+            // Mouse Events
+            canvas.addEventListener('mousedown', startPosition);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', endPosition);
+            canvas.addEventListener('mouseleave', endPosition);
+
+            // Touch Events (Mobile/Tablet friendly)
+            canvas.addEventListener('touchstart', startPosition, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', endPosition, { passive: false });
+
+            // Clear signature action
+            clearSignatureBtn.addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                hasSigned = false;
+                signatureDataUrl = '';
+                signaturePlaceholder.style.display = 'flex';
+            });
 
             // Helper to format current date nicely
             function getFormattedDate() {
@@ -338,6 +452,12 @@
                     isValid = false;
                 }
 
+                // Validate Signature
+                if (!hasSigned || !signatureDataUrl) {
+                    document.getElementById('err-signature').classList.remove('hidden');
+                    isValid = false;
+                }
+
                 // Validate Terms
                 if (!terms.checked) {
                     document.getElementById('err-terms').classList.remove('hidden');
@@ -378,12 +498,16 @@ I look forward to your positive review and approval of this application to proce
 
 Yours sincerely,
 
-_________________________________________
-Signature: ${firstName.value.trim()} ${surname.value.trim()}
+Signature String (Base64 PNG):
+${signatureDataUrl}
+
+Applicant: ${firstName.value.trim()} ${surname.value.trim()}
 Date: ${currentDateStr}
 -------------------------------------------------------------------------`;
 
                 loiTextPreview.textContent = generatedLOIText;
+                signatureStringPreview.textContent = signatureDataUrl;
+                signatureImgRender.src = signatureDataUrl;
 
                 // Smooth transition between form and success/preview state
                 formContainer.classList.add('hidden');
@@ -411,7 +535,7 @@ Date: ${currentDateStr}
             copyBtn.addEventListener('click', () => {
                 const textArea = document.createElement('textarea');
                 textArea.value = generatedLOIText;
-                textArea.style.position = 'fixed';  // Avoid scrolling to bottom
+                textArea.style.position = 'fixed';
                 document.body.appendChild(textArea);
                 textArea.focus();
                 textArea.select();

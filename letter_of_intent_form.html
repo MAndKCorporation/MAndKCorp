@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driver Letter of Intent - Rent-to-Own Application</title>
+    <title>M And K Corporation PTY LTD - Rent-to-Own Driver Application</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts Inter -->
@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2pdf.js CDN for client-side PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -42,8 +44,8 @@
                     <i class="fa-solid fa-car-side text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="text-base font-bold text-slate-900 leading-tight">FleetDrive Solutions</h1>
-                    <p class="text-xs text-slate-500">Rent-to-Own Driver Application</p>
+                    <h1 class="text-base font-bold text-slate-900 leading-tight">M And K Corporation PTY LTD</h1>
+                    <p class="text-xs text-slate-500">Reg: 2026 / 417012 / 07 | Rent-to-Own Division</p>
                 </div>
             </div>
             <div class="hidden sm:flex items-center space-x-2 text-xs font-medium text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100">
@@ -62,7 +64,7 @@
                 <span class="inline-block bg-indigo-700 text-indigo-100 text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Official Document</span>
                 <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Letter of Intent (LOI)</h2>
                 <p class="text-indigo-200 text-sm sm:text-base leading-relaxed">
-                    Submit your formal expression of interest for our vehicle Rent-to-Own program. Complete the required driver metrics and sign below to instantly generate your legal LOI draft.
+                    Submit your formal expression of interest for our vehicle Rent-to-Own program. Complete your driver metrics and sign below to generate your legal PDF document instantly.
                 </p>
             </div>
         </div>
@@ -202,16 +204,16 @@
                 <div class="flex items-start space-x-3 pt-2">
                     <input type="checkbox" id="terms" required class="mt-1 w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
                     <label for="terms" class="text-xs text-slate-600 leading-relaxed">
-                        I hereby declare that the information provided above is true and correct. I understand that submitting this Letter of Intent initiates a screening process for the vehicle rent-to-own agreement. *
+                        I hereby declare that the information provided is true and correct. By signing and submitting this Letter of Intent, I explicitly authorize M And K Corporation PTY LTD to share my personal and driver credentials with authorized third-party financial institutions, asset funders, and credit bureaus strictly for the purpose of securing vehicle financing and loan approvals. *
                     </label>
                 </div>
-                <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-terms">You must agree to the declaration before submitting.</p>
+                <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-terms">You must agree to the declaration and third-party sharing consent before submitting.</p>
 
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-end">
                     <button type="submit" id="submit-btn"
                         class="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-xl text-sm shadow-lg shadow-indigo-200 transition-all flex items-center justify-center space-x-2">
-                        <span>Generate Letter of Intent</span>
-                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                        <span>Generate Letter of Intent PDF</span>
+                        <i class="fa-solid fa-file-pdf text-xs"></i>
                     </button>
                 </div>
 
@@ -224,37 +226,24 @@
                     <i class="fa-solid fa-check"></i>
                 </div>
                 <div>
-                    <h3 class="text-base font-bold text-emerald-900">Letter of Intent Generated Successfully!</h3>
-                    <p class="text-xs text-emerald-700">Your professional LOI is ready with your embedded signature. You can review the document below, copy the text, or download it.</p>
+                    <h3 class="text-base font-bold text-emerald-900">PDF Letter of Intent Generated Successfully!</h3>
+                    <p class="text-xs text-emerald-700">Your professional LOI has been compiled into a PDF with your signature and third-party consent clause. Review the live document preview below or download it directly.</p>
                 </div>
             </div>
 
-            <!-- Letter Document Preview Box -->
+            <!-- PDF Viewer and Actions Card -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="bg-slate-100 px-6 py-3 border-b border-slate-200 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-file-lines text-slate-500"></i>
-                        <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Document Preview</span>
+                        <i class="fa-solid fa-file-pdf text-red-500"></i>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Live PDF Document Viewer</span>
                     </div>
                     <span id="doc-date" class="text-xs text-slate-500 font-medium">Date: 2026-09-25</span>
                 </div>
                 
-                <div class="p-6 sm:p-10 font-mono text-xs sm:text-sm text-slate-700 bg-white leading-relaxed whitespace-pre-line border-b border-slate-200 max-h-[450px] overflow-y-auto selection:bg-indigo-100" id="loi-text-preview">
-                    <!-- Dynamic text inserted here -->
-                </div>
-
-                <!-- Signature Image Display Container -->
-                <div class="px-6 sm:px-10 py-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Captured Signature String (Base64):</p>
-                        <p id="signature-string-preview" class="text-[10px] text-slate-400 font-mono truncate max-w-md bg-white p-2 rounded border border-slate-200"></p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1">Signature Render</p>
-                        <div class="bg-white border border-slate-300 rounded p-1 inline-block">
-                            <img id="signature-img-render" src="" alt="Applicant Signature" class="h-12 object-contain">
-                        </div>
-                    </div>
+                <!-- PDF Object / iframe Viewer Container -->
+                <div class="w-full h-[550px] bg-slate-100 border-b border-slate-200 relative">
+                    <iframe id="pdf-viewer-frame" class="w-full h-full border-0" title="PDF Document Preview"></iframe>
                 </div>
 
                 <div class="bg-slate-50 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
@@ -265,16 +254,10 @@
                     </button>
                     
                     <div class="flex items-center space-x-3 w-full sm:w-auto">
-                        <button type="button" id="copy-btn"
-                            class="flex-1 sm:flex-none px-5 py-2.5 bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-medium rounded-xl text-xs transition-all flex items-center justify-center space-x-2 shadow-sm">
-                            <i class="fa-regular fa-copy text-indigo-600"></i>
-                            <span id="copy-label">Copy Text</span>
-                        </button>
-                        
-                        <button type="button" id="download-btn"
+                        <button type="button" id="download-pdf-btn"
                             class="flex-1 sm:flex-none px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl text-xs transition-all flex items-center justify-center space-x-2 shadow-md shadow-indigo-100">
                             <i class="fa-solid fa-download"></i>
-                            <span>Download .TXT</span>
+                            <span>Download PDF</span>
                         </button>
                     </div>
                 </div>
@@ -283,8 +266,129 @@
 
     </main>
 
+    <!-- Printable LOI Template Container (Visually hidden in-flow so html2canvas renders it fully) -->
+    <div style="visibility: hidden; position: fixed; top: 0; left: 0; width: 794px; z-index: -999;">
+        <div id="pdf-template" style="font-family: 'Inter', sans-serif; color: #1e293b; padding: 20px; background: #ffffff; font-size: 10px; line-height: 1.35;">
+            
+            <!-- Company Header -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #4f46e5; padding-bottom: 6px; margin-bottom: 8px;">
+                <div>
+                    <h2 style="font-size: 13px; font-weight: 700; color: #0f172a; margin: 0 0 1px 0;">M AND K CORPORATION PTY LTD</h2>
+                    <p style="font-size: 8.5px; color: #64748b; margin: 0;">Registration Number: 2026 / 417012 / 07</p>
+                    <p style="font-size: 8.5px; color: #64748b; margin: 1px 0 0 0;">Vehicle Rent-to-Own & Fleet Management Division</p>
+                </div>
+                <div style="text-align: right;">
+                    <span style="font-size: 8.5px; font-weight: 700; color: #4f46e5; text-transform: uppercase;">Letter of Intent (LOI)</span>
+                    <p id="pdf-date-field" style="font-size: 8.5px; color: #64748b; margin: 1px 0 0 0;">Date: 25 September 2026</p>
+                </div>
+            </div>
+
+            <!-- Subject line -->
+            <p style="margin: 0 0 3px 0; font-weight: 600; color: #0f172a; font-size: 10px;">To: Fleet Management & Vehicle Allocation Committee</p>
+            <p style="margin: 0 0 6px 0; font-weight: 600; color: #0f172a; font-size: 10px;">Subject: Formal Letter of Intent to Participate in Rent-to-Own Program</p>
+
+            <p style="margin: 0 0 4px 0;">Dear Fleet Management,</p>
+
+            <p style="margin: 0 0 6px 0;">I, the undersigned applicant, hereby formally submit this Letter of Intent to participate in the vehicle Rent-to-Own program offered by <strong>M And K Corporation PTY LTD (Reg: 2026 / 417012 / 07)</strong>. My verified driver credentials and performance metrics are detailed below:</p>
+
+            <!-- 1. Applicant Details -->
+            <div style="margin-bottom: 6px;">
+                <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 2px 0;">1. Applicant Information</p>
+                <table style="width: 100%; border-collapse: collapse; font-size: 9.5px;">
+                    <tr>
+                        <td style="padding: 1px 0; width: 30%; color: #64748b;">Full Name & Surname:</td>
+                        <td id="pdf-val-name" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1px 0; color: #64748b;">ID / Passport Number:</td>
+                        <td id="pdf-val-id" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1px 0; color: #64748b;">Contact Number:</td>
+                        <td id="pdf-val-contact" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1px 0; color: #64748b;">Email Address:</td>
+                        <td id="pdf-val-email" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1px 0; color: #64748b;">Residential Address:</td>
+                        <td id="pdf-val-address" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 2. Program Specifications & Terms -->
+            <div style="margin-bottom: 6px;">
+                <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 2px 0;">2. Program Specifications & Financial Terms</p>
+                <table style="width: 100%; border-collapse: collapse; font-size: 9.5px;">
+                    <tr>
+                        <td style="padding: 1px 0; width: 30%; color: #64748b;">Proposed Term:</td>
+                        <td style="padding: 1px 0; font-weight: 600; color: #0f172a;">60 Months</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1px 0; color: #64748b;">Target Vehicle Type:</td>
+                        <td style="padding: 1px 0; font-weight: 600; color: #0f172a;">5-7 Seater Passenger Vehicles (UberGO / UberX / UberXL / Uber Comfort)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1px 0; color: #64748b;">Weekly Rental Fee:</td>
+                        <td style="padding: 1px 0; font-weight: 600; color: #0f172a;">R3,000 per week</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1px 0; color: #64748b;">Current Driver Rating:</td>
+                        <td id="pdf-val-rating" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 3. Nature of this Document -->
+            <div style="margin-bottom: 6px;">
+                <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 2px 0;">3. Nature of this Document</p>
+                <p style="margin: 0; color: #334155; font-size: 9px; text-align: justify;">
+                    The parties acknowledge that this letter of intent is non-binding and does not constitute a definitive lease agreement. The finalization of the lease is strictly contingent upon:
+                </p>
+                <p style="margin: 1px 0 0 8px; color: #334155; font-size: 9px;">
+                    <strong>a)</strong> M And K Corporation Pty Ltd securing the necessary commercial vehicle asset financing.<br>
+                    <strong>b)</strong> Successful vetting of the Client’s driver profile, criminal record clearance, and e-hailing operational history.
+                </p>
+            </div>
+
+            <!-- 4. Third-Party Information Sharing Consent -->
+            <div style="margin-bottom: 6px;">
+                <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 2px 0;">4. Third-Party Disclosure & Consent</p>
+                <p style="margin: 0; color: #334155; font-size: 9px; text-align: justify;">
+                    By signing below, the Applicant expressly consents and agrees that M And K Corporation PTY LTD may share their personal information, identification data, contact details, and driver ratings with authorized third-party financial institutions, asset funders, and credit bureaus strictly for the purpose of securing vehicle financing and loan approvals necessary for this program.
+                </p>
+            </div>
+
+            <!-- 5. Declaration -->
+            <div style="margin-bottom: 8px;">
+                <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 2px 0;">5. Declaration & Commitment</p>
+                <p style="margin: 0; color: #334155; font-size: 9px; text-align: justify;">
+                    I confirm my active engagement in the e-hailing industry and my commitment to maintaining high service standards, scheduled weekly vehicle maintenance compliance, and prompt rental payments under the agreed rent-to-own contract structure.
+                </p>
+            </div>
+
+            <!-- Signatures Section -->
+            <div style="margin-top: 8px; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <p style="font-size: 8.5px; color: #64748b; margin: 0 0 1px 0;">Applicant Signature:</p>
+                    <div style="border-bottom: 1px solid #cbd5e1; width: 160px; height: 35px; display: flex; align-items: flex-end;">
+                        <img id="pdf-sig-img" src="" alt="Signature" style="max-height: 32px; max-width: 150px; object-fit: contain; display: block;">
+                    </div>
+                    <p id="pdf-sign-name" style="font-size: 8.5px; font-weight: 600; color: #0f172a; margin: 2px 0 0 0;">-</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="font-size: 8px; color: #94a3b8; margin: 0;">M And K Corporation PTY LTD (Reg: 2026/417012/07)</p>
+                    <p style="font-size: 8px; color: #94a3b8; margin: 1px 0 0 0;">Authorized Fleet Management Portal</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500">
-        <p>&copy; 2026 FleetDrive Solutions. All rights reserved. Secure Ride-Hailing Driver Portal.</p>
+        <p>&copy; 2026 M And K Corporation PTY LTD (Reg: 2026 / 417012 / 07). All rights reserved.</p>
     </footer>
 
     <script>
@@ -292,11 +396,9 @@
             const form = document.getElementById('loi-form');
             const formContainer = document.getElementById('form-container');
             const resultContainer = document.getElementById('result-container');
-            const loiTextPreview = document.getElementById('loi-text-preview');
             const editBtn = document.getElementById('edit-btn');
-            const copyBtn = document.getElementById('copy-btn');
-            const copyLabel = document.getElementById('copy-label');
-            const downloadBtn = document.getElementById('download-btn');
+            const downloadPdfBtn = document.getElementById('download-pdf-btn');
+            const pdfViewerFrame = document.getElementById('pdf-viewer-frame');
             const docDateSpan = document.getElementById('doc-date');
             
             // Signature Elements
@@ -304,13 +406,11 @@
             const ctx = canvas.getContext('2d');
             const clearSignatureBtn = document.getElementById('clear-signature');
             const signaturePlaceholder = document.getElementById('signature-placeholder');
-            const signatureStringPreview = document.getElementById('signature-string-preview');
-            const signatureImgRender = document.getElementById('signature-img-render');
 
-            let generatedLOIText = '';
             let signatureDataUrl = '';
             let isDrawing = false;
             let hasSigned = false;
+            let generatedPdfBlobUrl = '';
 
             // Resize canvas resolution for sharpness
             function initCanvas() {
@@ -326,7 +426,6 @@
             initCanvas();
             window.addEventListener('resize', initCanvas);
 
-            // Mouse and Touch drawing event handlers
             function getCoordinates(e) {
                 const rect = canvas.getBoundingClientRect();
                 const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -364,18 +463,15 @@
                 signatureDataUrl = canvas.toDataURL('image/png');
             }
 
-            // Mouse Events
             canvas.addEventListener('mousedown', startPosition);
             canvas.addEventListener('mousemove', draw);
             canvas.addEventListener('mouseup', endPosition);
             canvas.addEventListener('mouseleave', endPosition);
 
-            // Touch Events (Mobile/Tablet friendly)
             canvas.addEventListener('touchstart', startPosition, { passive: false });
             canvas.addEventListener('touchmove', draw, { passive: false });
             canvas.addEventListener('touchend', endPosition, { passive: false });
 
-            // Clear signature action
             clearSignatureBtn.addEventListener('click', () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 hasSigned = false;
@@ -383,18 +479,16 @@
                 signaturePlaceholder.style.display = 'flex';
             });
 
-            // Helper to format current date nicely
             function getFormattedDate() {
                 const options = { year: 'numeric', month: 'long', day: 'numeric' };
                 return new Date().toLocaleDateString('en-ZA', options);
             }
 
-            // Form submission & Validation handler
-            form.addEventListener('submit', (e) => {
+            // Form submission & PDF Generation handler
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 let isValid = true;
 
-                // Field references
                 const firstName = document.getElementById('firstName');
                 const surname = document.getElementById('surname');
                 const idNumber = document.getElementById('idNumber');
@@ -404,61 +498,28 @@
                 const address = document.getElementById('address');
                 const terms = document.getElementById('terms');
 
-                // Reset error highlights
                 document.querySelectorAll('.error-msg').forEach(el => el.classList.add('hidden'));
                 document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('border-red-500', 'focus:ring-red-500'));
 
-                // Validate First Name
-                if (!firstName.value.trim()) {
-                    showError(firstName, 'err-firstName');
-                    isValid = false;
-                }
-
-                // Validate Surname
-                if (!surname.value.trim()) {
-                    showError(surname, 'err-surname');
-                    isValid = false;
-                }
-
-                // Validate ID Number
-                if (!idNumber.value.trim() || idNumber.value.trim().length < 6) {
-                    showError(idNumber, 'err-idNumber');
-                    isValid = false;
-                }
-
-                // Validate Rating
+                if (!firstName.value.trim()) { showError(firstName, 'err-firstName'); isValid = false; }
+                if (!surname.value.trim()) { showError(surname, 'err-surname'); isValid = false; }
+                if (!idNumber.value.trim() || idNumber.value.trim().length < 6) { showError(idNumber, 'err-idNumber'); isValid = false; }
+                
                 const ratingVal = parseFloat(rating.value);
-                if (isNaN(ratingVal) || ratingVal < 1.00 || ratingVal > 5.00) {
-                    showError(rating, 'err-rating');
-                    isValid = false;
-                }
+                if (isNaN(ratingVal) || ratingVal < 1.00 || ratingVal > 5.00) { showError(rating, 'err-rating'); isValid = false; }
 
-                // Validate Contact Number
-                if (!contactNumber.value.trim() || contactNumber.value.trim().length < 8) {
-                    showError(contactNumber, 'err-contactNumber');
-                    isValid = false;
-                }
+                if (!contactNumber.value.trim() || contactNumber.value.trim().length < 8) { showError(contactNumber, 'err-contactNumber'); isValid = false; }
 
-                // Validate Email
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
-                    showError(email, 'err-email');
-                    isValid = false;
-                }
+                if (!email.value.trim() || !emailRegex.test(email.value.trim())) { showError(email, 'err-email'); isValid = false; }
 
-                // Validate Address
-                if (!address.value.trim() || address.value.trim().length < 5) {
-                    showError(address, 'err-address');
-                    isValid = false;
-                }
+                if (!address.value.trim() || address.value.trim().length < 5) { showError(address, 'err-address'); isValid = false; }
 
-                // Validate Signature
                 if (!hasSigned || !signatureDataUrl) {
                     document.getElementById('err-signature').classList.remove('hidden');
                     isValid = false;
                 }
 
-                // Validate Terms
                 if (!terms.checked) {
                     document.getElementById('err-terms').classList.remove('hidden');
                     isValid = false;
@@ -466,53 +527,48 @@
 
                 if (!isValid) return;
 
-                // Construct LOI content
+                // Populate Hidden PDF Template fields
                 const currentDateStr = getFormattedDate();
                 docDateSpan.textContent = `Date: ${currentDateStr}`;
+                document.getElementById('pdf-date-field').textContent = `Date: ${currentDateStr}`;
+                document.getElementById('pdf-val-name').textContent = `${firstName.value.trim()} ${surname.value.trim()}`;
+                document.getElementById('pdf-val-id').textContent = idNumber.value.trim();
+                document.getElementById('pdf-val-contact').textContent = contactNumber.value.trim();
+                document.getElementById('pdf-val-email').textContent = email.value.trim();
+                document.getElementById('pdf-val-address').textContent = address.value.trim();
+                document.getElementById('pdf-val-rating').textContent = `${ratingVal.toFixed(2)} ★ (Uber / Bolt)`;
+                document.getElementById('pdf-sig-img').src = signatureDataUrl;
+                document.getElementById('pdf-sign-name').textContent = `${firstName.value.trim()} ${surname.value.trim()}`;
 
-                generatedLOIText = `LETTER OF INTENT (LOI) - RENT-TO-OWN VEHICLE PROGRAM
--------------------------------------------------------------------------
-Date: ${currentDateStr}
-To: Fleet Management & Vehicle Allocation Committee
-Subject: Letter of Intent to Participate in Ride-Hailing Rent-to-Own Program
+                const element = document.getElementById('pdf-template');
 
-Dear Fleet Management,
+                const opt = {
+                    margin:       [5, 5, 5, 5],
+                    filename:     `Letter_of_Intent_${surname.value.trim()}.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
 
-I, the undersigned applicant, hereby formally submit this Letter of Intent to apply for the Ride-Hailing Vehicle Rent-to-Own program. Below are my verified personal credentials and professional driver metrics on ride-hailing networks (Uber / Bolt):
+                try {
+                    // Generate PDF blob and load into iframe viewer
+                    const pdfWorker = html2pdf().from(element).set(opt);
+                    const pdfBlob = await pdfWorker.output('blob');
+                    
+                    if (generatedPdfBlobUrl) {
+                        URL.revokeObjectURL(generatedPdfBlobUrl);
+                    }
+                    generatedPdfBlobUrl = URL.createObjectURL(pdfBlob);
+                    pdfViewerFrame.src = generatedPdfBlobUrl;
 
-1. APPLICANT DETAILS:
-   • Full Name & Surname: ${firstName.value.trim()} ${surname.value.trim()}
-   • ID / Passport Number: ${idNumber.value.trim()}
-   • Contact Number: ${contactNumber.value.trim()}
-   • Email Address: ${email.value.trim()}
-   • Residential Address: ${address.value.trim()}
-
-2. DRIVER PERFORMANCE METRICS:
-   • Current Platform Rating: ${ratingVal.toFixed(2)} ★ (Uber / Bolt)
-   • Verified Active Driver Status: Good Standing
-
-3. DECLARATION & INTENT:
-   I confirm my active engagement in the ride-hailing industry and my commitment to maintaining high service standards, weekly vehicle maintenance compliance, and prompt rental payments under the agreed rent-to-own contract structure.
-
-I look forward to your positive review and approval of this application to proceed to the next administrative stage.
-
-Yours sincerely,
-
-Signature String (Base64 PNG):
-${signatureDataUrl}
-
-Applicant: ${firstName.value.trim()} ${surname.value.trim()}
-Date: ${currentDateStr}
--------------------------------------------------------------------------`;
-
-                loiTextPreview.textContent = generatedLOIText;
-                signatureStringPreview.textContent = signatureDataUrl;
-                signatureImgRender.src = signatureDataUrl;
-
-                // Smooth transition between form and success/preview state
-                formContainer.classList.add('hidden');
-                resultContainer.classList.remove('hidden');
-                window.scrollTo({ top: 150, behavior: 'smooth' });
+                    // Switch view
+                    formContainer.classList.add('hidden');
+                    resultContainer.classList.remove('hidden');
+                    window.scrollTo({ top: 150, behavior: 'smooth' });
+                } catch (err) {
+                    console.error('PDF Generation error:', err);
+                    alert('An error occurred while generating the PDF. Please try again.');
+                }
             });
 
             function errorInputHighlight(inputEl) {
@@ -524,52 +580,20 @@ Date: ${currentDateStr}
                 document.getElementById(errorId).classList.remove('hidden');
             }
 
-            // Edit button handler
             editBtn.addEventListener('click', () => {
                 resultContainer.classList.add('hidden');
                 formContainer.classList.remove('hidden');
                 window.scrollTo({ top: 150, behavior: 'smooth' });
             });
 
-            // Copy button handler (fallback compatible)
-            copyBtn.addEventListener('click', () => {
-                const textArea = document.createElement('textarea');
-                textArea.value = generatedLOIText;
-                textArea.style.position = 'fixed';
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-
-                try {
-                    const successful = document.execCommand('copy');
-                    if (successful) {
-                        copyLabel.textContent = 'Copied!';
-                        copyBtn.classList.add('text-emerald-600', 'border-emerald-300');
-                        setTimeout(() => {
-                            copyLabel.textContent = 'Copy Text';
-                            copyBtn.classList.remove('text-emerald-600', 'border-emerald-300');
-                        }, 2500);
-                    } else {
-                        alert('Failed to copy text.');
-                    }
-                } catch (err) {
-                    console.error('Fallback copy error:', err);
-                }
-
-                document.body.removeChild(textArea);
-            });
-
-            // Download button handler
-            downloadBtn.addEventListener('click', () => {
-                const blob = new Blob([generatedLOIText], { type: 'text/plain;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
+            downloadPdfBtn.addEventListener('click', () => {
+                if (!generatedPdfBlobUrl) return;
                 const a = document.createElement('a');
-                a.href = url;
-                a.download = `Letter_of_Intent_${document.getElementById('surname').value.trim()}.txt`;
+                a.href = generatedPdfBlobUrl;
+                a.download = `Letter_of_Intent_${document.getElementById('surname').value.trim()}.pdf`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                URL.revokeObjectURL(url);
             });
         });
     </script>

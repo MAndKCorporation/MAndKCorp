@@ -266,9 +266,9 @@
 
     </main>
 
-    <!-- Printable LOI Template Container (Visually hidden in-flow so html2canvas renders it fully) -->
-    <div style="visibility: hidden; position: fixed; top: 0; left: 0; width: 794px; z-index: -999;">
-        <div id="pdf-template" style="font-family: 'Inter', sans-serif; color: #1e293b; padding: 20px; background: #ffffff; font-size: 10px; line-height: 1.35;">
+    <!-- Printable LOI Template Container (Visually hidden at top-left 0,0 so html2canvas captures from top page origin) -->
+    <div style="visibility: hidden; position: fixed; top: 0; left: 0; width: 794px; z-index: -999; background: #ffffff;">
+        <div id="pdf-template" style="font-family: 'Inter', sans-serif; color: #1e293b; padding: 25px 30px; background: #ffffff; font-size: 10px; line-height: 1.35; box-sizing: border-box;">
             
             <!-- Company Header -->
             <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #4f46e5; padding-bottom: 6px; margin-bottom: 8px;">
@@ -543,10 +543,10 @@
                 const element = document.getElementById('pdf-template');
 
                 const opt = {
-                    margin:       [5, 5, 5, 5],
+                    margin:       [4, 4, 4, 4],
                     filename:     `Letter_of_Intent_${surname.value.trim()}.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true, windowWidth: 794 },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 

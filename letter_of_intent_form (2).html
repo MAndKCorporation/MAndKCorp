@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Letter of Intent - Rent-to-Own Application</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- html2pdf.js CDN for client-side PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full bg-slate-50 text-slate-800 antialiased flex flex-col justify-between">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-200">
+                    <i class="fa-solid fa-car-side text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-slate-900 leading-tight">FleetDrive Solutions</h1>
+                    <p class="text-xs text-slate-500">Rent-to-Own Driver Application</p>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center space-x-2 text-xs font-medium text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Applications Open for 2026</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        
+        <!-- Intro Card -->
+        <div class="mb-8 bg-gradient-to-r from-indigo-900 to-indigo-800 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-indigo-700 rounded-full opacity-30 pointer-events-none blur-2xl"></div>
+            <div class="relative z-10 max-w-xl">
+                <span class="inline-block bg-indigo-700 text-indigo-100 text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Official Document</span>
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Letter of Intent (LOI)</h2>
+                <p class="text-indigo-200 text-sm sm:text-base leading-relaxed">
+                    Submit your formal expression of interest for our vehicle Rent-to-Own program. Complete your driver metrics and sign below to instantly generate, preview, and download your official PDF document.
+                </p>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div id="form-container" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all duration-300">
+            <div class="border-b border-slate-100 pb-4 mb-6">
+                <h3 class="text-lg font-semibold text-slate-900">Driver Information Form</h3>
+                <p class="text-xs text-slate-500">All fields are mandatory and will be verified against platform records.</p>
+            </div>
+
+            <form id="loi-form" class="space-y-6" novalidate>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Name -->
+                    <div>
+                        <label for="firstName" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">First Name(s) *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-user text-xs"></i>
+                            </span>
+                            <input type="text" id="firstName" required
+                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                                placeholder="e.g. Thabo David">
+                        </div>
+                        <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-firstName">Please enter your first name(s).</p>
+                    </div>
+
+                    <!-- Surname -->
+                    <div>
+                        <label for="surname" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Surname *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-user-tag text-xs"></i>
+                            </span>
+                            <input type="text" id="surname" required
+                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                                placeholder="e.g. Mthembu">
+                        </div>
+                        <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-surname">Please enter your surname.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- ID Number -->
+                    <div>
+                        <label for="idNumber" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">ID Number / Passport *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-id-card text-xs"></i>
+                            </span>
+                            <input type="text" id="idNumber" required
+                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                                placeholder="13-digit SA ID or valid passport">
+                        </div>
+                        <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-idNumber">Please enter a valid ID/Passport number.</p>
+                    </div>
+
+                    <!-- Current Uber/Bolt Rating -->
+                    <div>
+                        <label for="rating" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Current Uber / Bolt Rating *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-amber-500">
+                                <i class="fa-solid fa-star text-xs"></i>
+                            </span>
+                            <input type="number" id="rating" step="0.01" min="1.00" max="5.00" required
+                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                                placeholder="e.g. 4.85">
+                        </div>
+                        <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-rating">Please enter a valid rating between 1.00 and 5.00.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Contact Number -->
+                    <div>
+                        <label for="contactNumber" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Contact Number *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-phone text-xs"></i>
+                            </span>
+                            <input type="tel" id="contactNumber" required
+                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                                placeholder="e.g. 082 123 4567">
+                        </div>
+                        <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-contactNumber">Please enter a valid contact phone number.</p>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div>
+                        <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Email Address *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-envelope text-xs"></i>
+                            </span>
+                            <input type="email" id="email" required
+                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                                placeholder="e.g. thabo@example.com">
+                        </div>
+                        <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-email">Please enter a valid email address.</p>
+                    </div>
+                </div>
+
+                <!-- Residential Address -->
+                <div>
+                    <label for="address" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Residential Address *</label>
+                    <div class="relative">
+                        <span class="absolute top-3.5 left-3.5 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-location-dot text-xs"></i>
+                        </span>
+                        <textarea id="address" rows="3" required
+                            class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all resize-none"
+                            placeholder="Street address, apartment, suburb, city, postal code"></textarea>
+                    </div>
+                    <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-address">Please enter your complete residential address.</p>
+                </div>
+
+                <!-- Signature Pad Section -->
+                <div class="pt-2">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600">Applicant Signature *</label>
+                        <button type="button" id="clear-signature" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center space-width-1">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Clear Signature
+                        </button>
+                    </div>
+                    
+                    <div class="border border-slate-300 rounded-xl bg-slate-50 overflow-hidden relative touch-none">
+                        <canvas id="signature-pad" class="w-full h-40 cursor-crosshair block"></canvas>
+                        <div id="signature-placeholder" class="absolute inset-0 flex items-center justify-center pointer-events-none text-slate-400 text-sm select-none">
+                            Sign inside this box using your finger or mouse
+                        </div>
+                    </div>
+                    <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-signature">Please provide your signature before submitting.</p>
+                </div>
+
+                <!-- Terms Checkbox -->
+                <div class="flex items-start space-x-3 pt-2">
+                    <input type="checkbox" id="terms" required class="mt-1 w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                    <label for="terms" class="text-xs text-slate-600 leading-relaxed">
+                        I hereby declare that the information provided above is true and correct. I understand that submitting this Letter of Intent initiates a screening process for the vehicle rent-to-own agreement. *
+                    </label>
+                </div>
+                <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-terms">You must agree to the declaration before submitting.</p>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-end">
+                    <button type="submit" id="submit-btn"
+                        class="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-xl text-sm shadow-lg shadow-indigo-200 transition-all flex items-center justify-center space-x-2">
+                        <span>Generate & View PDF</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- Result / PDF Review Screen -->
+        <div id="result-container" class="hidden space-y-6">
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 sm:p-6 flex items-center space-x-4">
+                <div class="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0 shadow-md shadow-emerald-200">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-emerald-900">PDF Letter of Intent Generated Successfully!</h3>
+                    <p class="text-xs text-emerald-700">Your official document has been compiled with your verified signature and rendered live in the PDF viewer below.</p>
+                </div>
+            </div>
+
+            <!-- Printable Template (Hidden from normal UI layout, used as source for PDF generator) -->
+            <div id="pdf-printable-area" class="hidden bg-white p-10 text-slate-800 font-sans max-w-2xl mx-auto">
+                <div class="border-b-2 border-indigo-600 pb-4 mb-6 flex justify-between items-start">
+                    <div>
+                        <h1 class="text-xl font-bold text-indigo-900 uppercase tracking-wide">FleetDrive Solutions</h1>
+                        <p class="text-xs text-slate-500 font-medium">Rent-to-Own Vehicle Division</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs font-bold text-slate-700">LETTER OF INTENT (LOI)</p>
+                        <p id="pdf-date" class="text-xs text-slate-500">Date: 2026-09-25</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-xs leading-relaxed text-slate-700">
+                    <p class="font-semibold text-slate-900">To: Fleet Management & Vehicle Allocation Committee</p>
+                    <p><strong>Subject:</strong> Formal Letter of Intent to Participate in Ride-Hailing Rent-to-Own Program</p>
+
+                    <p>Dear Fleet Management,</p>
+
+                    <p>I, the undersigned applicant, hereby formally submit this Letter of Intent to apply for the Ride-Hailing Vehicle Rent-to-Own program. Below are my verified personal credentials and professional driver performance metrics on ride-hailing networks (Uber / Bolt):</p>
+
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2 my-4">
+                        <p class="font-bold text-indigo-900 text-xs uppercase tracking-wider mb-1">1. Applicant Details</p>
+                        <p><strong>Full Name & Surname:</strong> <span id="pdf-name"></span></p>
+                        <p><strong>ID / Passport Number:</strong> <span id="pdf-id"></span></p>
+                        <p><strong>Contact Number:</strong> <span id="pdf-contact"></span></p>
+                        <p><strong>Email Address:</strong> <span id="pdf-email"></span></p>
+                        <p><strong>Residential Address:</strong> <span id="pdf-address"></span></p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2 my-4">
+                        <p class="font-bold text-indigo-900 text-xs uppercase tracking-wider mb-1">2. Driver Performance Metrics</p>
+                        <p><strong>Current Platform Rating:</strong> <span id="pdf-rating"></span> ★ (Uber / Bolt)</p>
+                        <p><strong>Verified Active Status:</strong> Good Standing</p>
+                    </div>
+
+                    <p><strong>3. Declaration & Commitment:</strong><br>
+                    I confirm my active engagement in the ride-hailing industry and my commitment to maintaining high service quality standards, scheduled weekly vehicle maintenance compliance, and prompt rental payments under the agreed rent-to-own contract structure.</p>
+
+                    <p>I look forward to your positive review and approval of this application to proceed to the next administrative stage.</p>
+
+                    <p class="pt-2">Yours sincerely,</p>
+
+                    <div class="pt-4 mt-6 border-t border-slate-200 flex justify-between items-end">
+                        <div>
+                            <p class="font-bold text-slate-900 text-xs" id="pdf-sign-name"></p>
+                            <p class="text-[10px] text-slate-500">Applicant Signature & Date</p>
+                        </div>
+                        <div class="text-right">
+                            <img id="pdf-signature-img" src="" alt="Signature" class="h-16 object-contain border-b border-slate-300 pb-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Embedded Live PDF Viewer Box -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-100 px-6 py-3 border-b border-slate-200 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-file-pdf text-red-500"></i>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Live PDF Document Viewer</span>
+                    </div>
+                    <span id="doc-date" class="text-xs text-slate-500 font-medium">Date: 2026-09-25</span>
+                </div>
+                
+                <!-- PDF Iframe Viewer -->
+                <div class="w-full h-[550px] bg-slate-100 relative">
+                    <iframe id="pdf-viewer-iframe" class="w-full h-full border-0" title="LOI PDF Viewer"></iframe>
+                </div>
+
+                <div class="bg-slate-50 px-6 py-4 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200">
+                    <button type="button" id="edit-btn"
+                        class="px-5 py-2.5 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-medium rounded-xl text-xs transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Edit Form Details</span>
+                    </button>
+                    
+                    <div class="flex items-center space-x-3 w-full sm:w-auto">
+                        <button type="button" id="download-pdf-btn"
+                            class="flex-1 sm:flex-none px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs transition-all flex items-center justify-center space-x-2 shadow-md shadow-indigo-100">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Download PDF File</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500">
+        <p>&copy; 2026 FleetDrive Solutions. All rights reserved. Secure Ride-Hailing Driver Portal.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('loi-form');
+            const formContainer = document.getElementById('form-container');
+            const resultContainer = document.getElementById('result-container');
+            const editBtn = document.getElementById('edit-btn');
+            const downloadPdfBtn = document.getElementById('download-pdf-btn');
+            const docDateSpan = document.getElementById('doc-date');
+            const pdfViewerIframe = document.getElementById('pdf-viewer-iframe');
+            
+            // Signature Elements
+            const canvas = document.getElementById('signature-pad');
+            const ctx = canvas.getContext('2d');
+            const clearSignatureBtn = document.getElementById('clear-signature');
+            const signaturePlaceholder = document.getElementById('signature-placeholder');
+
+            let signatureDataUrl = '';
+            let currentPdfBlobUrl = null;
+            let isDrawing = false;
+            let hasSigned = false;
+
+            // Resize canvas resolution for sharpness
+            function initCanvas() {
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width * window.devicePixelRatio;
+                canvas.height = rect.height * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+                ctx.strokeStyle = '#1e293b';
+                ctx.lineWidth = 2.5;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+            }
+            initCanvas();
+            window.addEventListener('resize', initCanvas);
+
+            // Mouse and Touch drawing event handlers
+            function getCoordinates(e) {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return {
+                    x: clientX - rect.left,
+                    y: clientY - rect.top
+                };
+            }
+
+            function startPosition(e) {
+                e.preventDefault();
+                isDrawing = true;
+                hasSigned = true;
+                signaturePlaceholder.style.display = 'none';
+                document.getElementById('err-signature').classList.add('hidden');
+                const coords = getCoordinates(e);
+                ctx.beginPath();
+                ctx.moveTo(coords.x, coords.y);
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                const coords = getCoordinates(e);
+                ctx.lineTo(coords.x, coords.y);
+                ctx.stroke();
+            }
+
+            function endPosition(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                isDrawing = false;
+                ctx.beginPath();
+                signatureDataUrl = canvas.toDataURL('image/png');
+            }
+
+            // Mouse Events
+            canvas.addEventListener('mousedown', startPosition);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', endPosition);
+            canvas.addEventListener('mouseleave', endPosition);
+
+            // Touch Events (Mobile/Tablet friendly)
+            canvas.addEventListener('touchstart', startPosition, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', endPosition, { passive: false });
+
+            // Clear signature action
+            clearSignatureBtn.addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                hasSigned = false;
+                signatureDataUrl = '';
+                signaturePlaceholder.style.display = 'flex';
+            });
+
+            // Helper to format current date nicely
+            function getFormattedDate() {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date().toLocaleDateString('en-ZA', options);
+            }
+
+            // Form submission & Validation handler
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+
+                // Field references
+                const firstName = document.getElementById('firstName');
+                const surname = document.getElementById('surname');
+                const idNumber = document.getElementById('idNumber');
+                const rating = document.getElementById('rating');
+                const contactNumber = document.getElementById('contactNumber');
+                const email = document.getElementById('email');
+                const address = document.getElementById('address');
+                const terms = document.getElementById('terms');
+
+                // Reset error highlights
+                document.querySelectorAll('.error-msg').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('border-red-500', 'focus:ring-red-500'));
+
+                // Validate First Name
+                if (!firstName.value.trim()) {
+                    showError(firstName, 'err-firstName');
+                    isValid = false;
+                }
+
+                // Validate Surname
+                if (!surname.value.trim()) {
+                    showError(surname, 'err-surname');
+                    isValid = false;
+                }
+
+                // Validate ID Number
+                if (!idNumber.value.trim() || idNumber.value.trim().length < 6) {
+                    showError(idNumber, 'err-idNumber');
+                    isValid = false;
+                }
+
+                // Validate Rating
+                const ratingVal = parseFloat(rating.value);
+                if (isNaN(ratingVal) || ratingVal < 1.00 || ratingVal > 5.00) {
+                    showError(rating, 'err-rating');
+                    isValid = false;
+                }
+
+                // Validate Contact Number
+                if (!contactNumber.value.trim() || contactNumber.value.trim().length < 8) {
+                    showError(contactNumber, 'err-contactNumber');
+                    isValid = false;
+                }
+
+                // Validate Email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+                    showError(email, 'err-email');
+                    isValid = false;
+                }
+
+                // Validate Address
+                if (!address.value.trim() || address.value.trim().length < 5) {
+                    showError(address, 'err-address');
+                    isValid = false;
+                }
+
+                // Validate Signature
+                if (!hasSigned || !signatureDataUrl) {
+                    document.getElementById('err-signature').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Validate Terms
+                if (!terms.checked) {
+                    document.getElementById('err-terms').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                if (!isValid) return;
+
+                // Construct LOI content & Populate PDF template fields
+                const currentDateStr = getFormattedDate();
+                docDateSpan.textContent = `Date: ${currentDateStr}`;
+
+                document.getElementById('pdf-date').textContent = `Date: ${currentDateStr}`;
+                document.getElementById('pdf-name').textContent = `${firstName.value.trim()} ${surname.value.trim()}`;
+                document.getElementById('pdf-id').textContent = idNumber.value.trim();
+                document.getElementById('pdf-contact').textContent = contactNumber.value.trim();
+                document.getElementById('pdf-email').textContent = email.value.trim();
+                document.getElementById('pdf-address').textContent = address.value.trim();
+                document.getElementById('pdf-rating').textContent = ratingVal.toFixed(2);
+                document.getElementById('pdf-sign-name').textContent = `${firstName.value.trim()} ${surname.value.trim()} (${currentDateStr})`;
+                document.getElementById('pdf-signature-img').src = signatureDataUrl;
+
+                // Smooth transition between form and success/preview state
+                formContainer.classList.add('hidden');
+                resultContainer.classList.remove('hidden');
+                window.scrollTo({ top: 150, behavior: 'smooth' });
+
+                // Generate PDF blob and display in live iframe viewer
+                const element = document.getElementById('pdf-printable-area');
+                element.classList.remove('hidden'); // Reveal temporarily for html2pdf conversion
+
+                const opt = {
+                    margin:       10,
+                    filename:     `Letter_of_Intent_${surname.value.trim()}.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                html2pdf().from(element).set(opt).outputPdf('blob').then((pdfBlob) => {
+                    element.classList.add('hidden'); // Hide template again
+                    if (currentPdfBlobUrl) {
+                        URL.revokeObjectURL(currentPdfBlobUrl);
+                    }
+                    currentPdfBlobUrl = URL.createObjectURL(pdfBlob);
+                    pdfViewerIframe.src = currentPdfBlobUrl;
+                });
+            });
+
+            function errorInputHighlight(inputEl) {
+                inputEl.classList.add('border-red-500', 'focus:ring-red-500');
+            }
+
+            function showError(inputEl, errorId) {
+                errorInputHighlight(inputEl);
+                document.getElementById(errorId).classList.remove('hidden');
+            }
+
+            // Edit button handler
+            editBtn.addEventListener('click', () => {
+                resultContainer.classList.add('hidden');
+                formContainer.classList.remove('hidden');
+                window.scrollTo({ top: 150, behavior: 'smooth' });
+            });
+
+            // Download PDF button handler using html2pdf.js
+            downloadPdfBtn.addEventListener('click', () => {
+                const element = document.getElementById('pdf-printable-area');
+                element.classList.remove('hidden');
+
+                const surnameVal = document.getElementById('surname').value.trim() || 'Driver';
+                const opt = {
+                    margin:       10,
+                    filename:     `Letter_of_Intent_${surnameVal}.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                html2pdf().from(element).set(opt).save().then(() => {
+                    element.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

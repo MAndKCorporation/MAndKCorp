@@ -416,51 +416,54 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // Step 2: Submit & Print Button Click Handler (Emails signed PDF & triggers print)
+            // Step 2: Submit & Print Button Click Handler with rendering delay for signature capture
             submitAndPrintBtn.addEventListener('click', () => {
                 const originalBtnText = submitAndPrintBtn.innerHTML;
                 submitAndPrintBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i><span>Sending & Printing...</span>';
                 submitAndPrintBtn.disabled = true;
 
-                const printDoc = document.getElementById('print-document');
-                const opt = {
-                    margin: 0, filename: `LOI_${document.getElementById('firstName').value}_${document.getElementById('surname').value}.pdf`, 
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, useCORS: true, logging: false }, 
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
-
-                html2pdf().set(opt).from(printDoc).output('datauristring').then(function(pdfDataUri) {
-                    const payload = {
-                        name: `${document.getElementById('firstName').value} ${document.getElementById('surname').value}`,
-                        email: document.getElementById('email').value,
-                        phone: document.getElementById('contactNumber').value,
-                        idNumber: document.getElementById('idNumber').value,
-                        pdfBase64: pdfDataUri
+                // 500ms delay guarantees html2canvas fully captures the signature image before generating PDF blob
+                setTimeout(() => {
+                    const printDoc = document.getElementById('print-document');
+                    const opt = {
+                        margin: 0, filename: `LOI_${document.getElementById('firstName').value}_${document.getElementById('surname').value}.pdf`, 
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true, logging: false }, 
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                     };
 
-                    // -------- PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW --------
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxHM03gQIzjGVO3ih5-q0PC9EHDkPywQATyX5seVHXHIKUjNQfC8v4T36NaQdwK62Jtiw/exec';
-                    // -----------------------------------------------------------------
+                    html2pdf().set(opt).from(printDoc).output('datauristring').then(function(pdfDataUri) {
+                        const payload = {
+                            name: `${document.getElementById('firstName').value} ${document.getElementById('surname').value}`,
+                            email: document.getElementById('email').value,
+                            phone: document.getElementById('contactNumber').value,
+                            idNumber: document.getElementById('idNumber').value,
+                            pdfBase64: pdfDataUri
+                        };
 
-                    fetch(scriptURL, { 
-                        method: 'POST', 
-                        mode: 'no-cors', 
-                        body: JSON.stringify(payload) 
-                    })
-                    .then(() => {
-                        window.print();
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert("There was an issue emailing the document. Triggering print dialog anyway.");
-                        window.print();
-                    })
-                    .finally(() => {
-                        submitAndPrintBtn.innerHTML = originalBtnText;
-                        submitAndPrintBtn.disabled = false;
+                        // -------- PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW --------
+                        const scriptURL = 'https://script.google.com/macros/s/AKfycbxHM03gQIzjGVO3ih5-q0PC9EHDkPywQATyX5seVHXHIKUjNQfC8v4T36NaQdwK62Jtiw/exec';
+                        // -----------------------------------------------------------------
+
+                        fetch(scriptURL, { 
+                            method: 'POST', 
+                            mode: 'no-cors', 
+                            body: JSON.stringify(payload) 
+                        })
+                        .then(() => {
+                            window.print();
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert("There was an issue emailing the document. Triggering print dialog anyway.");
+                            window.print();
+                        })
+                        .finally(() => {
+                            submitAndPrintBtn.innerHTML = originalBtnText;
+                            submitAndPrintBtn.disabled = false;
+                        });
                     });
-                });
+                }, 500);
             });
         });
     </script>

@@ -281,7 +281,7 @@
                                     </td>
                                     <td style="width: 30%; vertical-align: top; text-align: right; padding: 0;">
                                         <span style="font-size: 9.5px; font-weight: 700; color: #4f46e5; text-transform: uppercase;">Letter of Intent (LOI)</span>
-                                        <p id="pdf-date-field" style="font-size: 8.5px; color: #64748b; margin: 2px 0 0 0;">Date: 27 September 2026</p>
+                                        <p id="pdf-date-field" style="font-size: 8.5px; color: #64748b; margin: 2px 0 0 0;">Date: -</p>
                                     </td>
                                 </tr>
                             </table>
@@ -433,7 +433,6 @@
             const resultContainer = document.getElementById('result-container');
             const editBtn = document.getElementById('edit-btn');
             const printPdfBtn = document.getElementById('print-pdf-btn');
-            const docDateSpan = document.getElementById('doc-date');
             
             // Signature Elements
             const canvas = document.getElementById('signature-pad');
@@ -565,7 +564,6 @@
 
                 // Populate Document Fields
                 const currentDateStr = getFormattedDate();
-                docDateSpan.textContent = `Date: ${currentDateStr}`;
                 document.getElementById('pdf-date-field').textContent = `Date: ${currentDateStr}`;
                 document.getElementById('pdf-val-name').textContent = `${firstName.value.trim()} ${surname.value.trim()}`;
                 document.getElementById('pdf-val-id').textContent = idNumber.value.trim();

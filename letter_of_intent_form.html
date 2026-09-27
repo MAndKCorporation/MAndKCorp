@@ -267,12 +267,15 @@
     </main>
 
     <!-- Printable LOI Template Container (Fixed visibility handling for html2canvas) -->
-   <div id="pdf-template-wrapper"
-     style="position:absolute;
-            left:-9999px;
-            top:0;
-            width:210mm;
-            background:#fff;">
+  <div id="pdf-template-wrapper"
+     style="position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 794px;
+            pointer-events: none;
+            opacity: 0;
+            z-index: -1000;">
+``
         <div id="pdf-template"
      style="font-family:'Inter',sans-serif;
             color:#1e293b;
@@ -566,9 +569,9 @@
                         onclone: (clonedDoc) => {
                             const clonedTemplateWrapper = clonedDoc.getElementById('pdf-template-wrapper');
                             if (clonedTemplateWrapper) {
-    clonedTemplateWrapper.style.left = '0';
-    clonedTemplateWrapper.style.opacity = '1';
-    clonedTemplateWrapper.style.display = 'block';
+clonedTemplateWrapper.style.position = 'static';
+clonedTemplateWrapper.style.opacity = '1';
+clonedTemplateWrapper.style.zIndex = 'auto';
 }
                         }
                     },

@@ -266,8 +266,8 @@
 
     </main>
 
-    <!-- Printable LOI Template Container (Standard Hidden Element) -->
-    <div id="pdf-template-wrapper" style="display: none;">
+    <!-- Printable LOI Template Container (Fixed visibility handling for html2canvas) -->
+    <div id="pdf-template-wrapper" style="position: absolute; left: -9999px; top: 0; width: 794px; pointer-events: none; opacity: 0; z-index: -1000;">
         <div id="pdf-template" style="font-family: 'Inter', sans-serif; color: #1e293b; padding: 15px 20px; background: #ffffff; font-size: 9.5px; line-height: 1.3; width: 794px; box-sizing: border-box;">
             
             <!-- Company Header -->
@@ -553,7 +553,9 @@
                         onclone: (clonedDoc) => {
                             const clonedTemplateWrapper = clonedDoc.getElementById('pdf-template-wrapper');
                             if (clonedTemplateWrapper) {
-                                clonedTemplateWrapper.style.display = 'block';
+                                clonedTemplateWrapper.style.position = 'static';
+                                clonedTemplateWrapper.style.opacity = '1';
+                                clonedTemplateWrapper.style.zIndex = 'auto';
                             }
                         }
                     },

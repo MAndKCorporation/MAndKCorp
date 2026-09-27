@@ -4,51 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M And K Corporation PTY LTD - Rent-to-Own Driver Application</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts Inter -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for icons -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                        }
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', } }
                 }
             }
         }
     </script>
     <style>
-        /* Print-specific styles to ensure flawless native PDF generation */
         @media print {
-            body * {
-                visibility: hidden;
-            }
-            #print-document, #print-document * {
-                visibility: visible;
-            }
-            #print-document {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
+            body * { visibility: hidden; }
+            #print-document, #print-document * { visibility: visible; }
+            #print-document { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
         }
     </style>
 </head>
@@ -82,10 +63,9 @@
                     <span class="inline-block bg-indigo-700 text-indigo-100 text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Official Document</span>
                     <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Letter of Intent (LOI)</h2>
                     <p class="text-indigo-200 text-sm sm:text-base leading-relaxed">
-                        Submit your formal expression of interest for our vehicle Rent-to-Own program. Complete your driver metrics and sign below to generate your legal PDF document instantly.
+                        Submit your formal expression of interest for our vehicle Rent-to-Own program. Complete your driver metrics and sign below to instantly generate and submit your legal PDF.
                     </p>
                 </div>
-                <!-- View Sample Button -->
                 <button type="button" id="open-modal-btn" class="flex items-center space-x-2 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap font-medium text-sm">
                     <i class="fa-regular fa-file-pdf"></i>
                     <span>View Sample Document</span>
@@ -95,126 +75,81 @@
 
         <!-- Form Container -->
         <div id="form-container" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all duration-300 print:hidden">
-            <div class="border-b border-slate-100 pb-4 mb-6">
-                <h3 class="text-lg font-semibold text-slate-900">Driver Information Form</h3>
-                <p class="text-xs text-slate-500">All fields are mandatory and will be verified against platform records.</p>
-            </div>
-
             <form id="loi-form" class="space-y-6" novalidate>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <!-- Name -->
                     <div>
-                        <label for="firstName" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">First Name(s) *</label>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">First Name(s) *</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                <i class="fa-solid fa-user text-xs"></i>
-                            </span>
-                            <input type="text" id="firstName" required
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-                                placeholder="e.g. Thabo David">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-user text-xs"></i></span>
+                            <input type="text" id="firstName" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Thabo David">
                         </div>
                         <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-firstName">Please enter your first name(s).</p>
                     </div>
-
-                    <!-- Surname -->
                     <div>
-                        <label for="surname" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Surname *</label>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Surname *</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                <i class="fa-solid fa-user-tag text-xs"></i>
-                            </span>
-                            <input type="text" id="surname" required
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-                                placeholder="e.g. Mthembu">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-user-tag text-xs"></i></span>
+                            <input type="text" id="surname" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Mthembu">
                         </div>
                         <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-surname">Please enter your surname.</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <!-- ID Number -->
                     <div>
-                        <label for="idNumber" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">ID Number / Passport *</label>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">ID Number / Passport *</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                <i class="fa-solid fa-id-card text-xs"></i>
-                            </span>
-                            <input type="text" id="idNumber" required
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-                                placeholder="13-digit SA ID or valid passport">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-id-card text-xs"></i></span>
+                            <input type="text" id="idNumber" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="13-digit SA ID or passport">
                         </div>
                         <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-idNumber">Please enter a valid ID/Passport number.</p>
                     </div>
-
-                    <!-- Current Uber/Bolt Rating -->
                     <div>
-                        <label for="rating" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Current Uber / Bolt Rating *</label>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Uber / Bolt Rating *</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-amber-500">
-                                <i class="fa-solid fa-star text-xs"></i>
-                            </span>
-                            <input type="number" id="rating" step="0.01" min="1.00" max="5.00" required
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-                                placeholder="e.g. 4.85">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-amber-500"><i class="fa-solid fa-star text-xs"></i></span>
+                            <input type="number" id="rating" step="0.01" min="1.00" max="5.00" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g. 4.85">
                         </div>
                         <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-rating">Please enter a valid rating between 1.00 and 5.00.</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <!-- Contact Number -->
                     <div>
-                        <label for="contactNumber" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Contact Number *</label>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Contact Number *</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                <i class="fa-solid fa-phone text-xs"></i>
-                            </span>
-                            <input type="tel" id="contactNumber" required
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-                                placeholder="e.g. 082 123 4567">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-phone text-xs"></i></span>
+                            <input type="tel" id="contactNumber" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g. 082 123 4567">
                         </div>
-                        <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-contactNumber">Please enter a valid contact phone number.</p>
+                        <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-contactNumber">Please enter a valid phone number.</p>
                     </div>
-
-                    <!-- Email Address -->
                     <div>
-                        <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Email Address *</label>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Email Address *</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                                <i class="fa-solid fa-envelope text-xs"></i>
-                            </span>
-                            <input type="email" id="email" required
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-                                placeholder="e.g. driver@example.com">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-envelope text-xs"></i></span>
+                            <input type="email" id="email" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g. driver@example.com">
                         </div>
                         <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-email">Please enter a valid email address.</p>
                     </div>
                 </div>
 
-                <!-- Residential Address -->
                 <div>
-                    <label for="address" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Residential Address *</label>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Residential Address *</label>
                     <div class="relative">
-                        <span class="absolute top-3.5 left-3.5 pointer-events-none text-slate-400">
-                            <i class="fa-solid fa-location-dot text-xs"></i>
-                        </span>
-                        <textarea id="address" rows="3" required
-                            class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all resize-none"
-                            placeholder="Street address, apartment, suburb, city, postal code"></textarea>
+                        <span class="absolute top-3.5 left-3.5 pointer-events-none text-slate-400"><i class="fa-solid fa-location-dot text-xs"></i></span>
+                        <textarea id="address" rows="3" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none" placeholder="Street address, suburb, city, postal code"></textarea>
                     </div>
                     <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-address">Please enter your complete residential address.</p>
                 </div>
 
-                <!-- Signature Pad Section -->
                 <div class="pt-2">
                     <div class="flex items-center justify-between mb-2">
                         <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600">Applicant Signature *</label>
-                        <button type="button" id="clear-signature" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center space-width-1">
+                        <button type="button" id="clear-signature" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
                             <i class="fa-solid fa-rotate-right mr-1"></i> Clear Signature
                         </button>
                     </div>
-                    
                     <div class="border border-slate-300 rounded-xl bg-slate-50 overflow-hidden relative touch-none">
                         <canvas id="signature-pad" class="w-full h-40 cursor-crosshair block"></canvas>
                         <div id="signature-placeholder" class="absolute inset-0 flex items-center justify-center pointer-events-none text-slate-400 text-sm select-none">
@@ -224,56 +159,47 @@
                     <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-signature">Please provide your signature before submitting.</p>
                 </div>
 
-                <!-- Terms Checkbox -->
                 <div class="flex items-start space-x-3 pt-2">
                     <input type="checkbox" id="terms" required class="mt-1 w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
                     <label for="terms" class="text-xs text-slate-600 leading-relaxed">
-                        I hereby declare that the information provided is true and correct. By signing and submitting this Letter of Intent, I explicitly authorize M And K Corporation PTY LTD to share my personal and driver credentials with authorized third-party financial institutions, asset funders, and credit bureaus strictly for the purpose of securing vehicle financing and loan approvals. *
+                        I hereby declare that the information provided is true and correct. By signing and submitting this Letter of Intent, I explicitly authorize M And K Corporation PTY LTD to share my credentials with third-party financial institutions strictly for securing vehicle financing. *
                     </label>
                 </div>
-                <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-terms">You must agree to the declaration and third-party sharing consent before submitting.</p>
+                <p class="mt-1 text-xs text-red-500 hidden error-msg" id="err-terms">You must agree to the declaration before submitting.</p>
 
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-end">
-                    <button type="submit" id="submit-btn"
-                        class="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-xl text-sm shadow-lg shadow-indigo-200 transition-all flex items-center justify-center space-x-2">
-                        <span>Generate Letter of Intent</span>
-                        <i class="fa-solid fa-check text-xs"></i>
+                    <button type="submit" id="submit-btn" class="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-xl text-sm shadow-lg shadow-indigo-200 transition-all flex items-center justify-center space-x-2">
+                        <span>Generate & Submit Application</span>
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
                     </button>
                 </div>
-
             </form>
         </div>
 
-        <!-- Success & Print Preview Container -->
+        <!-- Success Container -->
         <div id="result-container" class="hidden space-y-6 print:block print:m-0 print:p-0">
             <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 sm:p-6 flex items-center space-x-4 print:hidden">
                 <div class="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0 shadow-md shadow-emerald-200">
                     <i class="fa-solid fa-check"></i>
                 </div>
                 <div>
-                    <h3 class="text-base font-bold text-emerald-900">Letter of Intent Ready for Printing & PDF Export!</h3>
-                    <p class="text-xs text-emerald-700">Click the button below to open your system print dialog. Choose <strong>"Save as PDF"</strong> to save your professional document instantly.</p>
+                    <h3 class="text-base font-bold text-emerald-900">Application Submitted Successfully!</h3>
+                    <p class="text-xs text-emerald-700">Your Letter of Intent has been emailed to management. You can also print or save a copy of your document below for your own records.</p>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 print:border-0 print:shadow-none print:p-0">
                 <div class="flex justify-end mb-6 print:hidden">
-                    <button type="button" id="edit-btn"
-                        class="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-medium rounded-xl text-xs mr-3">
-                        <i class="fa-solid fa-pen-to-square mr-1"></i> Edit Details
-                    </button>
-                    <button type="button" id="print-pdf-btn"
-                        class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl text-xs shadow-md shadow-indigo-100 flex items-center space-x-2">
+                    <button type="button" id="print-pdf-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl text-xs shadow-md shadow-indigo-100 flex items-center space-x-2">
                         <i class="fa-solid fa-print"></i>
-                        <span>Save as PDF / Print Document</span>
+                        <span>Print Document</span>
                     </button>
                 </div>
 
-                <!-- ACTUAL PRINTABLE DOCUMENT (COMBINED INTO 1 PAGE) -->
+                <!-- ACTUAL PRINTABLE DOCUMENT -->
                 <div id="print-document" class="bg-white text-slate-900 font-sans text-xs">
                     <div style="padding: 10mm 15mm; box-sizing: border-box;">
-                        
-                        <!-- Company Header -->
+                        <!-- Header -->
                         <table style="width: 100%; border-collapse: collapse; border-bottom: 2px solid #4f46e5; padding-bottom: 6px; margin-bottom: 12px;">
                             <tr>
                                 <td style="width: 70%; vertical-align: top; padding: 0;">
@@ -287,7 +213,7 @@
                             </tr>
                         </table>
 
-                        <!-- Subject line -->
+                        <!-- Intro -->
                         <div style="margin-bottom: 12px;">
                             <p style="margin: 0 0 2px 0; font-weight: 600; color: #0f172a; font-size: 10px;">To: Fleet Management & Vehicle Allocation Committee</p>
                             <p style="margin: 0 0 6px 0; font-weight: 600; color: #0f172a; font-size: 10px;">Subject: Formal Letter of Intent to Participate in Rent-to-Own Program</p>
@@ -298,81 +224,44 @@
                         <div style="margin-bottom: 12px;">
                             <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 4px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px;">1. Applicant Information</p>
                             <table style="width: 100%; border-collapse: collapse; font-size: 9.5px; line-height: 1.5;">
-                                <tr>
-                                    <td style="padding: 3px 0; width: 30%; color: #64748b;">Full Name & Surname:</td>
-                                    <td id="pdf-val-name" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 3px 0; color: #64748b;">ID / Passport Number:</td>
-                                    <td id="pdf-val-id" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 3px 0; color: #64748b;">Contact Number:</td>
-                                    <td id="pdf-val-contact" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 3px 0; color: #64748b;">Email Address:</td>
-                                    <td id="pdf-val-email" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 3px 0; color: #64748b;">Residential Address:</td>
-                                    <td id="pdf-val-address" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td>
-                                </tr>
+                                <tr><td style="padding: 3px 0; width: 30%; color: #64748b;">Full Name & Surname:</td><td id="pdf-val-name" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td></tr>
+                                <tr><td style="padding: 3px 0; color: #64748b;">ID / Passport Number:</td><td id="pdf-val-id" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td></tr>
+                                <tr><td style="padding: 3px 0; color: #64748b;">Contact Number:</td><td id="pdf-val-contact" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td></tr>
+                                <tr><td style="padding: 3px 0; color: #64748b;">Email Address:</td><td id="pdf-val-email" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td></tr>
+                                <tr><td style="padding: 3px 0; color: #64748b;">Residential Address:</td><td id="pdf-val-address" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td></tr>
                             </table>
                         </div>
 
-                        <!-- 2. Program Specifications & Terms -->
+                        <!-- 2. Program Specifications -->
                         <div style="margin-bottom: 12px;">
                             <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 4px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px;">2. Program Specifications & Financial Terms</p>
                             <table style="width: 100%; border-collapse: collapse; font-size: 9.5px; line-height: 1.5;">
-                                <tr>
-                                    <td style="padding: 3px 0; width: 30%; color: #64748b;">Proposed Term:</td>
-                                    <td style="padding: 3px 0; font-weight: 600; color: #0f172a;">60 Months</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 3px 0; color: #64748b;">Target Vehicle Type:</td>
-                                    <td style="padding: 3px 0; font-weight: 600; color: #0f172a;">5-7 Seater Passenger Vehicles (UberGO / UberX / UberXL / Uber Comfort)</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 3px 0; color: #64748b;">Weekly Rental Fee:</td>
-                                    <td style="padding: 3px 0; font-weight: 600; color: #0f172a;">R3,000 per week</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 3px 0; color: #64748b;">Current Driver Rating:</td>
-                                    <td id="pdf-val-rating" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td>
-                                </tr>
+                                <tr><td style="padding: 3px 0; width: 30%; color: #64748b;">Proposed Term:</td><td style="padding: 3px 0; font-weight: 600; color: #0f172a;">60 Months</td></tr>
+                                <tr><td style="padding: 3px 0; color: #64748b;">Target Vehicle Type:</td><td style="padding: 3px 0; font-weight: 600; color: #0f172a;">5-7 Seater Passenger Vehicles (UberGO / UberX / UberXL / Uber Comfort)</td></tr>
+                                <tr><td style="padding: 3px 0; color: #64748b;">Weekly Rental Fee:</td><td style="padding: 3px 0; font-weight: 600; color: #0f172a;">R3,000 per week</td></tr>
+                                <tr><td style="padding: 3px 0; color: #64748b;">Current Driver Rating:</td><td id="pdf-val-rating" style="padding: 3px 0; font-weight: 600; color: #0f172a;">-</td></tr>
                             </table>
                         </div>
 
-                        <!-- 3. Nature of this Document -->
+                        <!-- 3. Nature -->
                         <div style="margin-bottom: 12px;">
                             <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 4px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px;">3. Nature of this Document</p>
-                            <p style="margin: 0 0 4px 0; color: #334155; font-size: 9.5px; text-align: justify; line-height: 1.4;">
-                                The parties acknowledge that this letter of intent is non-binding and does not constitute a definitive lease agreement. Finalization of the lease is strictly contingent upon:
-                            </p>
-                            <p style="margin: 0; color: #334155; font-size: 9.5px; line-height: 1.5; padding-left: 12px;">
-                                <strong>a)</strong> M And K Corporation Pty Ltd securing the necessary commercial vehicle asset financing.<br>
-                                <strong>b)</strong> Successful vetting of the Client’s driver profile, criminal record clearance, and e-hailing operational history.
-                            </p>
+                            <p style="margin: 0 0 4px 0; color: #334155; font-size: 9.5px; text-align: justify; line-height: 1.4;">The parties acknowledge that this letter of intent is non-binding and does not constitute a definitive lease agreement. Finalization of the lease is strictly contingent upon: M And K Corporation Pty Ltd securing the necessary asset financing, and successful vetting of the Client’s driver profile.</p>
                         </div>
 
-                        <!-- 4. Third-Party Information Sharing Consent -->
+                        <!-- 4. Consent -->
                         <div style="margin-bottom: 12px;">
                             <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 4px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px;">4. Third-Party Disclosure & Consent</p>
-                            <p style="margin: 0; color: #334155; font-size: 9.5px; text-align: justify; line-height: 1.4;">
-                                By signing below, the Applicant expressly consents and agrees that M And K Corporation PTY LTD may share their personal information, identification data, contact details, and driver ratings with authorized third-party financial institutions, asset funders, and credit bureaus strictly for the purpose of securing vehicle financing and loan approvals necessary for this program.
-                            </p>
+                            <p style="margin: 0; color: #334155; font-size: 9.5px; text-align: justify; line-height: 1.4;">By signing below, the Applicant expressly consents and agrees that M And K Corporation PTY LTD may share their personal information and driver ratings with authorized third-party financial institutions strictly for the purpose of securing vehicle financing.</p>
                         </div>
 
                         <!-- 5. Declaration -->
                         <div style="margin-bottom: 20px;">
                             <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 4px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px;">5. Declaration & Commitment</p>
-                            <p style="margin: 0; color: #334155; font-size: 9.5px; text-align: justify; line-height: 1.4;">
-                                I confirm my active engagement in the e-hailing industry and my commitment to maintaining high service standards, scheduled weekly vehicle maintenance compliance, and prompt rental payments under the agreed rent-to-own contract structure.
-                            </p>
+                            <p style="margin: 0; color: #334155; font-size: 9.5px; text-align: justify; line-height: 1.4;">I confirm my active engagement in the e-hailing industry and my commitment to maintaining high service standards, scheduled weekly vehicle maintenance compliance, and prompt rental payments.</p>
                         </div>
 
-                        <!-- Signatures Section -->
+                        <!-- Signatures -->
                         <table style="width: 100%; border-collapse: collapse; border-top: 1px solid #cbd5e1; padding-top: 12px;">
                             <tr>
                                 <td style="width: 60%; vertical-align: bottom; padding: 10px 0 0 0;">
@@ -384,72 +273,40 @@
                                 </td>
                                 <td style="width: 40%; vertical-align: bottom; text-align: right; padding: 10px 0 0 0;">
                                     <p style="font-size: 8.5px; color: #94a3b8; margin: 0;">M And K Corporation PTY LTD (Reg: 2026/417012/07)</p>
-                                    <p style="font-size: 8.5px; color: #94a3b8; margin: 2px 0 0 0;">Authorized Fleet Management Portal</p>
                                 </td>
                             </tr>
                         </table>
-                        
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500 print:hidden">
-        <p>&copy; 2026 M And K Corporation PTY LTD (Reg: 2026 / 417012 / 07). All rights reserved.</p>
-    </footer>
-
-    <!-- MODAL POPUP FOR VIEWING BLANK DOCUMENT -->
+    <!-- SAMPLE MODAL CODE -->
     <div id="sample-modal" class="fixed inset-0 z-50 hidden print:hidden">
-        <!-- Backdrop -->
         <div id="modal-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm cursor-pointer transition-opacity"></div>
-        
-        <!-- Modal Panel -->
         <div class="absolute inset-0 flex items-center justify-center p-4 sm:p-6 pointer-events-none">
             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col pointer-events-auto transform transition-all">
-                <!-- Modal Header -->
                 <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50 rounded-t-2xl">
                     <div class="flex items-center space-x-2">
                         <i class="fa-regular fa-file-lines text-indigo-600"></i>
-                        <h3 class="font-semibold text-slate-800 text-sm">Sample Letter of Intent (Preview)</h3>
+                        <h3 class="font-semibold text-slate-800 text-sm">Sample Letter of Intent</h3>
                     </div>
-                    <button type="button" id="close-modal-btn" class="text-slate-400 hover:text-slate-700 bg-white hover:bg-slate-200 rounded-lg p-1.5 transition-colors">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
+                    <button type="button" id="close-modal-btn" class="text-slate-400 hover:text-slate-700 bg-white hover:bg-slate-200 rounded-lg p-1.5"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
-                
-                <!-- Modal Body (Scrollable) -->
-                <div class="p-6 overflow-y-auto text-xs text-slate-700 leading-relaxed font-sans bg-slate-100 rounded-b-2xl shadow-inner">
+                <div class="p-6 overflow-y-auto text-xs text-slate-700 leading-relaxed font-sans bg-slate-100 rounded-b-2xl">
                     <div class="bg-white p-8 border border-slate-200 shadow-sm mx-auto" style="max-width: 210mm;">
                         <h2 class="font-bold text-sm mb-1 text-slate-900 border-b border-indigo-500 pb-2">M AND K CORPORATION PTY LTD <span class="float-right text-indigo-600">LETTER OF INTENT</span></h2>
                         <p class="mb-4 text-[10px] text-slate-500">Reg: 2026 / 417012 / 07</p>
-                        
-                        <p class="font-bold text-slate-900 mb-1">To: Fleet Management & Vehicle Allocation Committee</p>
-                        <p class="mb-4">I, the undersigned applicant, hereby formally submit this Letter of Intent to participate in the vehicle Rent-to-Own program offered by M And K Corporation PTY LTD. My verified driver credentials and performance metrics will be detailed upon form submission.</p>
-                        
+                        <p class="mb-4">I, the undersigned applicant, hereby formally submit this Letter of Intent to participate in the vehicle Rent-to-Own program...</p>
                         <h3 class="font-bold text-indigo-600 border-b border-slate-200 mb-2 pb-1 mt-4">1. Applicant Information</h3>
-                        <p class="mb-4 italic text-slate-500">[Your Name, ID Number, Contact Details, and Address will be populated here automatically upon submission.]</p>
-                        
-                        <h3 class="font-bold text-indigo-600 border-b border-slate-200 mb-2 pb-1 mt-4">2. Program Specifications & Financial Terms</h3>
-                        <ul class="list-disc pl-5 mb-4 space-y-1">
-                            <li><strong>Proposed Term:</strong> 60 Months</li>
-                            <li><strong>Target Vehicle Type:</strong> 5-7 Seater Passenger Vehicles</li>
-                            <li><strong>Weekly Rental Fee:</strong> R3,000 per week</li>
-                            <li><strong>Driver Rating:</strong> [Your specified rating will appear here]</li>
-                        </ul>
-
-                        <h3 class="font-bold text-indigo-600 border-b border-slate-200 mb-2 pb-1 mt-4">3. Nature of this Document</h3>
-                        <p class="mb-4 text-justify">The parties acknowledge that this letter of intent is non-binding and does not constitute a definitive lease agreement. Finalization of the lease is strictly contingent upon M And K Corporation securing asset financing and successful vetting of the applicant's profile.</p>
-
-                        <h3 class="font-bold text-indigo-600 border-b border-slate-200 mb-2 pb-1 mt-4">4. Third-Party Disclosure & Consent</h3>
-                        <p class="mb-4 text-justify">By signing below, the Applicant expressly consents that M And K Corporation PTY LTD may share their personal information with authorized third-party financial institutions strictly for securing vehicle financing.</p>
-
-                        <h3 class="font-bold text-indigo-600 border-b border-slate-200 mb-2 pb-1 mt-4">5. Declaration & Signatures</h3>
-                        <p class="mb-6 text-justify">I confirm my active engagement in the e-hailing industry and commitment to maintaining service standards and prompt rental payments.</p>
-                        
+                        <p class="mb-4 italic text-slate-500">[Your personal details will be populated here]</p>
+                        <h3 class="font-bold text-indigo-600 border-b border-slate-200 mb-2 pb-1 mt-4">2. Program Specifications</h3>
+                        <ul class="list-disc pl-5 mb-4 space-y-1"><li><strong>Proposed Term:</strong> 60 Months</li><li><strong>Target Vehicle:</strong> 5-7 Seater</li><li><strong>Weekly Rental:</strong> R3,000</li></ul>
+                        <p class="mb-4 text-justify mt-6">By signing below, the Applicant expressly consents that their information may be shared strictly for securing vehicle financing.</p>
                         <div class="border-t border-slate-300 pt-4 mt-6">
                             <p class="text-[10px] text-slate-500">Applicant Signature:</p>
-                            <p class="italic text-slate-400 mt-2 mb-1">[Your digital signature will be applied here]</p>
+                            <p class="italic text-slate-400 mt-2 mb-1">[Your digital signature will appear here]</p>
                             <hr class="w-48 border-slate-300">
                         </div>
                     </div>
@@ -463,31 +320,20 @@
             const form = document.getElementById('loi-form');
             const formContainer = document.getElementById('form-container');
             const resultContainer = document.getElementById('result-container');
-            const editBtn = document.getElementById('edit-btn');
-            const printPdfBtn = document.getElementById('print-pdf-btn');
+            const submitBtn = document.getElementById('submit-btn');
             
-            // Modal Elements
-            const modal = document.getElementById('sample-modal');
-            const openModalBtn = document.getElementById('open-modal-btn');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const modalBackdrop = document.getElementById('modal-backdrop');
-
-            // Open/Close Modal Logic
-            openModalBtn.addEventListener('click', () => { modal.classList.remove('hidden'); });
-            closeModalBtn.addEventListener('click', () => { modal.classList.add('hidden'); });
-            modalBackdrop.addEventListener('click', () => { modal.classList.add('hidden'); });
+            // Modal Logic
+            document.getElementById('open-modal-btn').addEventListener('click', () => document.getElementById('sample-modal').classList.remove('hidden'));
+            document.getElementById('close-modal-btn').addEventListener('click', () => document.getElementById('sample-modal').classList.add('hidden'));
+            document.getElementById('modal-backdrop').addEventListener('click', () => document.getElementById('sample-modal').classList.add('hidden'));
             
-            // Signature Elements
+            // Signature Pad Logic
             const canvas = document.getElementById('signature-pad');
             const ctx = canvas.getContext('2d');
-            const clearSignatureBtn = document.getElementById('clear-signature');
-            const signaturePlaceholder = document.getElementById('signature-placeholder');
-
             let signatureDataUrl = '';
             let isDrawing = false;
             let hasSigned = false;
 
-            // Resize canvas resolution for sharpness
             function initCanvas() {
                 const rect = canvas.getBoundingClientRect();
                 canvas.width = rect.width * window.devicePixelRatio;
@@ -505,144 +351,120 @@
 
             function getCoordinates(e) {
                 const rect = canvas.getBoundingClientRect();
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
                 return {
-                    x: clientX - rect.left,
-                    y: clientY - rect.top
+                    x: (e.touches ? e.touches[0].clientX : e.clientX) - rect.left,
+                    y: (e.touches ? e.touches[0].clientY : e.clientY) - rect.top
                 };
             }
 
-            function startPosition(e) {
+            function startDraw(e) {
                 e.preventDefault();
-                isDrawing = true;
-                hasSigned = true;
-                signaturePlaceholder.style.display = 'none';
+                isDrawing = true; hasSigned = true;
+                document.getElementById('signature-placeholder').style.display = 'none';
                 document.getElementById('err-signature').classList.add('hidden');
-                const coords = getCoordinates(e);
-                ctx.beginPath();
-                ctx.moveTo(coords.x, coords.y);
+                const c = getCoordinates(e);
+                ctx.beginPath(); ctx.moveTo(c.x, c.y);
             }
+            function draw(e) { if(!isDrawing) return; e.preventDefault(); const c = getCoordinates(e); ctx.lineTo(c.x, c.y); ctx.stroke(); }
+            function stopDraw(e) { if(!isDrawing) return; e.preventDefault(); isDrawing = false; signatureDataUrl = canvas.toDataURL('image/png'); }
 
-            function draw(e) {
-                if (!isDrawing) return;
-                e.preventDefault();
-                const coords = getCoordinates(e);
-                ctx.lineTo(coords.x, coords.y);
-                ctx.stroke();
-            }
+            canvas.addEventListener('mousedown', startDraw); canvas.addEventListener('mousemove', draw); canvas.addEventListener('mouseup', stopDraw); canvas.addEventListener('mouseleave', stopDraw);
+            canvas.addEventListener('touchstart', startDraw, {passive:false}); canvas.addEventListener('touchmove', draw, {passive:false}); canvas.addEventListener('touchend', stopDraw, {passive:false});
 
-            function endPosition(e) {
-                if (!isDrawing) return;
-                e.preventDefault();
-                isDrawing = false;
-                ctx.beginPath();
-                signatureDataUrl = canvas.toDataURL('image/png');
-            }
-
-            canvas.addEventListener('mousedown', startPosition);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', endPosition);
-            canvas.addEventListener('mouseleave', endPosition);
-
-            canvas.addEventListener('touchstart', startPosition, { passive: false });
-            canvas.addEventListener('touchmove', draw, { passive: false });
-            canvas.addEventListener('touchend', endPosition, { passive: false });
-
-            clearSignatureBtn.addEventListener('click', () => {
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                hasSigned = false;
-                signatureDataUrl = '';
-                signaturePlaceholder.style.display = 'flex';
+            document.getElementById('clear-signature').addEventListener('click', () => {
+                ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                hasSigned = false; signatureDataUrl = ''; document.getElementById('signature-placeholder').style.display = 'flex';
             });
 
-            function getFormattedDate() {
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                return new Date().toLocaleDateString('en-ZA', options);
-            }
-
-            // Form submission handler
+            // Form Submit & PDF Generation
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 let isValid = true;
-
-                const firstName = document.getElementById('firstName');
-                const surname = document.getElementById('surname');
-                const idNumber = document.getElementById('idNumber');
-                const rating = document.getElementById('rating');
-                const contactNumber = document.getElementById('contactNumber');
-                const email = document.getElementById('email');
-                const address = document.getElementById('address');
-                const terms = document.getElementById('terms');
-
-                document.querySelectorAll('.error-msg').forEach(el => el.classList.add('hidden'));
-                document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('border-red-500', 'focus:ring-red-500'));
-
-                if (!firstName.value.trim()) { showError(firstName, 'err-firstName'); isValid = false; }
-                if (!surname.value.trim()) { showError(surname, 'err-surname'); isValid = false; }
-                if (!idNumber.value.trim() || idNumber.value.trim().length < 6) { showError(idNumber, 'err-idNumber'); isValid = false; }
                 
-                const ratingVal = parseFloat(rating.value);
-                if (isNaN(ratingVal) || ratingVal < 1.00 || ratingVal > 5.00) { showError(rating, 'err-rating'); isValid = false; }
+                const fields = ['firstName', 'surname', 'idNumber', 'rating', 'contactNumber', 'email', 'address'];
+                document.querySelectorAll('.error-msg').forEach(el => el.classList.add('hidden'));
+                
+                fields.forEach(id => {
+                    const el = document.getElementById(id);
+                    el.classList.remove('border-red-500');
+                    if (!el.value.trim()) {
+                        el.classList.add('border-red-500');
+                        document.getElementById(`err-${id}`).classList.remove('hidden');
+                        isValid = false;
+                    }
+                });
 
-                if (!contactNumber.value.trim() || contactNumber.value.trim().length < 8) { showError(contactNumber, 'err-contactNumber'); isValid = false; }
-
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!email.value.trim() || !emailRegex.test(email.value.trim())) { showError(email, 'err-email'); isValid = false; }
-
-                if (!address.value.trim() || address.value.trim().length < 5) { showError(address, 'err-address'); isValid = false; }
-
-                if (!hasSigned || !signatureDataUrl) {
-                    document.getElementById('err-signature').classList.remove('hidden');
-                    isValid = false;
-                }
-
-                if (!terms.checked) {
-                    document.getElementById('err-terms').classList.remove('hidden');
-                    isValid = false;
-                }
-
+                if (!hasSigned) { document.getElementById('err-signature').classList.remove('hidden'); isValid = false; }
+                if (!document.getElementById('terms').checked) { document.getElementById('err-terms').classList.remove('hidden'); isValid = false; }
                 if (!isValid) return;
 
-                // Populate Document Fields
-                const currentDateStr = getFormattedDate();
-                document.getElementById('pdf-date-field').textContent = `Date: ${currentDateStr}`;
-                document.getElementById('pdf-val-name').textContent = `${firstName.value.trim()} ${surname.value.trim()}`;
-                document.getElementById('pdf-val-id').textContent = idNumber.value.trim();
-                document.getElementById('pdf-val-contact').textContent = contactNumber.value.trim();
-                document.getElementById('pdf-val-email').textContent = email.value.trim();
-                document.getElementById('pdf-val-address').textContent = address.value.trim();
-                document.getElementById('pdf-val-rating').textContent = `${ratingVal.toFixed(2)} ★ (Uber / Bolt)`;
-                
-                // Set signature image
+                // 1. Enter Loading State
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i><span class="ml-2">Generating & Sending...</span>';
+                submitBtn.disabled = true;
+
+                // 2. Populate Document
+                document.getElementById('pdf-date-field').textContent = `Date: ${new Date().toLocaleDateString('en-ZA')}`;
+                document.getElementById('pdf-val-name').textContent = `${document.getElementById('firstName').value} ${document.getElementById('surname').value}`;
+                document.getElementById('pdf-val-id').textContent = document.getElementById('idNumber').value;
+                document.getElementById('pdf-val-contact').textContent = document.getElementById('contactNumber').value;
+                document.getElementById('pdf-val-email').textContent = document.getElementById('email').value;
+                document.getElementById('pdf-val-address').textContent = document.getElementById('address').value;
+                document.getElementById('pdf-val-rating').textContent = `${document.getElementById('rating').value} ★`;
                 document.getElementById('pdf-sig-img').src = signatureDataUrl;
-                document.getElementById('pdf-sign-name').textContent = `${firstName.value.trim()} ${surname.value.trim()}`;
+                document.getElementById('pdf-sign-name').textContent = `${document.getElementById('firstName').value} ${document.getElementById('surname').value}`;
 
-                // Switch view
-                formContainer.classList.add('hidden');
+                // Briefly show document off-screen for HTML2PDF to read it
                 resultContainer.classList.remove('hidden');
-                window.scrollTo({ top: 150, behavior: 'smooth' });
+                resultContainer.style.position = 'absolute';
+                resultContainer.style.top = '-9999px';
+
+                // 3. Generate PDF 
+                const printDoc = document.getElementById('print-document');
+                const opt = {
+                    margin: 0, filename: 'LOI_Application.pdf', image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                html2pdf().set(opt).from(printDoc).output('blob').then(function(pdfBlob) {
+                    
+                    // 4. Send Email via Web3Forms
+                    const formData = new FormData();
+                    
+                    // -------- PASTE YOUR WEB3FORMS KEY BELOW --------
+                    formData.append('access_key', '8658f55b-8837-4a31-afc4-f09c9185eca2'); 
+                    // ------------------------------------------------
+                    
+                    formData.append('subject', `New Driver Application: ${document.getElementById('firstName').value} ${document.getElementById('surname').value}`);
+                    formData.append('from_name', 'MK Corp Portal');
+                    formData.append('Applicant Name', `${document.getElementById('firstName').value} ${document.getElementById('surname').value}`);
+                    formData.append('Phone Number', document.getElementById('contactNumber').value);
+                    formData.append('ID Number', document.getElementById('idNumber').value);
+                    formData.append('attachment', pdfBlob, `LOI_${document.getElementById('firstName').value}.pdf`);
+
+                    fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+                    .then(() => {
+                        // Restore Layout and show Success
+                        resultContainer.style.position = 'static';
+                        resultContainer.style.top = 'auto';
+                        formContainer.classList.add('hidden');
+                        window.scrollTo({ top: 150, behavior: 'smooth' });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("There was an issue emailing the document, but your PDF was generated. Please click Print Document.");
+                        resultContainer.style.position = 'static';
+                        resultContainer.style.top = 'auto';
+                        formContainer.classList.add('hidden');
+                    })
+                    .finally(() => {
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                    });
+                });
             });
 
-            function errorInputHighlight(inputEl) {
-                inputEl.classList.add('border-red-500', 'focus:ring-red-500');
-            }
-
-            function showError(inputEl, errorId) {
-                errorInputHighlight(inputEl);
-                document.getElementById(errorId).classList.remove('hidden');
-            }
-
-            editBtn.addEventListener('click', () => {
-                resultContainer.classList.add('hidden');
-                formContainer.classList.remove('hidden');
-                window.scrollTo({ top: 150, behavior: 'smooth' });
-            });
-
-            printPdfBtn.addEventListener('click', () => {
-                window.print();
-            });
+            document.getElementById('print-pdf-btn').addEventListener('click', () => window.print());
         });
     </script>
 </body>

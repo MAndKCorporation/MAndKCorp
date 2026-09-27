@@ -266,25 +266,9 @@
 
     </main>
 
-    <!-- Printable LOI Template Container (Fixed visibility handling for html2canvas) -->
-  <div id="pdf-template-wrapper"
-     style="position: absolute;
-            left: -9999px;
-            top: 0;
-            width: 794px;
-            pointer-events: none;
-            opacity: 0;
-            z-index: -1000;">
-``
-        <div id="pdf-template"
-     style="font-family:'Inter',sans-serif;
-            color:#1e293b;
-            background:#ffffff;
-            padding:10mm;
-            font-size:10px;
-            line-height:1.35;
-            width:190mm;
-            box-sizing:border-box;">
+    <!-- Printable LOI Template Container -->
+    <div id="pdf-template-wrapper" style="position: absolute; left: -9999px; top: 0; width: 794px; pointer-events: none; opacity: 0; z-index: -1000;">
+        <div id="pdf-template" style="font-family:'Inter',sans-serif; color:#1e293b; background:#ffffff; padding:10mm; font-size:10px; line-height:1.35; width:190mm; box-sizing:border-box;">
             
             <!-- Company Header -->
             <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #4f46e5; padding-bottom: 5px; margin-bottom: 6px;">
@@ -563,23 +547,21 @@
                     filename: `Letter_of_Intent_${surname.value.trim()}.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas: {
-    scale: 1,
-    useCORS: true,
-    backgroundColor: "#ffffff",
+                        scale: 1,
+                        useCORS: true,
+                        backgroundColor: "#ffffff",
                         onclone: (clonedDoc) => {
                             const clonedTemplateWrapper = clonedDoc.getElementById('pdf-template-wrapper');
                             if (clonedTemplateWrapper) {
-clonedTemplateWrapper.style.position = 'static';
-clonedTemplateWrapper.style.opacity = '1';
-clonedTemplateWrapper.style.zIndex = 'auto';
-}
+                                clonedTemplateWrapper.style.position = 'static';
+                                clonedTemplateWrapper.style.opacity = '1';
+                                clonedTemplateWrapper.style.zIndex = 'auto';
+                            }
                         }
                     },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                   pagebreak: {
-    mode: ['css']
-}
-`
+                    pagebreak:    { mode: ['css'] }
+                };
 
                 try {
                     // Generate PDF blob and load into iframe viewer

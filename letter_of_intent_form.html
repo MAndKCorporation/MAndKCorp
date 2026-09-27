@@ -12,8 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- html2pdf.js CDN for client-side PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -34,10 +32,33 @@
             }
         }
     </script>
+    <style>
+        /* Print-specific styles to ensure flawless native PDF generation */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print-document, #print-document * {
+                visibility: visible;
+            }
+            #print-document {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .page-break {
+                page-break-after: always;
+                break-after: page;
+            }
+        }
+    </style>
 </head>
 <body class="h-full bg-slate-50 text-slate-800 antialiased flex flex-col justify-between">
 
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 print:hidden">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-200">
@@ -55,10 +76,10 @@
         </div>
     </header>
 
-    <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 print:p-0 print:m-0 print:max-w-none">
         
         <!-- Intro Card -->
-        <div class="mb-8 bg-gradient-to-r from-indigo-900 to-indigo-800 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+        <div class="mb-8 bg-gradient-to-r from-indigo-900 to-indigo-800 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden print:hidden">
             <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-indigo-700 rounded-full opacity-30 pointer-events-none blur-2xl"></div>
             <div class="relative z-10 max-w-xl">
                 <span class="inline-block bg-indigo-700 text-indigo-100 text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Official Document</span>
@@ -70,7 +91,7 @@
         </div>
 
         <!-- Form Container -->
-        <div id="form-container" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all duration-300">
+        <div id="form-container" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 transition-all duration-300 print:hidden">
             <div class="border-b border-slate-100 pb-4 mb-6">
                 <h3 class="text-lg font-semibold text-slate-900">Driver Information Form</h3>
                 <p class="text-xs text-slate-500">All fields are mandatory and will be verified against platform records.</p>
@@ -212,213 +233,196 @@
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-end">
                     <button type="submit" id="submit-btn"
                         class="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-xl text-sm shadow-lg shadow-indigo-200 transition-all flex items-center justify-center space-x-2">
-                        <span>Generate Letter of Intent PDF</span>
-                        <i class="fa-solid fa-file-pdf text-xs"></i>
+                        <span>Generate Letter of Intent</span>
+                        <i class="fa-solid fa-check text-xs"></i>
                     </button>
                 </div>
 
             </form>
         </div>
 
-        <div id="result-container" class="hidden space-y-6">
-            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 sm:p-6 flex items-center space-x-4">
+        <!-- Success & Print Preview Container -->
+        <div id="result-container" class="hidden space-y-6 print:block print:m-0 print:p-0">
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 sm:p-6 flex items-center space-x-4 print:hidden">
                 <div class="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0 shadow-md shadow-emerald-200">
                     <i class="fa-solid fa-check"></i>
                 </div>
                 <div>
-                    <h3 class="text-base font-bold text-emerald-900">PDF Letter of Intent Generated Successfully!</h3>
-                    <p class="text-xs text-emerald-700">Your professional LOI has been compiled into a 2-page PDF with your signature and third-party consent clause. Review the live document preview below or download it directly.</p>
+                    <h3 class="text-base font-bold text-emerald-900">Letter of Intent Ready for Printing & PDF Export!</h3>
+                    <p class="text-xs text-emerald-700">Click the button below to open your system print dialog. Choose <strong>"Save as PDF"</strong> to save your professional document instantly.</p>
                 </div>
             </div>
 
-            <!-- PDF Viewer and Actions Card -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="bg-slate-100 px-6 py-3 border-b border-slate-200 flex items-center justify-between">
-                    <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-file-pdf text-red-500"></i>
-                        <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Live PDF Document Viewer</span>
-                    </div>
-                    <span id="doc-date" class="text-xs text-slate-500 font-medium">Date: 27 September 2026</span>
-                </div>
-                
-                <!-- PDF Object / iframe Viewer Container -->
-                <div class="w-full h-[550px] bg-slate-100 border-b border-slate-200 relative">
-                    <iframe id="pdf-viewer-frame" class="w-full h-full border-0" title="PDF Document Preview"></iframe>
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 print:border-0 print:shadow-none print:p-0">
+                <div class="flex justify-end mb-6 print:hidden">
+                    <button type="button" id="edit-btn"
+                        class="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-medium rounded-xl text-xs mr-3">
+                        <i class="fa-solid fa-pen-to-square mr-1"></i> Edit Details
+                    </button>
+                    <button type="button" id="print-pdf-btn"
+                        class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl text-xs shadow-md shadow-indigo-100 flex items-center space-x-2">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Save as PDF / Print Document</span>
+                    </button>
                 </div>
 
-                <div class="bg-slate-50 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
-                    <button type="button" id="edit-btn"
-                        class="px-5 py-2.5 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-medium rounded-xl text-xs transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <span>Edit Details</span>
-                    </button>
+                <!-- ACTUAL PRINTABLE DOCUMENT (2 Pages) -->
+                <div id="print-document" class="bg-white text-slate-900 font-sans text-xs">
                     
-                    <div class="flex items-center space-x-3 w-full sm:w-auto">
-                        <button type="button" id="download-pdf-btn"
-                            class="flex-1 sm:flex-none px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl text-xs transition-all flex items-center justify-center space-x-2 shadow-md shadow-indigo-100">
-                            <i class="fa-solid fa-download"></i>
-                            <span>Download PDF</span>
-                        </button>
+                    <!-- PAGE 1 -->
+                    <div style="padding: 15mm; min-height: 260mm; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;" class="page-break">
+                        <div>
+                            <!-- Company Header -->
+                            <table style="width: 100%; border-collapse: collapse; border-bottom: 2px solid #4f46e5; padding-bottom: 8px; margin-bottom: 16px;">
+                                <tr>
+                                    <td style="width: 70%; vertical-align: top; padding: 0;">
+                                        <h2 style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 0 0 2px 0;">M AND K CORPORATION PTY LTD</h2>
+                                        <p style="font-size: 8.5px; color: #64748b; margin: 0;">Registration Number: 2026 / 417012 / 07 | Vehicle Rent-to-Own Division</p>
+                                    </td>
+                                    <td style="width: 30%; vertical-align: top; text-align: right; padding: 0;">
+                                        <span style="font-size: 9.5px; font-weight: 700; color: #4f46e5; text-transform: uppercase;">Letter of Intent (LOI)</span>
+                                        <p id="pdf-date-field" style="font-size: 8.5px; color: #64748b; margin: 2px 0 0 0;">Date: 27 September 2026</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Subject line -->
+                            <div style="margin-bottom: 14px;">
+                                <p style="margin: 0 0 2px 0; font-weight: 600; color: #0f172a; font-size: 10.5px;">To: Fleet Management & Vehicle Allocation Committee</p>
+                                <p style="margin: 0 0 8px 0; font-weight: 600; color: #0f172a; font-size: 10.5px;">Subject: Formal Letter of Intent to Participate in Rent-to-Own Program</p>
+                                <p style="margin: 0 0 8px 0;">Dear Fleet Management,</p>
+                                <p style="margin: 0; text-align: justify; line-height: 1.5;">I, the undersigned applicant, hereby formally submit this Letter of Intent to participate in the vehicle Rent-to-Own program offered by <strong>M And K Corporation PTY LTD (Reg: 2026 / 417012 / 07)</strong>. My verified driver credentials and performance metrics are detailed below:</p>
+                            </div>
+
+                            <!-- 1. Applicant Details -->
+                            <div style="margin-bottom: 16px;">
+                                <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 6px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px;">1. Applicant Information</p>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 10px; line-height: 1.6;">
+                                    <tr>
+                                        <td style="padding: 4px 0; width: 30%; color: #64748b;">Full Name & Surname:</td>
+                                        <td id="pdf-val-name" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">ID / Passport Number:</td>
+                                        <td id="pdf-val-id" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">Contact Number:</td>
+                                        <td id="pdf-val-contact" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">Email Address:</td>
+                                        <td id="pdf-val-email" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">Residential Address:</td>
+                                        <td id="pdf-val-address" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- 2. Program Specifications & Terms -->
+                            <div style="margin-bottom: 16px;">
+                                <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 6px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px;">2. Program Specifications & Financial Terms</p>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 10px; line-height: 1.6;">
+                                    <tr>
+                                        <td style="padding: 4px 0; width: 30%; color: #64748b;">Proposed Term:</td>
+                                        <td style="padding: 4px 0; font-weight: 600; color: #0f172a;">60 Months</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">Target Vehicle Type:</td>
+                                        <td style="padding: 4px 0; font-weight: 600; color: #0f172a;">5-7 Seater Passenger Vehicles (UberGO / UberX / UberXL / Uber Comfort)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">Weekly Rental Fee:</td>
+                                        <td style="padding: 4px 0; font-weight: 600; color: #0f172a;">R3,000 per week</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">Current Driver Rating:</td>
+                                        <td id="pdf-val-rating" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div style="text-align: right; font-size: 8.5px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                            Page 1 of 2
+                        </div>
                     </div>
+
+                    <!-- PAGE 2 -->
+                    <div style="padding: 15mm; min-height: 260mm; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <!-- Continuation Header -->
+                            <table style="width: 100%; border-collapse: collapse; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 18px;">
+                                <tr>
+                                    <td style="width: 70%; padding: 0; font-size: 9px; font-weight: 600; color: #64748b;">M And K Corporation PTY LTD — Letter of Intent (Continuation)</td>
+                                    <td style="width: 30%; padding: 0; text-align: right; font-size: 9px; color: #64748b;">Driver Application</td>
+                                </tr>
+                            </table>
+
+                            <!-- 3. Nature of this Document -->
+                            <div style="margin-bottom: 18px;">
+                                <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 6px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px;">3. Nature of this Document</p>
+                                <p style="margin: 0 0 6px 0; color: #334155; font-size: 10px; text-align: justify; line-height: 1.5;">
+                                    The parties acknowledge that this letter of intent is non-binding and does not constitute a definitive lease agreement. Finalization of the lease is strictly contingent upon:
+                                </p>
+                                <p style="margin: 0; color: #334155; font-size: 10px; line-height: 1.6; padding-left: 12px;">
+                                    <strong>a)</strong> M And K Corporation Pty Ltd securing the necessary commercial vehicle asset financing.<br>
+                                    <strong>b)</strong> Successful vetting of the Client’s driver profile, criminal record clearance, and e-hailing operational history.
+                                </p>
+                            </div>
+
+                            <!-- 4. Third-Party Information Sharing Consent -->
+                            <div style="margin-bottom: 18px;">
+                                <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 6px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px;">4. Third-Party Disclosure & Consent</p>
+                                <p style="margin: 0; color: #334155; font-size: 10px; text-align: justify; line-height: 1.5;">
+                                    By signing below, the Applicant expressly consents and agrees that M And K Corporation PTY LTD may share their personal information, identification data, contact details, and driver ratings with authorized third-party financial institutions, asset funders, and credit bureaus strictly for the purpose of securing vehicle financing and loan approvals necessary for this program.
+                                </p>
+                            </div>
+
+                            <!-- 5. Declaration -->
+                            <div style="margin-bottom: 24px;">
+                                <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 6px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px;">5. Declaration & Commitment</p>
+                                <p style="margin: 0; color: #334155; font-size: 10px; text-align: justify; line-height: 1.5;">
+                                    I confirm my active engagement in the e-hailing industry and my commitment to maintaining high service standards, scheduled weekly vehicle maintenance compliance, and prompt rental payments under the agreed rent-to-own contract structure.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <!-- Signatures Section -->
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border-top: 1px solid #cbd5e1; padding-top: 16px;">
+                                <tr>
+                                    <td style="width: 60%; vertical-align: bottom; padding: 0;">
+                                        <p style="font-size: 9px; color: #64748b; margin: 0 0 4px 0;">Applicant Signature:</p>
+                                        <div style="border-bottom: 1px solid #cbd5e1; width: 190px; height: 45px;">
+                                            <img id="pdf-sig-img" src="" alt="Signature" style="max-height: 40px; max-width: 180px; display: block;" />
+                                        </div>
+                                        <p id="pdf-sign-name" style="font-size: 9px; font-weight: 600; color: #0f172a; margin: 4px 0 0 0;">-</p>
+                                    </td>
+                                    <td style="width: 40%; vertical-align: bottom; text-align: right; padding: 0;">
+                                        <p style="font-size: 8.5px; color: #94a3b8; margin: 0;">M And K Corporation PTY LTD (Reg: 2026/417012/07)</p>
+                                        <p style="font-size: 8.5px; color: #94a3b8; margin: 2px 0 0 0;">Authorized Fleet Management Portal</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 30px;">
+                                <span style="font-size: 8.5px; color: #94a3b8;">Official Letter of Intent Document</span>
+                                <span style="font-size: 8.5px; color: #94a3b8;">Page 2 of 2</span>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
 
     </main>
 
-    <!-- 100% Table-Based 2-Page Printable Container (Zero Margins, Strict HTML Tables) -->
-    <div id="pdf-template-wrapper" style="position: absolute; left: 0; top: 0; width: 794px; pointer-events: none; opacity: 0; z-index: -1000; overflow: hidden; margin: 0; padding: 0;">
-        <div id="pdf-template" style="font-family:'Inter',sans-serif; color:#1e293b; background:#ffffff; width: 190mm; box-sizing: border-box; margin: 0; padding: 0;">
-            
-            <!-- PAGE 1 -->
-            <div style="padding: 12mm 12mm 10mm 12mm; font-size: 10px; line-height: 1.4; box-sizing: border-box; margin: 0;">
-                
-                <!-- Company Header Table -->
-                <table style="width: 100%; border-collapse: collapse; border-bottom: 2px solid #4f46e5; padding-bottom: 8px; margin-bottom: 14px;">
-                    <tr>
-                        <td style="width: 70%; vertical-align: top; padding: 0;">
-                            <h2 style="font-size: 14px; font-weight: 700; color: #0f172a; margin: 0 0 2px 0;">M AND K CORPORATION PTY LTD</h2>
-                            <p style="font-size: 8px; color: #64748b; margin: 0;">Registration Number: 2026 / 417012 / 07 | Vehicle Rent-to-Own Division</p>
-                        </td>
-                        <td style="width: 30%; vertical-align: top; text-align: right; padding: 0;">
-                            <span style="font-size: 9px; font-weight: 700; color: #4f46e5; text-transform: uppercase;">Letter of Intent (LOI)</span>
-                            <p id="pdf-date-field" style="font-size: 8px; color: #64748b; margin: 2px 0 0 0;">Date: 27 September 2026</p>
-                        </td>
-                    </tr>
-                </table>
-
-                <!-- Subject line -->
-                <div style="margin-bottom: 12px;">
-                    <p style="margin: 0 0 2px 0; font-weight: 600; color: #0f172a; font-size: 10px;">To: Fleet Management & Vehicle Allocation Committee</p>
-                    <p style="margin: 0 0 6px 0; font-weight: 600; color: #0f172a; font-size: 10px;">Subject: Formal Letter of Intent to Participate in Rent-to-Own Program</p>
-                    <p style="margin: 0 0 6px 0;">Dear Fleet Management,</p>
-                    <p style="margin: 0; text-align: justify;">I, the undersigned applicant, hereby formally submit this Letter of Intent to participate in the vehicle Rent-to-Own program offered by <strong>M And K Corporation PTY LTD (Reg: 2026 / 417012 / 07)</strong>. My verified driver credentials and performance metrics are detailed below:</p>
-                </div>
-
-                <!-- 1. Applicant Details -->
-                <div style="margin-bottom: 14px;">
-                    <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 6px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px;">1. Applicant Information</p>
-                    <table style="width: 100%; border-collapse: collapse; font-size: 9.5px;">
-                        <tr>
-                            <td style="padding: 4px 0; width: 30%; color: #64748b;">Full Name & Surname:</td>
-                            <td id="pdf-val-name" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 0; color: #64748b;">ID / Passport Number:</td>
-                            <td id="pdf-val-id" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 0; color: #64748b;">Contact Number:</td>
-                            <td id="pdf-val-contact" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 0; color: #64748b;">Email Address:</td>
-                            <td id="pdf-val-email" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 0; color: #64748b;">Residential Address:</td>
-                            <td id="pdf-val-address" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <!-- 2. Program Specifications & Terms -->
-                <div style="margin-bottom: 14px;">
-                    <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 6px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px;">2. Program Specifications & Financial Terms</p>
-                    <table style="width: 100%; border-collapse: collapse; font-size: 9.5px;">
-                        <tr>
-                            <td style="padding: 4px 0; width: 30%; color: #64748b;">Proposed Term:</td>
-                            <td style="padding: 4px 0; font-weight: 600; color: #0f172a;">60 Months</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 0; color: #64748b;">Target Vehicle Type:</td>
-                            <td style="padding: 4px 0; font-weight: 600; color: #0f172a;">5-7 Seater Passenger Vehicles (UberGO / UberX / UberXL / Uber Comfort)</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 0; color: #64748b;">Weekly Rental Fee:</td>
-                            <td style="padding: 4px 0; font-weight: 600; color: #0f172a;">R3,000 per week</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 0; color: #64748b;">Current Driver Rating:</td>
-                            <td id="pdf-val-rating" style="padding: 4px 0; font-weight: 600; color: #0f172a;">-</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div style="text-align: right; font-size: 8px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 20px;">
-                    Page 1 of 2
-                </div>
-            </div>
-
-            <!-- PAGE BREAK -->
-            <div style="page-break-after: always; height: 0; margin: 0; padding: 0;"></div>
-
-            <!-- PAGE 2 -->
-            <div style="padding: 12mm 12mm 10mm 12mm; font-size: 10px; line-height: 1.4; box-sizing: border-box; margin: 0;">
-                
-                <!-- Continuation Header Table -->
-                <table style="width: 100%; border-collapse: collapse; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 16px;">
-                    <tr>
-                        <td style="width: 70%; padding: 0; font-size: 8.5px; font-weight: 600; color: #64748b;">M And K Corporation PTY LTD — Letter of Intent (Cont.)</td>
-                        <td style="width: 30%; padding: 0; text-align: right; font-size: 8.5px; color: #64748b;">Driver Application</td>
-                    </tr>
-                </table>
-
-                <!-- 3. Nature of this Document -->
-                <div style="margin-bottom: 16px;">
-                    <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 4px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px;">3. Nature of this Document</p>
-                    <p style="margin: 0; color: #334155; font-size: 9.5px; text-align: justify;">
-                        The parties acknowledge that this letter of intent is non-binding and does not constitute a definitive lease agreement. Finalization of the lease is strictly contingent upon:
-                    </p>
-                    <p style="margin: 4px 0 0 12px; color: #334155; font-size: 9.5px;">
-                        <strong>a)</strong> M And K Corporation Pty Ltd securing the necessary commercial vehicle asset financing.<br>
-                        <strong>b)</strong> Successful vetting of the Client’s driver profile, criminal record clearance, and e-hailing operational history.
-                    </p>
-                </div>
-
-                <!-- 4. Third-Party Information Sharing Consent -->
-                <div style="margin-bottom: 16px;">
-                    <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 4px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px;">4. Third-Party Disclosure & Consent</p>
-                    <p style="margin: 0; color: #334155; font-size: 9.5px; text-align: justify;">
-                        By signing below, the Applicant expressly consents and agrees that M And K Corporation PTY LTD may share their personal information, identification data, contact details, and driver ratings with authorized third-party financial institutions, asset funders, and credit bureaus strictly for the purpose of securing vehicle financing and loan approvals necessary for this program.
-                    </p>
-                </div>
-
-                <!-- 5. Declaration -->
-                <div style="margin-bottom: 24px;">
-                    <p style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 4px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px;">5. Declaration & Commitment</p>
-                    <p style="margin: 0; color: #334155; font-size: 9.5px; text-align: justify;">
-                        I confirm my active engagement in the e-hailing industry and my commitment to maintaining high service standards, scheduled weekly vehicle maintenance compliance, and prompt rental payments under the agreed rent-to-own contract structure.
-                    </p>
-                </div>
-
-                <!-- Signatures Section Table -->
-                <table style="width: 100%; border-collapse: collapse; margin-top: 30px; border-top: 1px solid #cbd5e1; padding-top: 14px;">
-                    <tr>
-                        <td style="width: 60%; vertical-align: bottom; padding: 0;">
-                            <p style="font-size: 8.5px; color: #64748b; margin: 0 0 3px 0;">Applicant Signature:</p>
-                            <div style="border-bottom: 1px solid #cbd5e1; width: 180px; height: 38px;">
-                                <img id="pdf-sig-img" src="" alt="Signature" style="max-height: 35px; max-width: 170px; display: block;" />
-                            </div>
-                            <p id="pdf-sign-name" style="font-size: 8.5px; font-weight: 600; color: #0f172a; margin: 4px 0 0 0;">-</p>
-                        </td>
-                        <td style="width: 40%; vertical-align: bottom; text-align: right; padding: 0;">
-                            <p style="font-size: 8px; color: #94a3b8; margin: 0;">M And K Corporation PTY LTD (Reg: 2026/417012/07)</p>
-                            <p style="font-size: 8px; color: #94a3b8; margin: 2px 0 0 0;">Authorized Fleet Management Portal</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 40px;">
-                    <span style="font-size: 8px; color: #94a3b8;">Official Letter of Intent Document</span>
-                    <span style="font-size: 8px; color: #94a3b8;">Page 2 of 2</span>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500">
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500 print:hidden">
         <p>&copy; 2026 M And K Corporation PTY LTD (Reg: 2026 / 417012 / 07). All rights reserved.</p>
     </footer>
 
@@ -428,8 +432,7 @@
             const formContainer = document.getElementById('form-container');
             const resultContainer = document.getElementById('result-container');
             const editBtn = document.getElementById('edit-btn');
-            const downloadPdfBtn = document.getElementById('download-pdf-btn');
-            const pdfViewerFrame = document.getElementById('pdf-viewer-frame');
+            const printPdfBtn = document.getElementById('print-pdf-btn');
             const docDateSpan = document.getElementById('doc-date');
             
             // Signature Elements
@@ -441,9 +444,8 @@
             let signatureDataUrl = '';
             let isDrawing = false;
             let hasSigned = false;
-            let generatedPdfBlobUrl = '';
 
-            // Resize canvas resolution for sharpness and solid white background
+            // Resize canvas resolution for sharpness
             function initCanvas() {
                 const rect = canvas.getBoundingClientRect();
                 canvas.width = rect.width * window.devicePixelRatio;
@@ -518,8 +520,8 @@
                 return new Date().toLocaleDateString('en-ZA', options);
             }
 
-            // Form submission & PDF Generation handler
-            form.addEventListener('submit', async (e) => {
+            // Form submission handler
+            form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 let isValid = true;
 
@@ -561,7 +563,7 @@
 
                 if (!isValid) return;
 
-                // Populate Hidden PDF Template fields
+                // Populate Document Fields
                 const currentDateStr = getFormattedDate();
                 docDateSpan.textContent = `Date: ${currentDateStr}`;
                 document.getElementById('pdf-date-field').textContent = `Date: ${currentDateStr}`;
@@ -572,54 +574,14 @@
                 document.getElementById('pdf-val-address').textContent = address.value.trim();
                 document.getElementById('pdf-val-rating').textContent = `${ratingVal.toFixed(2)} ★ (Uber / Bolt)`;
                 
-                // Set signature image src
+                // Set signature image
                 document.getElementById('pdf-sig-img').src = signatureDataUrl;
                 document.getElementById('pdf-sign-name').textContent = `${firstName.value.trim()} ${surname.value.trim()}`;
 
-                const element = document.getElementById('pdf-template');
-
-                const opt = {
-                    margin:       0,
-                    filename:     `Letter_of_Intent_${surname.value.trim()}.pdf`,
-                    image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  {
-                        scale: 2,
-                        useCORS: true,
-                        backgroundColor: "#ffffff",
-                        onclone: (clonedDoc) => {
-                            const clonedTemplateWrapper = clonedDoc.getElementById('pdf-template-wrapper');
-                            if (clonedTemplateWrapper) {
-                                clonedTemplateWrapper.style.position = 'static';
-                                clonedTemplateWrapper.style.opacity = '1';
-                                clonedTemplateWrapper.style.zIndex = 'auto';
-                                clonedTemplateWrapper.style.margin = '0';
-                                clonedTemplateWrapper.style.padding = '0';
-                            }
-                        }
-                    },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', margin: 0 },
-                    pagebreak:    { mode: ['css', 'legacy'] }
-                };
-
-                try {
-                    // Generate PDF blob and load into iframe viewer
-                    const pdfWorker = html2pdf().from(element).set(opt);
-                    const pdfBlob = await pdfWorker.output('blob');
-                    
-                    if (generatedPdfBlobUrl) {
-                        URL.revokeObjectURL(generatedPdfBlobUrl);
-                    }
-                    generatedPdfBlobUrl = URL.createObjectURL(pdfBlob);
-                    pdfViewerFrame.src = generatedPdfBlobUrl;
-
-                    // Switch view
-                    formContainer.classList.add('hidden');
-                    resultContainer.classList.remove('hidden');
-                    window.scrollTo({ top: 150, behavior: 'smooth' });
-                } catch (err) {
-                    console.error('PDF Generation error:', err);
-                    alert('An error occurred while generating the PDF. Please try again.');
-                }
+                // Switch view
+                formContainer.classList.add('hidden');
+                resultContainer.classList.remove('hidden');
+                window.scrollTo({ top: 150, behavior: 'smooth' });
             });
 
             function errorInputHighlight(inputEl) {
@@ -628,7 +590,7 @@
 
             function showError(inputEl, errorId) {
                 errorInputHighlight(inputEl);
-                document.getElementById(errorId).classList.add('border-red-500');
+                document.getElementById(errorId).classList.remove('hidden');
             }
 
             editBtn.addEventListener('click', () => {
@@ -637,14 +599,8 @@
                 window.scrollTo({ top: 150, behavior: 'smooth' });
             });
 
-            downloadPdfBtn.addEventListener('click', () => {
-                if (!generatedPdfBlobUrl) return;
-                const a = document.createElement('a');
-                a.href = generatedPdfBlobUrl;
-                a.download = `Letter_of_Intent_${document.getElementById('surname').value.trim()}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+            printPdfBtn.addEventListener('click', () => {
+                window.print();
             });
         });
     </script>

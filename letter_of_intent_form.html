@@ -266,117 +266,118 @@
 
     </main>
 
-    <!-- Clean, Unified Single-Page Printable LOI Template Container -->
+    <!-- Strictly Controlled Single-Page A4 Printable Container -->
     <div id="pdf-template-wrapper" style="position: absolute; left: -9999px; top: 0; width: 794px; pointer-events: none; opacity: 0; z-index: -1000;">
-        <div id="pdf-template" style="font-family:'Inter',sans-serif; color:#1e293b; background:#ffffff; padding:8mm 10mm; font-size:9.5px; line-height:1.3; width:190mm; box-sizing:border-box;">
+        <div id="pdf-template" style="font-family:'Inter',sans-serif; color:#1e293b; background:#ffffff; padding: 6mm 8mm; font-size: 8.5px; line-height: 1.25; width: 190mm; height: 270mm; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
             
-            <!-- Company Header -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #4f46e5; padding-bottom: 4px; margin-bottom: 5px;">
-                <div>
-                    <h2 style="font-size: 12px; font-weight: 700; color: #0f172a; margin: 0 0 1px 0;">M AND K CORPORATION PTY LTD</h2>
-                    <p style="font-size: 7.5px; color: #64748b; margin: 0;">Registration Number: 2026 / 417012 / 07</p>
-                    <p style="font-size: 7.5px; color: #64748b; margin: 1px 0 0 0;">Vehicle Rent-to-Own & Fleet Management Division</p>
-                </div>
-                <div style="text-align: right;">
-                    <span style="font-size: 8px; font-weight: 700; color: #4f46e5; text-transform: uppercase;">Letter of Intent (LOI)</span>
-                    <p id="pdf-date-field" style="font-size: 7.5px; color: #64748b; margin: 1px 0 0 0;">Date: 27 September 2026</p>
-                </div>
-            </div>
-
-            <!-- Subject line -->
-            <div style="margin-bottom: 4px;">
-                <p style="margin: 0 0 1px 0; font-weight: 600; color: #0f172a; font-size: 9px;">To: Fleet Management & Vehicle Allocation Committee</p>
-                <p style="margin: 0 0 3px 0; font-weight: 600; color: #0f172a; font-size: 9px;">Subject: Formal Letter of Intent to Participate in Rent-to-Own Program</p>
-                <p style="margin: 0 0 2px 0;">Dear Fleet Management,</p>
-                <p style="margin: 0 0 4px 0; text-align: justify;">I, the undersigned applicant, hereby formally submit this Letter of Intent to participate in the vehicle Rent-to-Own program offered by <strong>M And K Corporation PTY LTD (Reg: 2026 / 417012 / 07)</strong>. My verified driver credentials and performance metrics are detailed below:</p>
-            </div>
-
-            <!-- 1. Applicant Details -->
-            <div style="margin-bottom: 4px;">
-                <p style="font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 2px 0;">1. Applicant Information</p>
-                <table style="width: 100%; border-collapse: collapse; font-size: 8.5px;">
-                    <tr>
-                        <td style="padding: 1px 0; width: 28%; color: #64748b;">Full Name & Surname:</td>
-                        <td id="pdf-val-name" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 1px 0; color: #64748b;">ID / Passport Number:</td>
-                        <td id="pdf-val-id" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 1px 0; color: #64748b;">Contact Number:</td>
-                        <td id="pdf-val-contact" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 1px 0; color: #64748b;">Email Address:</td>
-                        <td id="pdf-val-email" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 1px 0; color: #64748b;">Residential Address:</td>
-                        <td id="pdf-val-address" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- 2. Program Specifications & Terms -->
-            <div style="margin-bottom: 4px;">
-                <p style="font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 2px 0;">2. Program Specifications & Financial Terms</p>
-                <table style="width: 100%; border-collapse: collapse; font-size: 8.5px;">
-                    <tr>
-                        <td style="padding: 1px 0; width: 28%; color: #64748b;">Proposed Term:</td>
-                        <td style="padding: 1px 0; font-weight: 600; color: #0f172a;">60 Months</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 1px 0; color: #64748b;">Target Vehicle Type:</td>
-                        <td style="padding: 1px 0; font-weight: 600; color: #0f172a;">5-7 Seater Passenger Vehicles (UberGO / UberX / UberXL / Uber Comfort)</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 1px 0; color: #64748b;">Weekly Rental Fee:</td>
-                        <td style="padding: 1px 0; font-weight: 600; color: #0f172a;">R3,000 per week</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 1px 0; color: #64748b;">Current Driver Rating:</td>
-                        <td id="pdf-val-rating" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- 3. Nature of this Document -->
-            <div style="margin-bottom: 4px;">
-                <p style="font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 1px 0;">3. Nature of this Document</p>
-                <p style="margin: 0; color: #334155; font-size: 8px; text-align: justify;">
-                    The parties acknowledge that this letter of intent is non-binding and does not constitute a definitive lease agreement. Finalization is contingent upon asset financing approval and successful driver vetting.
-                </p>
-            </div>
-
-            <!-- 4. Third-Party Information Sharing Consent -->
-            <div style="margin-bottom: 4px;">
-                <p style="font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 1px 0;">4. Third-Party Disclosure & Consent</p>
-                <p style="margin: 0; color: #334155; font-size: 8px; text-align: justify;">
-                    By signing below, the Applicant expressly consents that M And K Corporation PTY LTD may share their personal information and driver credentials with authorized financial institutions, asset funders, and credit bureaus for vehicle financing approvals.
-                </p>
-            </div>
-
-            <!-- 5. Declaration -->
-            <div style="margin-bottom: 5px;">
-                <p style="font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 1px 0;">5. Declaration & Commitment</p>
-                <p style="margin: 0; color: #334155; font-size: 8px; text-align: justify;">
-                    I confirm my active engagement in the e-hailing industry and my commitment to maintaining high service standards, scheduled weekly vehicle maintenance compliance, and prompt rental payments.
-                </p>
-            </div>
-
-            <!-- Signatures Section -->
-            <div style="margin-top: 5px; padding-top: 4px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: flex-end;">
-                <div>
-                    <p style="font-size: 7.5px; color: #64748b; margin: 0 0 1px 0;">Applicant Signature:</p>
-                    <div style="border-bottom: 1px solid #cbd5e1; width: 140px; height: 28px; display: flex; align-items: flex-end;">
-                        <img id="pdf-sig-img" src="" alt="Signature" style="max-height: 24px; max-width: 130px; object-fit: contain; display: block;">
+            <div>
+                <!-- Company Header -->
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #4f46e5; padding-bottom: 3px; margin-bottom: 4px;">
+                    <div>
+                        <h2 style="font-size: 11px; font-weight: 700; color: #0f172a; margin: 0 0 1px 0;">M AND K CORPORATION PTY LTD</h2>
+                        <p style="font-size: 7px; color: #64748b; margin: 0;">Registration Number: 2026 / 417012 / 07 | Vehicle Rent-to-Own Division</p>
                     </div>
-                    <p id="pdf-sign-name" style="font-size: 7.5px; font-weight: 600; color: #0f172a; margin: 2px 0 0 0;">-</p>
+                    <div style="text-align: right;">
+                        <span style="font-size: 7.5px; font-weight: 700; color: #4f46e5; text-transform: uppercase;">Letter of Intent (LOI)</span>
+                        <p id="pdf-date-field" style="font-size: 7px; color: #64748b; margin: 1px 0 0 0;">Date: 27 September 2026</p>
+                    </div>
+                </div>
+
+                <!-- Subject line -->
+                <div style="margin-bottom: 3px;">
+                    <p style="margin: 0 0 1px 0; font-weight: 600; color: #0f172a; font-size: 8.5px;">To: Fleet Management & Vehicle Allocation Committee</p>
+                    <p style="margin: 0 0 2px 0; font-weight: 600; color: #0f172a; font-size: 8.5px;">Subject: Formal Letter of Intent to Participate in Rent-to-Own Program</p>
+                    <p style="margin: 0 0 2px 0;">Dear Fleet Management,</p>
+                    <p style="margin: 0 0 3px 0; text-align: justify;">I, the undersigned applicant, hereby formally submit this Letter of Intent to participate in the vehicle Rent-to-Own program offered by <strong>M And K Corporation PTY LTD (Reg: 2026 / 417012 / 07)</strong>. My verified driver credentials and performance metrics are detailed below:</p>
+                </div>
+
+                <!-- 1. Applicant Details -->
+                <div style="margin-bottom: 3px;">
+                    <p style="font-size: 8px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 1px 0;">1. Applicant Information</p>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 8px;">
+                        <tr>
+                            <td style="padding: 1px 0; width: 28%; color: #64748b;">Full Name & Surname:</td>
+                            <td id="pdf-val-name" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1px 0; color: #64748b;">ID / Passport Number:</td>
+                            <td id="pdf-val-id" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1px 0; color: #64748b;">Contact Number:</td>
+                            <td id="pdf-val-contact" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1px 0; color: #64748b;">Email Address:</td>
+                            <td id="pdf-val-email" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1px 0; color: #64748b;">Residential Address:</td>
+                            <td id="pdf-val-address" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 2. Program Specifications & Terms -->
+                <div style="margin-bottom: 3px;">
+                    <p style="font-size: 8px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 1px 0;">2. Program Specifications & Financial Terms</p>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 8px;">
+                        <tr>
+                            <td style="padding: 1px 0; width: 28%; color: #64748b;">Proposed Term:</td>
+                            <td style="padding: 1px 0; font-weight: 600; color: #0f172a;">60 Months</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1px 0; color: #64748b;">Target Vehicle Type:</td>
+                            <td style="padding: 1px 0; font-weight: 600; color: #0f172a;">5-7 Seater Passenger Vehicles (UberGO / UberX / UberXL / Uber Comfort)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1px 0; color: #64748b;">Weekly Rental Fee:</td>
+                            <td style="padding: 1px 0; font-weight: 600; color: #0f172a;">R3,000 per week</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1px 0; color: #64748b;">Current Driver Rating:</td>
+                            <td id="pdf-val-rating" style="padding: 1px 0; font-weight: 600; color: #0f172a;">-</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 3. Nature of this Document -->
+                <div style="margin-bottom: 3px;">
+                    <p style="font-size: 8px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 1px 0;">3. Nature of this Document</p>
+                    <p style="margin: 0; color: #334155; font-size: 7.5px; text-align: justify;">
+                        The parties acknowledge that this letter of intent is non-binding and does not constitute a definitive lease agreement. Finalization is contingent upon asset financing approval and successful driver vetting.
+                    </p>
+                </div>
+
+                <!-- 4. Third-Party Information Sharing Consent -->
+                <div style="margin-bottom: 3px;">
+                    <p style="font-size: 8px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 1px 0;">4. Third-Party Disclosure & Consent</p>
+                    <p style="margin: 0; color: #334155; font-size: 7.5px; text-align: justify;">
+                        By signing below, the Applicant expressly consents that M And K Corporation PTY LTD may share their personal information and driver credentials with authorized financial institutions, asset funders, and credit bureaus for vehicle financing approvals.
+                    </p>
+                </div>
+
+                <!-- 5. Declaration -->
+                <div style="margin-bottom: 3px;">
+                    <p style="font-size: 8px; font-weight: 700; text-transform: uppercase; color: #4f46e5; margin: 0 0 1px 0;">5. Declaration & Commitment</p>
+                    <p style="margin: 0; color: #334155; font-size: 7.5px; text-align: justify;">
+                        I confirm my active engagement in the e-hailing industry and my commitment to maintaining high service standards, scheduled weekly vehicle maintenance compliance, and prompt rental payments.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Signatures Section (Pinned nicely at the bottom) -->
+            <div style="border-top: 1px solid #cbd5e1; padding-top: 4px; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <p style="font-size: 7px; color: #64748b; margin: 0 0 1px 0;">Applicant Signature:</p>
+                    <div style="border-bottom: 1px solid #cbd5e1; width: 130px; height: 24px; display: flex; align-items: flex-end;">
+                        <img id="pdf-sig-img" src="" alt="Signature" style="max-height: 22px; max-width: 120px; object-fit: contain; display: block;">
+                    </div>
+                    <p id="pdf-sign-name" style="font-size: 7px; font-weight: 600; color: #0f172a; margin: 2px 0 0 0;">-</p>
                 </div>
                 <div style="text-align: right;">
-                    <p style="font-size: 7px; color: #94a3b8; margin: 0;">M And K Corporation PTY LTD (Reg: 2026/417012/07)</p>
-                    <p style="font-size: 7px; color: #94a3b8; margin: 1px 0 0 0;">Authorized Fleet Management Portal</p>
+                    <p style="font-size: 6.5px; color: #94a3b8; margin: 0;">M And K Corporation PTY LTD (Reg: 2026/417012/07)</p>
+                    <p style="font-size: 6.5px; color: #94a3b8; margin: 1px 0 0 0;">Authorized Fleet Management Portal</p>
                 </div>
             </div>
 
@@ -539,11 +540,11 @@
                 const element = document.getElementById('pdf-template');
 
                 const opt = {
-                    margin:       [2, 2, 2, 2],
+                    margin:       [0, 0, 0, 0],
                     filename:     `Letter_of_Intent_${surname.value.trim()}.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas:  {
-                        scale: 2,
+                        scale: 1.5,
                         useCORS: true,
                         backgroundColor: "#ffffff",
                         onclone: (clonedDoc) => {

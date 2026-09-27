@@ -419,32 +419,33 @@
                 resultContainer.style.position = 'absolute';
                 resultContainer.style.top = '-9999px';
 
-                // 3. Generate PDF 
+                // 3. Generate PDF & Send via Google Apps Script
                 const printDoc = document.getElementById('print-document');
                 const opt = {
                     margin: 0, filename: 'LOI_Application.pdf', image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                html2pdf().set(opt).from(printDoc).output('blob').then(function(pdfBlob) {
+                html2pdf().set(opt).from(printDoc).output('datauristring').then(function(pdfDataUri) {
                     
-                    // 4. Send Email via Web3Forms
-                    const formData = new FormData();
-                    
-                    // -------- PASTE YOUR WEB3FORMS KEY BELOW --------
-                    formData.append('access_key', '8658f55b-8837-4a31-afc4-f09c9185eca2'); 
-                    // ------------------------------------------------
-                    
-                    formData.append('subject', `New Driver Application: ${document.getElementById('firstName').value} ${document.getElementById('surname').value}`);
-                    formData.append('from_name', 'MK Corp Portal');
-                    formData.append('Applicant Name', `${document.getElementById('firstName').value} ${document.getElementById('surname').value}`);
-                    formData.append('Phone Number', document.getElementById('contactNumber').value);
-                    formData.append('ID Number', document.getElementById('idNumber').value);
-                    formData.append('attachment', pdfBlob, `LOI_${document.getElementById('firstName').value}.pdf`);
+                    const payload = {
+                        name: `${document.getElementById('firstName').value} ${document.getElementById('surname').value}`,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('contactNumber').value,
+                        idNumber: document.getElementById('idNumber').value,
+                        pdfBase64: pdfDataUri
+                    };
 
-                    fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+                    // -------- PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW --------
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxHM03gQIzjGVO3ih5-q0PC9EHDkPywQATyX5seVHXHIKUjNQfC8v4T36NaQdwK62Jtiw/exec';
+                    // -----------------------------------------------------------------
+
+                    fetch(scriptURL, { 
+                        method: 'POST', 
+                        mode: 'no-cors', 
+                        body: JSON.stringify(payload) 
+                    })
                     .then(() => {
-                        // Restore Layout and show Success
                         resultContainer.style.position = 'static';
                         resultContainer.style.top = 'auto';
                         formContainer.classList.add('hidden');
@@ -452,7 +453,7 @@
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert("There was an issue emailing the document, but your PDF was generated. Please click Print Document.");
+                        alert("There was an issue emailing the document, but your PDF was generated. Please use the Print Document button.");
                         resultContainer.style.position = 'static';
                         resultContainer.style.top = 'auto';
                         formContainer.classList.add('hidden');

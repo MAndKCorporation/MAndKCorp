@@ -419,50 +419,52 @@
                 resultContainer.style.position = 'absolute';
                 resultContainer.style.top = '-9999px';
 
-                // 3. Generate PDF & Send via Google Apps Script
-                const printDoc = document.getElementById('print-document');
-                const opt = {
-                    margin: 0, filename: 'LOI_Application.pdf', image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
-
-                html2pdf().set(opt).from(printDoc).output('datauristring').then(function(pdfDataUri) {
-                    
-                    const payload = {
-                        name: `${document.getElementById('firstName').value} ${document.getElementById('surname').value}`,
-                        email: document.getElementById('email').value,
-                        phone: document.getElementById('contactNumber').value,
-                        idNumber: document.getElementById('idNumber').value,
-                        pdfBase64: pdfDataUri
+                // 3. Add a slight delay to allow the signature image to fully render before PDF capture
+                setTimeout(() => {
+                    const printDoc = document.getElementById('print-document');
+                    const opt = {
+                        margin: 0, filename: 'LOI_Application.pdf', image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                     };
 
-                    // -------- PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW --------
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxHM03gQIzjGVO3ih5-q0PC9EHDkPywQATyX5seVHXHIKUjNQfC8v4T36NaQdwK62Jtiw/exec';
-                    // -----------------------------------------------------------------
+                    html2pdf().set(opt).from(printDoc).output('datauristring').then(function(pdfDataUri) {
+                        
+                        const payload = {
+                            name: `${document.getElementById('firstName').value} ${document.getElementById('surname').value}`,
+                            email: document.getElementById('email').value,
+                            phone: document.getElementById('contactNumber').value,
+                            idNumber: document.getElementById('idNumber').value,
+                            pdfBase64: pdfDataUri
+                        };
 
-                    fetch(scriptURL, { 
-                        method: 'POST', 
-                        mode: 'no-cors', 
-                        body: JSON.stringify(payload) 
-                    })
-                    .then(() => {
-                        resultContainer.style.position = 'static';
-                        resultContainer.style.top = 'auto';
-                        formContainer.classList.add('hidden');
-                        window.scrollTo({ top: 150, behavior: 'smooth' });
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert("There was an issue emailing the document, but your PDF was generated. Please use the Print Document button.");
-                        resultContainer.style.position = 'static';
-                        resultContainer.style.top = 'auto';
-                        formContainer.classList.add('hidden');
-                    })
-                    .finally(() => {
-                        submitBtn.innerHTML = originalBtnText;
-                        submitBtn.disabled = false;
+                        // -------- PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW --------
+                        const scriptURL = 'https://script.google.com/macros/s/AKfycbxHM03gQIzjGVO3ih5-q0PC9EHDkPywQATyX5seVHXHIKUjNQfC8v4T36NaQdwK62Jtiw/exec';
+                        // -----------------------------------------------------------------
+
+                        fetch(scriptURL, { 
+                            method: 'POST', 
+                            mode: 'no-cors', 
+                            body: JSON.stringify(payload) 
+                        })
+                        .then(() => {
+                            resultContainer.style.position = 'static';
+                            resultContainer.style.top = 'auto';
+                            formContainer.classList.add('hidden');
+                            window.scrollTo({ top: 150, behavior: 'smooth' });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert("There was an issue emailing the document, but your PDF was generated. Please use the Print Document button.");
+                            resultContainer.style.position = 'static';
+                            resultContainer.style.top = 'auto';
+                            formContainer.classList.add('hidden');
+                        })
+                        .finally(() => {
+                            submitBtn.innerHTML = originalBtnText;
+                            submitBtn.disabled = false;
+                        });
                     });
-                });
+                }, 400); // 400ms delay guarantees the signature image renders successfully in the PDF blob
             });
 
             document.getElementById('print-pdf-btn').addEventListener('click', () => window.print());

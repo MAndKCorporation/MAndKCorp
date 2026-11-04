@@ -53,17 +53,6 @@
 				opacity: 1 !important;
 			}
 
-			/* 3D Canvas Positioning */
-			#canvas-container {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: 1;
-				pointer-events: none;
-			}
-
 			/* WhatsApp Button */
 			.whatsapp-float {
 				position: fixed;
@@ -90,11 +79,12 @@
 				color: #fff !important;
 			}
 
-			/* Header Navigation */
+			/* Header Navigation (No Blue Line) */
 			#header {
 				background: rgba(3, 7, 18, 0.92) !important;
 				backdrop-filter: blur(12px);
-				border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+				border-bottom: none !important;
+				box-shadow: none !important;
 				position: sticky;
 				top: 0;
 				z-index: 100;
@@ -137,6 +127,7 @@
 			#nav {
 				background: transparent;
 				border-top: 1px solid rgba(255, 255, 255, 0.05);
+				border-bottom: none !important;
 			}
 
 			#nav > ul {
@@ -157,6 +148,7 @@
 				border-radius: 6px;
 				transition: all 0.2s ease;
 				text-decoration: none;
+				border-bottom: none !important;
 			}
 
 			#nav ul li.current > a,
@@ -166,15 +158,15 @@
 				border: 1px solid rgba(16, 185, 129, 0.3);
 			}
 
-			/* OVERRIDE LEGACY TEMPLATE BACKGROUND IMAGE PERMANENTLY */
+			/* Banner */
 			#banner {
 				position: relative !important;
-				min-height: 80vh !important;
+				min-height: 75vh !important;
 				display: flex !important;
 				align-items: center !important;
 				justify-content: center !important;
 				text-align: center !important;
-				padding: 90px 20px !important;
+				padding: 80px 20px !important;
 				background-image: none !important;
 				background: #030712 !important;
 			}
@@ -210,7 +202,6 @@
 				margin: 0 auto 15px auto;
 				line-height: 1.2;
 				letter-spacing: -1px;
-				text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 			}
 
 			#banner header p.sub-hero {
@@ -218,7 +209,6 @@
 				max-width: 700px;
 				margin: 0 auto 30px auto;
 				color: #e2e8f0;
-				text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 			}
 
 			.button-glow {
@@ -321,9 +311,7 @@
 
 			/* 3-Column Compact Board of Directors */
 			.board-section {
-				padding: 50px 0;
-				position: relative;
-				z-index: 10;
+				padding: 40px 0 20px 0;
 			}
 
 			.board-grid {
@@ -332,7 +320,6 @@
 				gap: 20px;
 				max-width: 1000px;
 				margin: 0 auto;
-				padding: 0 20px;
 			}
 
 			.board-card-compact {
@@ -364,14 +351,23 @@
 				margin: 0;
 			}
 
-			/* Form & Footer */
+			/* Footer with Embedded 3D EV Canvas Container */
 			#footer {
 				background: #020617 !important;
 				color: var(--text-muted) !important;
 				padding-top: 60px !important;
 				border-top: 1px solid rgba(16, 185, 129, 0.15);
 				position: relative;
-				z-index: 10;
+			}
+
+			#footer-canvas-container {
+				width: 100%;
+				height: 220px;
+				position: relative;
+				margin: 40px 0 20px 0;
+				border-top: 1px solid rgba(16, 185, 129, 0.2);
+				border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+				background: radial-gradient(circle at center, rgba(6, 78, 59, 0.2) 0%, #020617 80%);
 			}
 
 			#footer h3 {
@@ -422,9 +418,6 @@
 				.services-grid, .board-grid {
 					grid-template-columns: repeat(3, 1fr);
 					gap: 12px;
-				}
-				.service-card-compact {
-					padding: 16px 12px;
 				}
 			}
 
@@ -485,9 +478,8 @@
 				</nav>
 			</div>
 
-			<!-- 3D Scene Banner Section -->
+			<!-- Hero Banner -->
 			<section id="banner">
-				<div id="canvas-container"></div>
 				<div class="hero-content">
 					<span class="slogan-badge"><i class="fa-solid fa-bolt"></i> Your Journey. Your Success. Our Commitment.</span>
 					<h2>Pioneering EV Mobility & Youth Employment in South Africa</h2>
@@ -598,6 +590,9 @@
 					</div>
 				</div>
 
+				<!-- Embedded 3D EV Architecture Showcase in Footer -->
+				<div id="footer-canvas-container"></div>
+
 				<ul class="icons" style="margin-top: 30px;">
 					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 					<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
@@ -630,142 +625,127 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 
-		<!-- Three.js Real 3D Car & Eco-City Engine -->
+		<!-- Three.js Real 3D Shaped Car & Eco-Architecture Engine (Footer) -->
 		<script>
-			let scene, camera, renderer, evVehicles = [];
+			let footerScene, footerCamera, footerRenderer, footerEvVehicles = [];
 
-			// Helper function to build a 3D EV Car Model (Chassis, Cabin, Wheels & Lights)
-			function createEVCarMesh() {
+			// Helper function to build shaped 3D EV Cars with Headlights & Taillights
+			function createShapedEVCar() {
 				const carGroup = new THREE.Group();
 
-				// 1. Lower Body Chassis
-				const chassisGeo = new THREE.BoxGeometry(4, 0.8, 2);
-				const chassisMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true });
-				const chassis = new THREE.Mesh(chassisGeo, chassisMat);
-				chassis.position.y = 0.6;
-				carGroup.add(chassis);
+				// Main Aerodynamic Body (Sloped Box)
+				const bodyGeo = new THREE.BoxGeometry(3.6, 0.7, 1.8);
+				const bodyMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true });
+				const body = new THREE.Mesh(bodyGeo, bodyMat);
+				body.position.y = 0.5;
+				carGroup.add(body);
 
-				// 2. Upper Cabin / Roof
-				const cabinGeo = new THREE.BoxGeometry(2.2, 0.7, 1.7);
-				const cabinMat = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true });
-				const cabin = new THREE.Mesh(cabinGeo, cabinMat);
-				cabin.position.set(-0.2, 1.35, 0);
-				carGroup.add(cabin);
+				// Sleek Cabin Roof
+				const roofGeo = new THREE.BoxGeometry(1.8, 0.6, 1.5);
+				const roofMat = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true });
+				const roof = new THREE.Mesh(roofGeo, roofMat);
+				roof.position.set(-0.2, 1.15, 0);
+				carGroup.add(roof);
 
-				// 3. 4 Wheels (Cylinders)
-				const wheelGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.3, 12);
-				const wheelMat = new THREE.MeshBasicMaterial({ color: 0x334155, wireframe: true });
-
-				const wheelPositions = [
-					[1.2, 0.4, 1.0],   // Front Right
-					[1.2, 0.4, -1.0],  // Front Left
-					[-1.2, 0.4, 1.0],  // Rear Right
-					[-1.2, 0.4, -1.0]  // Rear Left
-				];
-
-				wheelPositions.forEach(pos => {
-					const wheel = new THREE.Mesh(wheelGeo, wheelMat);
-					wheel.rotation.x = Math.PI / 2;
-					wheel.position.set(pos[0], pos[1], pos[2]);
-					carGroup.add(wheel);
+				// 4 Wheels
+				const wheelGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.25, 10);
+				const wheelMat = new THREE.MeshBasicMaterial({ color: 0x94a3b8, wireframe: true });
+				const wheelPos = [[1.1, 0.35, 0.9], [1.1, 0.35, -0.9], [-1.1, 0.35, 0.9], [-1.1, 0.35, -0.9]];
+				wheelPos.forEach(p => {
+					const w = new THREE.Mesh(wheelGeo, wheelMat);
+					w.rotation.x = Math.PI / 2;
+					w.position.set(p[0], p[1], p[2]);
+					carGroup.add(w);
 				});
 
-				// 4. Glowing Headlights & Taillights
-				const headlightGeo = new THREE.SphereGeometry(0.15, 8, 8);
-				const headlightMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4 });
-				const hlRight = new THREE.Mesh(headlightGeo, headlightMat);
-				hlRight.position.set(2.0, 0.6, 0.7);
-				const hlLeft = new THREE.Mesh(headlightGeo, headlightMat);
-				hlLeft.position.set(2.0, 0.6, -0.7);
-				carGroup.add(hlRight);
-				carGroup.add(hlLeft);
+				// Glowing Headlights (Cyan) & Taillights (Amber)
+				const lightGeo = new THREE.SphereGeometry(0.12, 8, 8);
+				
+				const hlMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4 });
+				const hl1 = new THREE.Mesh(lightGeo, hlMat); hl1.position.set(1.8, 0.5, 0.6);
+				const hl2 = new THREE.Mesh(lightGeo, hlMat); hl2.position.set(1.8, 0.5, -0.6);
+				carGroup.add(hl1); carGroup.add(hl2);
+
+				const tlMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
+				const tl1 = new THREE.Mesh(lightGeo, tlMat); tl1.position.set(-1.8, 0.5, 0.6);
+				const tl2 = new THREE.Mesh(lightGeo, tlMat); tl2.position.set(-1.8, 0.5, -0.6);
+				carGroup.add(tl1); carGroup.add(tl2);
 
 				return carGroup;
 			}
 
-			function init4D() {
-				const container = document.getElementById('canvas-container');
+			function initFooter3D() {
+				const container = document.getElementById('footer-canvas-container');
 				if(!container) return;
 
-				scene = new THREE.Scene();
-				camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
-				camera.position.set(0, 18, 38);
-				camera.lookAt(0, 0, 0);
+				footerScene = new THREE.Scene();
+				footerCamera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 500);
+				footerCamera.position.set(0, 12, 28);
+				footerCamera.lookAt(0, 0, 0);
 
-				renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-				renderer.setSize(window.innerWidth, window.innerHeight);
-				renderer.setPixelRatio(window.devicePixelRatio);
-				container.appendChild(renderer.domElement);
+				footerRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+				footerRenderer.setSize(container.clientWidth, container.clientHeight);
+				footerRenderer.setPixelRatio(window.devicePixelRatio);
+				container.appendChild(footerRenderer.domElement);
 
-				// Grid Ground
-				const gridHelper = new THREE.GridHelper(120, 50, 0x10b981, 0x064e3b);
-				gridHelper.position.y = -0.5;
-				scene.add(gridHelper);
+				// Grid Floor
+				const grid = new THREE.GridHelper(80, 30, 0x10b981, 0x064e3b);
+				grid.position.y = -0.2;
+				footerScene.add(grid);
 
-				// Create multiple 3D EV Cars moving on roads
-				const laneZ = [-12, -4, 4, 12];
-				for(let i = 0; i < 6; i++) {
-					const car = createEVCarMesh();
-					const lane = laneZ[i % laneZ.length];
-					const startX = (Math.random() - 0.5) * 80;
+				// Add 4 shaped EV cars moving across footer
+				const lanes = [-6, 2];
+				for(let i = 0; i < 4; i++) {
+					const car = createShapedEVCar();
+					const lane = lanes[i % lanes.length];
+					const startX = (Math.random() - 0.5) * 60;
 					car.position.set(startX, 0, lane);
 					
-					// Direction based on lane
-					const direction = (i % 2 === 0) ? 1 : -1;
-					if(direction === -1) car.rotation.y = Math.PI;
+					const dir = (i % 2 === 0) ? 1 : -1;
+					if(dir === -1) car.rotation.y = Math.PI;
 
-					scene.add(car);
-					evVehicles.push({ mesh: car, speed: (0.12 + Math.random() * 0.08) * direction });
+					footerScene.add(car);
+					footerEvVehicles.push({ mesh: car, speed: (0.08 + Math.random() * 0.05) * dir });
 				}
 
-				// Create 3D Trees & Solar Hubs along roads
-				for(let i = 0; i < 10; i++) {
-					const treeGroup = new THREE.Group();
-					const trunkGeo = new THREE.CylinderGeometry(0.15, 0.25, 1.8);
-					const trunkMat = new THREE.MeshBasicMaterial({ color: 0x064e3b });
-					const trunk = new THREE.Mesh(trunkGeo, trunkMat);
-					trunk.position.y = 0.9;
-					treeGroup.add(trunk);
+				// Add Solar Charging Trees in Footer Scene
+				for(let i = 0; i < 6; i++) {
+					const tree = new THREE.Group();
+					const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.2, 1.5), new THREE.MeshBasicMaterial({ color: 0x064e3b }));
+					trunk.position.y = 0.75;
+					tree.add(trunk);
+					const leaves = new THREE.Mesh(new THREE.ConeGeometry(0.9, 2, 5), new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true }));
+					leaves.position.y = 2.2;
+					tree.add(leaves);
 
-					const foliageGeo = new THREE.ConeGeometry(1.2, 2.5, 6);
-					const foliageMat = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true });
-					const foliage = new THREE.Mesh(foliageGeo, foliageMat);
-					foliage.position.y = 2.8;
-					treeGroup.add(foliage);
-
-					const side = (i % 2 === 0) ? 22 : -22;
-					treeGroup.position.set((Math.random() - 0.5) * 80, 0, side + (Math.random() - 0.5) * 6);
-					scene.add(treeGroup);
+					tree.position.set((Math.random() - 0.5) * 60, 0, (i % 2 === 0) ? 12 : -12);
+					footerScene.add(tree);
 				}
 
-				window.addEventListener('resize', onWindowResize);
-				animate();
-			}
-
-			function onWindowResize() {
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-				renderer.setSize(window.innerWidth, window.innerHeight);
-			}
-
-			function animate() {
-				requestAnimationFrame(animate);
-
-				// Drive EV Vehicles along X-axis
-				evVehicles.forEach(ev => {
-					ev.mesh.position.x += ev.speed;
-					if(ev.speed > 0 && ev.mesh.position.x > 45) {
-						ev.mesh.position.x = -45;
-					} else if(ev.speed < 0 && ev.mesh.position.x < -45) {
-						ev.mesh.position.x = 45;
-					}
+				window.addEventListener('resize', () => {
+					if(!container) return;
+					footerCamera.aspect = container.clientWidth / container.clientHeight;
+					footerCamera.updateProjectionMatrix();
+					footerRenderer.setSize(container.clientWidth, container.clientHeight);
 				});
 
-				scene.rotation.y += 0.001;
-				renderer.render(scene, camera);
+				animateFooter();
 			}
 
-			window.addEventListener('DOMContentLoaded', init4D);
+			function animateFooter() {
+				requestAnimationFrame(animateFooter);
+
+				footerEvVehicles.forEach(ev => {
+					ev.mesh.position.x += ev.speed;
+					if(ev.speed > 0 && ev.mesh.position.x > 35) ev.mesh.position.x = -35;
+					if(ev.speed < 0 && ev.mesh.position.x < -35) ev.mesh.position.x = 35;
+				});
+
+				footerScene.rotation.y += 0.0008;
+				footerRenderer.render(footerScene, footerCamera);
+			}
+
+			window.addEventListener('DOMContentLoaded', initFooter3D);
 
 			// LOI Link Interceptor
 			document.getElementById('loi-link').addEventListener('click', function(e) {

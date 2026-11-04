@@ -1,225 +1,745 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 	<head>
-		<title>About Us - M AND K CORPORATION (PTY) LTD</title>
+		<title>About Us | M AND K CORPORATION (PTY) LTD</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="description" content="Learn about M AND K Corporation (Pty) Ltd — founded by 3 young entrepreneurs from Cape Town dedicated to solving youth unemployment and fuel challenges through the Green Economy." />
+		<meta name="keywords" content="M And K Corporation, About Us, Cape Town Entrepreneurs, Youth Unemployment, Green Economy South Africa, EV Fleet Leasing" />
+		<meta name="robots" content="index, follow" />
+		
+		<!-- Favicon Setup -->
+		<link rel="icon" href="images/logo1.jpeg" type="image/jpeg" sizes="48x48" />
+		<link rel="apple-touch-icon" href="images/logo1.jpeg" />
+		<meta name="google-site-verification" content="ywZyrobTieXK6nIrSvxVIWGjIZLcoyOp43exTFDae08" />
+		
+		<!-- Font Awesome, Google Fonts & Three.js 3D Engine -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 		<link rel="stylesheet" href="assets/css/main.css" />
+		
 		<style>
-			/* WhatsApp Floating Button Styling - Fully Isolated */
-			a.whatsapp-float {
-				position: fixed !important;
-				width: 60px !important;
-				height: 60px !important;
-				bottom: 40px !important;
-				right: 40px !important;
-				background-color: #25d366 !important;
+			:root {
+				--emerald-primary: #10b981;
+				--emerald-dark: #064e3b;
+				--cyan-accent: #06b6d4;
+				--solar-gold: #f59e0b;
+				--dark-bg: #030712;
+				--card-bg: rgba(15, 23, 42, 0.85);
+				--card-border: rgba(16, 185, 129, 0.25);
+				--text-light: #f8fafc;
+				--text-muted: #94a3b8;
+				--radius: 14px;
+				--shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.15);
+			}
+
+			*, *:before, *:after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				font-family: 'Plus Jakarta Sans', sans-serif !important;
+				background-color: var(--dark-bg) !important;
+				color: var(--text-muted) !important;
+				line-height: 1.6;
+				overflow-x: hidden;
+				display: block !important;
+				visibility: visible !important;
+				opacity: 1 !important;
+			}
+
+			/* Floating WhatsApp Button */
+			.whatsapp-float {
+				position: fixed;
+				width: 56px;
+				height: 56px;
+				bottom: 25px;
+				right: 25px;
+				background: linear-gradient(135deg, #25d366, #128c7e);
 				color: #fff !important;
-				border-radius: 50px !important;
-				text-align: center !important;
-				font-size: 30px !important;
-				box-shadow: 2px 2px 3px #999 !important;
-				z-index: 9999 !important;
+				border-radius: 50%;
+				text-align: center;
+				font-size: 26px;
+				box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+				z-index: 999;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-decoration: none;
+				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+			.whatsapp-float:hover {
+				transform: translateY(-5px) scale(1.05);
+				box-shadow: 0 15px 30px rgba(37, 211, 102, 0.5);
+				color: #fff !important;
+			}
+
+			/* Header Navigation */
+			#header {
+				background: rgba(3, 7, 18, 0.92) !important;
+				backdrop-filter: blur(12px);
+				border-bottom: none !important;
+				box-shadow: none !important;
+				position: sticky;
+				top: 0;
+				z-index: 100;
+				padding: 0 !important;
+			}
+
+			#header .header-brand {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 12px 25px;
+			}
+
+			#header .logo-left img {
+				height: 55px;
+				width: auto;
+				border-radius: 8px;
+			}
+
+			#header .header-brand h1 {
+				margin: 0;
+				font-size: 1.3rem;
+				font-weight: 800;
+				font-family: 'Space Grotesk', sans-serif;
+			}
+
+			#header .header-brand h1 a {
+				color: #ffffff !important;
+				text-decoration: none !important;
+			}
+
+			#header .header-brand h1 em {
+				color: var(--emerald-primary) !important;
+				font-style: normal;
+				font-size: 0.85em;
+			}
+
+			#nav {
+				background: transparent;
+				border-top: 1px solid rgba(255, 255, 255, 0.05);
+				border-bottom: none !important;
+			}
+
+			#nav > ul {
+				display: flex !important;
+				justify-content: center;
+				align-items: center;
+				gap: 10px;
+				padding: 8px 0;
+				margin: 0;
+				list-style: none;
+			}
+
+			#nav ul li a {
+				color: var(--text-light) !important;
+				font-weight: 600;
+				font-size: 0.88rem;
+				padding: 6px 14px !important;
+				border-radius: 6px;
+				transition: all 0.2s ease;
+				text-decoration: none;
+			}
+
+			#nav ul li.current > a,
+			#nav ul li:hover > a {
+				background: rgba(16, 185, 129, 0.15) !important;
+				color: var(--emerald-primary) !important;
+				border: 1px solid rgba(16, 185, 129, 0.3);
+			}
+
+			/* Banner / Header Hero */
+			#banner {
+				position: relative !important;
+				min-height: 50vh !important;
 				display: flex !important;
 				align-items: center !important;
 				justify-content: center !important;
-				text-decoration: none !important;
-				transition: transform 0.3s ease !important;
+				text-align: center !important;
+				padding: 80px 20px !important;
+				background-image: none !important;
+				background: #030712 !important;
 			}
-			a.whatsapp-float:hover {
-				transform: scale(1.1) !important;
-				color: #fff !important;
+
+			#banner .hero-content {
+				position: relative;
+				z-index: 10;
+				max-width: 900px;
 			}
-			/* Restores template icon defaults */
-			.box.highlight i.major {
-				display: inline-block !important;
-				position: relative !important;
-				width: auto !important;
-				height: auto !important;
-				background: none !important;
-				box-shadow: none !important;
+
+			.slogan-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				background: rgba(16, 185, 129, 0.15);
+				backdrop-filter: blur(10px);
+				border: 1px solid rgba(16, 185, 129, 0.4);
+				color: var(--emerald-primary);
+				font-size: 0.85rem;
+				font-weight: 700;
+				padding: 6px 20px;
+				border-radius: 50px;
+				margin-bottom: 20px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+			}
+
+			#banner header h2 {
+				font-family: 'Space Grotesk', sans-serif;
+				font-size: 2.8rem !important;
+				font-weight: 700;
+				color: #ffffff !important;
+				margin: 0 auto 15px auto;
+				line-height: 1.2;
+				letter-spacing: -1px;
+			}
+
+			#banner header p.sub-hero {
+				font-size: 1.1rem;
+				max-width: 750px;
+				margin: 0 auto;
+				color: #e2e8f0;
+			}
+
+			/* Content Sections */
+			.about-content-section {
+				padding: 60px 0;
+				background: #030712;
+			}
+
+			.story-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 30px;
+				max-width: 1200px;
+				margin: 0 auto 50px auto;
+				padding: 0 20px;
+			}
+
+			.story-card {
+				background: var(--card-bg);
+				backdrop-filter: blur(12px);
+				border-radius: var(--radius);
+				padding: 35px 30px;
+				border: 1px solid var(--card-border);
+				box-shadow: var(--shadow);
+				transition: all 0.3s ease;
+			}
+
+			.story-card:hover {
+				transform: translateY(-4px);
+				border-color: var(--emerald-primary);
+			}
+
+			.story-card .card-icon {
+				width: 50px;
+				height: 50px;
+				background: rgba(16, 185, 129, 0.12);
+				border: 1px solid rgba(16, 185, 129, 0.3);
+				color: var(--emerald-primary);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.3rem;
+				margin-bottom: 20px;
+			}
+
+			.story-card h3 {
+				color: #ffffff !important;
+				font-weight: 700 !important;
+				font-size: 1.3rem !important;
+				margin-bottom: 12px !important;
+				font-family: 'Space Grotesk', sans-serif;
+			}
+
+			.story-card p {
+				color: var(--text-muted) !important;
+				font-size: 0.95rem;
+				line-height: 1.7;
+			}
+
+			/* 3-Column Compact Board of Directors */
+			.board-section {
+				padding: 40px 0 20px 0;
+			}
+
+			.board-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 20px;
+				max-width: 1000px;
+				margin: 0 auto;
+			}
+
+			.board-card-compact {
+				background: rgba(15, 23, 42, 0.8);
+				backdrop-filter: blur(10px);
+				border-radius: 12px;
+				padding: 24px 18px;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				text-align: center;
+				transition: all 0.3s ease;
+			}
+
+			.board-card-compact:hover {
+				border-color: var(--cyan-accent);
+				transform: translateY(-4px);
+			}
+
+			.board-card-compact .avatar-icon {
+				width: 50px;
+				height: 50px;
+				background: rgba(6, 182, 212, 0.12);
+				border: 1px solid rgba(6, 182, 212, 0.3);
+				color: var(--cyan-accent);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.2rem;
+				margin: 0 auto 15px auto;
+			}
+
+			.board-card-compact h4 {
+				color: #ffffff !important;
+				font-weight: 700;
+				font-size: 1.05rem;
+				margin-bottom: 4px;
+			}
+
+			.board-card-compact p.role {
+				font-style: italic;
+				color: var(--emerald-primary) !important;
+				font-size: 0.82rem;
+				margin-bottom: 12px;
+			}
+
+			.board-card-compact p.desc {
+				font-size: 0.82rem;
+				color: var(--text-muted);
+				line-height: 1.5;
+			}
+
+			/* Footer with Embedded 3D Canvas Container */
+			#footer {
+				background: #020617 !important;
+				color: var(--text-muted) !important;
+				padding-top: 60px !important;
+				border-top: 1px solid rgba(16, 185, 129, 0.15);
+				position: relative;
+			}
+
+			#footer-canvas-container {
+				width: 100%;
+				height: 220px;
+				position: relative;
+				margin: 40px 0 20px 0;
+				border-top: 1px solid rgba(16, 185, 129, 0.2);
+				border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+				background: radial-gradient(circle at center, rgba(6, 78, 59, 0.2) 0%, #020617 80%);
+			}
+
+			#footer h3 {
+				color: #ffffff !important;
+				font-weight: 700 !important;
+				font-size: 1.1rem !important;
+				margin-bottom: 15px !important;
+				border-bottom: 2px solid var(--emerald-primary);
+				display: inline-block;
+				padding-bottom: 4px;
+			}
+
+			#footer p, #footer a {
+				color: #cbd5e1 !important;
+				font-size: 0.9rem;
+			}
+
+			#footer input[type="text"],
+			#footer input[type="email"],
+			#footer textarea {
+				background: rgba(15, 23, 42, 0.8) !important;
+				border: 1px solid rgba(16, 185, 129, 0.2) !important;
+				color: #ffffff !important;
+				border-radius: 8px !important;
+				padding: 10px 14px !important;
+				width: 100%;
+			}
+
+			#footer input[type="text"]:focus,
+			#footer input[type="email"]:focus,
+			#footer textarea:focus {
+				border-color: var(--emerald-primary) !important;
+				outline: none;
+			}
+
+			#footer input[type="submit"] {
+				background: linear-gradient(135deg, var(--emerald-primary), var(--cyan-accent)) !important;
+				color: #030712 !important;
+				font-weight: 800 !important;
+				border-radius: 8px !important;
+				border: none !important;
+				padding: 10px 24px !important;
+				cursor: pointer;
+				transition: all 0.3s ease !important;
+			}
+
+			@media screen and (max-width: 900px) {
+				.story-grid {
+					grid-template-columns: 1fr;
+				}
+				.board-grid {
+					grid-template-columns: repeat(3, 1fr);
+					gap: 12px;
+				}
+			}
+
+			@media screen and (max-width: 640px) {
+				.board-grid {
+					grid-template-columns: 1fr;
+					gap: 15px;
+				}
+				#banner header h2 {
+					font-size: 2rem !important;
+				}
+				#nav > ul {
+					flex-direction: column;
+					gap: 5px;
+				}
 			}
 		</style>
-		
-	<style>
-#header{
-    background:#ffffff !important;
-}
-#header .header-brand{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    height:110px;
-    background:#fff;
-    position:relative;
-}
 
-#header .logo-left{
-    position:absolute;
-    left:20px;
-}
-
-#header .logo-left img{
-    height:85px;
-    width:auto;
-}
-
-#header .header-brand h1{
-    margin:0;
-}
-</style>
-
-</head>
-	<body class="is-preload">
+		<!-- Schema Markup -->
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Organization",
+		  "name": "M And K Corporation (Pty) Ltd",
+		  "url": "https://www.mkcorp.co.za",
+		  "logo": "https://www.mkcorp.co.za/images/logo1.jpeg",
+		  "slogan": "Your Journey, Your Success, Our Commitment"
+		}
+		</script>
+	</head>
+	<body>
 		<div id="page-wrapper">
 
 			<!-- Header -->
-				<div id="header">
-
-					<!-- Logo -->
-<div class="header-brand">
-    <div class="logo-left">
-        <img src="images/logo1.jpeg" alt="M AND K Corporation Logo">
-    </div>
-    <h1><a href="index.html" id="logo">M And K <em>Corporation (PTY) LTD</em></a></h1>
-</div>
-
-<nav id="nav">
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li>
-            <a href="#">Our Services</a>
-            <ul>
-                <li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
-                <li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
-                <li><a href="job-applications.html">Job Applications</a></li>
-            </ul>
-        </li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li class="current"><a href="about-us.html">About Us</a></li>
-    </ul>
-</nav>
-</div>					
-
-			<section class="wrapper style1">
-					<div class="container">
-						<div id="content">
-
-							<article>
-									<header class="major">
-										<h2>Our Journey & Founding</h2>
-										<p>How three visionary directors united to redefine corporate mobility and fleet logistics in South Africa.</p>
-									</header>
-
-									<span class="image featured"><img src="assets/css/images/bannerr.png" alt="M AND K Corporation Fleet" /></span>
-
-									<h3>The Genesis of M AND K Corporation</h3>
-									<p>Founded on a shared vision to bring structural efficiency, safety, and modern scaling models to South Africa's transport sector, M AND K Corporation (Pty) Ltd emerged from a simple realization: the gap between asset management, driver empowerment, and corporate logistics required a more integrated, professional framework.</p>
-									
-									<p>Established formally in May 2026 by three direct stakeholders, the company was built to bridge the disconnect between localized e-hailing networks and enterprise-level logistics requirements. Moving fast from conceptual strategies to official incorporation, we established our roots firmly within Cape Town, setting out to serve corporate clients and operators across the Western Cape with an unyielding standard of professional excellence.</p>
-
-									<h3>What We Do</h3>
-									<p>M AND K Corporation operates as an agile, Level 1 B-BBEE corporate mobility partner specializing in two core pillars:</p>
-									<ul>
-										<li><strong>Strategic Fleet Partnerships:</strong> Bridging the gap between vehicle asset placement and professional driver opportunities. We provide sustainable, high-yield frameworks for operators while offering robust fleet options to meet scalable demands.</li>
-										<li><strong>Corporate Logistics & Logistics:</strong> Delivering point-to-point corporate staff transport and small package courier services using an optimized, high-efficiency fleet.</li>
-									</ul>
-								</article>
-
-						</div>
+			<div id="header">
+				<div class="header-brand">
+					<div class="logo-left">
+						<img src="images/logo1.jpeg" alt="M AND K Corporation Logo - EV Green Economy South Africa">
 					</div>
-				</section>
+					<h1><a href="index.html" id="logo">M And K <em>Corporation (PTY) LTD</em></a></h1>
+				</div>
 
-			<section class="wrapper style2">
-					<div class="container">
-						<header class="major" style="text-align: center; margin-bottom: 3em;">
-							<h2>The Board of Directors</h2>
-							<p>The leadership driving our strategic operations, compliance, and community economic impact.</p>
-						</header>
-						
-						<div class="row gtr-200">
-							<section class="col-4 col-12-narrower" style="text-align: center;">
-								<div class="box highlight" style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 6px;">
-									<i class="icon solid major fa-user-tie" style="color: #1b75bc; font-size: 2.5em; margin-bottom: 0.5em;"></i>
-									<h3 style="color: #1c1c1c; margin-bottom: 0.2em; font-weight: bold;">Mustapha Jacobs</h3>
-									<p style="font-style: italic; color: #ccc; margin-bottom: 1em;">Co-Founder & Managing Director</p>
-									<p style="font-size: 0.95em; line-height: 1.6; text-align: justify;">Directs the overarching corporate strategy, technological deployment, and technical architecture of the corporation's fleet platforms, driving systemic growth and regional expansion.</p>
-								</div>
-							</section>
+				<nav id="nav">
+					<ul style="display: flex !important; visibility: visible !important; opacity: 1 !important;">
+						<li><a href="index.html">Home</a></li>
+						<li class="nav-dropdown-custom">
+							<a href="#" onclick="return false;">Our Services</a>
+							<ul>
+								<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+								<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
+								<li><a href="job-applications.html">Job Applications</a></li>
+							</ul>
+						</li>
+						<li><a href="letter-of-intent.html" id="loi-link" onmousedown="window.location.href='letter-of-intent.html'; return false;" onclick="return false;">Letter of Intent</a></li>
+						<li><a href="contact.html">Contact Us</a></li>
+						<li class="current"><a href="about-us.html">About Us</a></li>
+					</ul>
+				</nav>
+			</div>
 
-							<section class="col-4 col-12-narrower" style="text-align: center;">
-								<div class="box highlight" style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 6px;">
-									<i class="icon solid major fa-chart-line" style="color: #1b75bc; font-size: 2.5em; margin-bottom: 0.5em;"></i>
-									<h3 style="color: #1c1c1c; margin-bottom: 0.2em; font-weight: bold;">Kaylim Clark</h3>
-									<p style="font-style: italic; color: #ccc; margin-bottom: 1em;">Co-Founder & Managing Director</p>
-									<p style="font-size: 0.95em; line-height: 1.6; text-align: justify;">Oversees corporate operational frameworks, driver relation structures, and regional resource scheduling, ensuring high reliability across our localized transport models.</p>
-								</div>
-							</section>
+			<!-- Page Banner -->
+			<section id="banner">
+				<div class="hero-content">
+					<span class="slogan-badge"><i class="fa-solid fa-leaf"></i> Our Origins & Mission</span>
+					<h2>Driven By Purpose. Powered By Youth.</h2>
+					<p class="sub-hero">Three young entrepreneurs from Cape Town uniting to combat youth unemployment and rising fuel costs through sustainable green economy mobility solutions.</p>
+				</div>
+			</section>
 
-							<section class="col-4 col-12-narrower" style="text-align: center;">
-								<div class="box highlight" style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 6px;">
-									<i class="icon solid major fa-shield-alt" style="color: #1b75bc; font-size: 2.5em; margin-bottom: 0.5em;"></i>
-									<h3 style="color: #1c1c1c; margin-bottom: 0.2em; font-weight: bold;">Keathan Kester</h3>
-									<p style="font-style: italic; color: #ccc; margin-bottom: 1em;">Co-Founder & Managing Director</p>
-									<p style="font-size: 0.95em; line-height: 1.6; text-align: justify;">Manages regulatory enterprise compliance, asset safety management, and B-BBEE supplier procurement coordination to build strong, compliant corporate partnerships.</p>
-								</div>
-							</section>
-						</div>
+			<!-- Story Section -->
+			<section class="about-content-section">
+				<div class="story-grid">
+					<div class="story-card">
+						<div class="card-icon"><i class="fa-solid fa-lightbulb"></i></div>
+						<h3>Our Genesis in Cape Town</h3>
+						<p>We are three young entrepreneurs from Cape Town who experienced firsthand the harsh realities facing our generation—widespread youth unemployment coupled with the relentless struggle of constantly increasing petrol prices. Recognizing that traditional transport models were becoming unsustainable, we took action to build a modern solution from the ground up.</p>
 					</div>
-				</section>
 
+					<div class="story-card">
+						<div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
+						<h3>Green Economy Foundation</h3>
+						<p>We established M AND K Corporation around a dual core foundation: driving South Africa's Green Economy and creating tangible pathways out of youth unemployment. By introducing zero-emission EV vehicle leasing, solar charging infrastructure, and flexible driver partnerships, we lower operational costs while keeping South Africa's workforce moving cleanly.</p>
+					</div>
+
+					<div class="story-card">
+						<div class="card-icon"><i class="fa-solid fa-handshake"></i></div>
+						<h3>Youth Driver Empowerment</h3>
+						<p>We bridge the gap between asset ownership and ambitious young drivers. Our rent-to-own models and e-hailing fleet partnerships provide young South Africans with certified training, reliable vehicles, and the tools to build sustainable long-term careers in sustainable logistics.</p>
+					</div>
+
+					<div class="story-card">
+						<div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+						<h3>Level 1 B-BBEE Procurement</h3>
+						<p>As a 100% black-owned Level 1 B-BBEE enterprise, we offer corporate clients 135% procurement recognition. Partnering with us directly empowers Enterprise and Supplier Development (ESD) programs that directly support local youth growth and green transition goals across South Africa.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Footer -->
 			<div id="footer">
-					<div class="container">
-						<div class="row">
-							<section class="col-4 col-12-narrower col-12-mobilep">
-								<h3>M AND K Corporation</h3>
-								<p>Providing smart fleet solutions, premium corporate staff transport, and reliable logistics management. Committed to driving efficiency and corporate excellence across South Africa.</p>
-							</section>
+				<div class="container">
+					<div class="row">
+						<section class="col-4 col-12-narrower col-12-mobilep">
+							<h3>M AND K Corporation</h3>
+							<p>Leading South Africa's green mobility transformation with EV fleet leasing, solar logistics infrastructure, and youth empowerment projects.</p>
+						</section>
 
-							<section class="col-4 col-6-narrower col-12-mobilep">
-								<h3>Quick Links</h3>
-								<ul class="links">
-									<li><a href="index.html">Home</a></li>
-									<li><a href="ehailing-partnerships.html">Our Services</a></li>
-									<li><a href="about-us.html">About Us</a></li>
-									<li><a href="contact.html">Contact Support</a></li>
-								</ul>
-							</section>
+						<section class="col-4 col-6-narrower col-12-mobilep">
+							<h3>Quick Links</h3>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+								<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
+								<li><a href="about-us.html">About Us</a></li>
+								<li><a href="contact.html">Contact Support</a></li>
+							</ul>
+						</section>
 
-							<section class="col-4 col-6-narrower col-12-mobilep">
-								<h3>Corporate Information</h3>
-								<p style="margin-bottom: 0.5rem; color: inherit;"><strong>M AND K Corporation (Pty) Ltd</strong></p>
-								<p style="margin-bottom: 0.5rem; color: inherit;">Reg No: 2026 / 358412 / 07</p>
-								<p style="color: inherit;">B-BBEE Status: Level 1 Contributor (100% Black Owned)</p>
-							</section>
-						</div>
+						<section class="col-4 col-6-narrower col-12-mobilep">
+							<h3>Corporate Information</h3>
+							<p style="margin-bottom: 0.5rem;"><strong>M AND K Corporation (Pty) Ltd</strong></p>
+							<p style="margin-bottom: 0.5rem;">Reg No: 2026 / 417012 / 07</p>
+							<p>B-BBEE Status: Level 1 Contributor (100% Black Owned)</p>
+						</section>
+					</div>
 
-						<div class="row">
-							<section class="col-12" style="border-top: solid 1px rgba(255,255,255,0.05); padding-top: 2em; margin-top: 2em;">
-								<div id="copyright" style="text-align: center;">
-									<ul style="list-style: none; padding: 0;">
-										<li style="display: inline-block; margin: 0 1em;">&copy; M AND K Corporation (Pty) Ltd. All rights reserved.</li>
-										<li style="display: inline-block; margin: 0 1em;">Reg No: 2026/417012/07</li>
-										<li style="display: inline-block; margin: 0 1em;">Design: <a href="http://html5up.net" target="_blank" rel="noopener noreferrer">HTML5 UP</a></li>
-									</ul>
+					<!-- Forminit Backend Contact Form -->
+					<div class="row" style="margin-top: 30px;">
+						<section class="col-12">
+							<h3>Connect With Us</h3>
+							<form action="https://forminit.com/f/5kzvzvvqjsy" method="POST">
+								<div class="row gtr-50">
+									<div class="col-6 col-12-mobile">
+										<input type="text" name="fi-sender-fullName" id="name" placeholder="Name" required />
+									</div>
+									<div class="col-6 col-12-mobile">
+										<input type="email" name="fi-sender-email" id="email" placeholder="Email" required />
+									</div>
+									<div class="col-12">
+										<input type="text" name="fi-text-subject" id="subject" placeholder="Subject" required />
+									</div>
+									<div class="col-12">
+										<textarea name="fi-text-message" id="message" placeholder="Message" rows="4" required></textarea>
+									</div>
+									<div class="col-12">
+										<ul class="actions">
+											<li><input type="submit" class="button alt" value="Send Message" /></li>
+										</ul>
+									</div>
 								</div>
-							</section>
+							</form>
+						</section>
+					</div>
+
+					<!-- 3 Side-by-Side Directors Row -->
+					<div class="board-section">
+						<h3 style="text-align: center; display: block; margin-bottom: 25px; color: #ffffff;">BOARD OF DIRECTORS</h3>
+						<div class="board-grid">
+							<div class="board-card-compact">
+								<div class="avatar-icon"><i class="fa-solid fa-user-tie"></i></div>
+								<h4>Mustapha Jacobs</h4>
+								<p class="role">Co-Founder & Managing Director</p>
+								<p class="desc">Directs overarching corporate strategy, fleet architecture, and technology platforms driving regional expansion.</p>
+							</div>
+							<div class="board-card-compact">
+								<div class="avatar-icon"><i class="fa-solid fa-chart-line"></i></div>
+								<h4>Kaylim Clark</h4>
+								<p class="role">Co-Founder & Managing Director</p>
+								<p class="desc">Oversees operational frameworks, driver relation structures, and regional fleet scheduling for high reliability.</p>
+							</div>
+							<div class="board-card-compact">
+								<div class="avatar-icon"><i class="fa-solid fa-shield-halved"></i></div>
+								<h4>Keathan Kester</h4>
+								<p class="role">Co-Founder & Managing Director</p>
+								<p class="desc">Manages enterprise compliance, asset safety, and B-BBEE supplier procurement coordination.</p>
+							</div>
 						</div>
 					</div>
 				</div>
 
+				<!-- Embedded 3D EV Architecture Showcase in Footer -->
+				<div id="footer-canvas-container"></div>
+
+				<ul class="icons" style="margin-top: 30px;">
+					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+					<li><a href="#" class="icon brands fa-google-plus-g"><span class="label">Google+</span></a></li>
+				</ul>
+
+				<div class="copyright">
+					<ul class="menu">
+						<li>&copy; M AND K Corporation (Pty) Ltd. All rights reserved.</li>
+						<li>Reg No: 2026/417012/07</li>
+						<li>Design: <a href="http://html5up.net" target="_blank" rel="noopener noreferrer">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</div>
+
 		</div>
 
+		<!-- WhatsApp Link -->
 		<a href="https://wa.me/27663577165" class="whatsapp-float" target="_blank">
 			<i class="fab fa-whatsapp"></i>
 		</a>
 
+		<!-- Core Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.dropotron.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
+		<!-- Three.js 3D Shaped EV Car & Eco-Architecture Engine (Footer) -->
+		<script>
+			let footerScene, footerCamera, footerRenderer, footerEvVehicles = [];
+
+			function createShapedEVCar() {
+				const carGroup = new THREE.Group();
+
+				// Body
+				const bodyGeo = new THREE.BoxGeometry(3.6, 0.7, 1.8);
+				const bodyMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true });
+				const body = new THREE.Mesh(bodyGeo, bodyMat);
+				body.position.y = 0.5;
+				carGroup.add(body);
+
+				// Roof
+				const roofGeo = new THREE.BoxGeometry(1.8, 0.6, 1.5);
+				const roofMat = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true });
+				const roof = new THREE.Mesh(roofGeo, roofMat);
+				roof.position.set(-0.2, 1.15, 0);
+				carGroup.add(roof);
+
+				// 4 Wheels
+				const wheelGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.25, 10);
+				const wheelMat = new THREE.MeshBasicMaterial({ color: 0x94a3b8, wireframe: true });
+				const wheelPos = [[1.1, 0.35, 0.9], [1.1, 0.35, -0.9], [-1.1, 0.35, 0.9], [-1.1, 0.35, -0.9]];
+				wheelPos.forEach(p => {
+					const w = new THREE.Mesh(wheelGeo, wheelMat);
+					w.rotation.x = Math.PI / 2;
+					w.position.set(p[0], p[1], p[2]);
+					carGroup.add(w);
+				});
+
+				// Lights
+				const lightGeo = new THREE.SphereGeometry(0.12, 8, 8);
+				const hlMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4 });
+				const hl1 = new THREE.Mesh(lightGeo, hlMat); hl1.position.set(1.8, 0.5, 0.6);
+				const hl2 = new THREE.Mesh(lightGeo, hlMat); hl2.position.set(1.8, 0.5, -0.6);
+				carGroup.add(hl1); carGroup.add(hl2);
+
+				const tlMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
+				const tl1 = new THREE.Mesh(lightGeo, tlMat); tl1.position.set(-1.8, 0.5, 0.6);
+				const tl2 = new THREE.Mesh(lightGeo, tlMat); tl2.position.set(-1.8, 0.5, -0.6);
+				carGroup.add(tl1); carGroup.add(tl2);
+
+				return carGroup;
+			}
+
+			function initFooter3D() {
+				const container = document.getElementById('footer-canvas-container');
+				if(!container) return;
+
+				footerScene = new THREE.Scene();
+				footerCamera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 500);
+				footerCamera.position.set(0, 12, 28);
+				footerCamera.lookAt(0, 0, 0);
+
+				footerRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+				footerRenderer.setSize(container.clientWidth, container.clientHeight);
+				footerRenderer.setPixelRatio(window.devicePixelRatio);
+				container.appendChild(footerRenderer.domElement);
+
+				// Grid Floor
+				const grid = new THREE.GridHelper(80, 30, 0x10b981, 0x064e3b);
+				grid.position.y = -0.2;
+				footerScene.add(grid);
+
+				// 4 EV cars
+				const lanes = [-6, 2];
+				for(let i = 0; i < 4; i++) {
+					const car = createShapedEVCar();
+					const lane = lanes[i % lanes.length];
+					const startX = (Math.random() - 0.5) * 60;
+					car.position.set(startX, 0, lane);
+					
+					const dir = (i % 2 === 0) ? 1 : -1;
+					if(dir === -1) car.rotation.y = Math.PI;
+
+					footerScene.add(car);
+					footerEvVehicles.push({ mesh: car, speed: (0.08 + Math.random() * 0.05) * dir });
+				}
+
+				// Solar Trees
+				for(let i = 0; i < 6; i++) {
+					const tree = new THREE.Group();
+					const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.2, 1.5), new THREE.MeshBasicMaterial({ color: 0x064e3b }));
+					trunk.position.y = 0.75;
+					tree.add(trunk);
+					const leaves = new THREE.Mesh(new THREE.ConeGeometry(0.9, 2, 5), new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true }));
+					leaves.position.y = 2.2;
+					tree.add(leaves);
+
+					tree.position.set((Math.random() - 0.5) * 60, 0, (i % 2 === 0) ? 12 : -12);
+					footerScene.add(tree);
+				}
+
+				window.addEventListener('resize', () => {
+					if(!container) return;
+					footerCamera.aspect = container.clientWidth / container.clientHeight;
+					footerCamera.updateProjectionMatrix();
+					footerRenderer.setSize(container.clientWidth, container.clientHeight);
+				});
+
+				animateFooter();
+			}
+
+			function animateFooter() {
+				requestAnimationFrame(animateFooter);
+
+				footerEvVehicles.forEach(ev => {
+					ev.mesh.position.x += ev.speed;
+					if(ev.speed > 0 && ev.mesh.position.x > 35) ev.mesh.position.x = -35;
+					if(ev.speed < 0 && ev.mesh.position.x < -35) ev.mesh.position.x = 35;
+				});
+
+				footerScene.rotation.y += 0.0008;
+				footerRenderer.render(footerScene, footerCamera);
+			}
+
+			window.addEventListener('DOMContentLoaded', initFooter3D);
+
+			// LOI Link Interceptor
+			document.getElementById('loi-link').addEventListener('click', function(e) {
+				e.stopPropagation(); 
+				window.location.href = 'letter-of-intent.html';
+			}, true);
+		</script>
 	</body>
 </html>

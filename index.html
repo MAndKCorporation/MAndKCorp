@@ -1,15 +1,11 @@
 <!DOCTYPE HTML>
-<!--
-	M AND K CORPORATION (PTY) LTD
-	Green Economy & Youth Empowerment Mobility Hub
--->
 <html>
 	<head>
 		<title>M AND K CORPORATION (PTY) LTD | Your Journey, Your Success, Our Commitment</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="description" content="M And K Corporation offers vehicle leasing, fleet management, transport logistics, and corporate staff transport in Cape Town. Empowering South Africa's Green Economy and youth." />
-		<meta name="keywords" content="M And K Corporation, Vehicle Leasing, Fleet Management, Transport Logistics, Corporate Staff Transport, Green Economy, Youth Employment Cape Town, Rent to Own Vehicles" />
+		<meta name="keywords" content="M And K Corporation, Vehicle Leasing, Fleet Management, Transport Logistics, Corporate Staff Transport, Green Economy, Youth Employment Cape Town" />
 		<meta name="robots" content="index, follow" />
 		
 		<!-- Search Engine Profile Picture / Favicon Setup -->
@@ -17,11 +13,12 @@
 		<link rel="apple-touch-icon" href="images/logo1.jpeg" />
 		<meta name="google-site-verification" content="ywZyrobTieXK6nIrSvxVIWGjIZLcoyOp43exTFDae08" />
 		
-		<!-- Font Awesome & Modern Typography -->
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<!-- Font Awesome & Modern Typography CDN -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="assets/css/main.css" />
 		
 		<style>
 			:root {
@@ -29,7 +26,6 @@
 				--emerald-dark: #064e3b;
 				--emerald-light: #10b981;
 				--emerald-soft: #ecfdf5;
-				--accent-gold: #f59e0b;
 				--text-dark: #0f172a;
 				--text-muted: #475569;
 				--bg-light: #f8fafc;
@@ -38,11 +34,20 @@
 				--shadow: 0 10px 30px -5px rgba(5, 150, 105, 0.08), 0 4px 12px -2px rgba(0,0,0,0.05);
 			}
 
+			*, *:before, *:after {
+				box-sizing: border-box;
+			}
+
 			body {
 				font-family: 'Plus Jakarta Sans', sans-serif !important;
 				background-color: var(--bg-light) !important;
 				color: var(--text-muted) !important;
 				line-height: 1.6;
+				margin: 0;
+				padding: 0;
+				display: block !important;
+				visibility: visible !important;
+				opacity: 1 !important;
 			}
 
 			/* Modern Floating WhatsApp Button */
@@ -71,7 +76,7 @@
 				color: #fff !important;
 			}
 
-			/* Clean Eco Header */
+			/* Header Navigation */
 			#header {
 				background: #ffffff !important;
 				border-bottom: 1px solid rgba(5, 150, 105, 0.1);
@@ -102,7 +107,7 @@
 
 			#header .header-brand h1 {
 				margin: 0;
-				font-size: 1.5rem;
+				font-size: 1.4rem;
 				font-weight: 800;
 				letter-spacing: -0.5px;
 			}
@@ -116,10 +121,9 @@
 				color: var(--emerald-primary) !important;
 				font-style: normal;
 				font-weight: 500;
-				font-size: 0.9em;
+				font-size: 0.85em;
 			}
 
-			/* Modern Navigation Styling */
 			#nav {
 				background: #ffffff;
 				border-top: 1px solid var(--emerald-soft);
@@ -130,7 +134,7 @@
 				justify-content: center;
 				align-items: center;
 				gap: 15px;
-				padding: 10px 0;
+				padding: 12px 0;
 				margin: 0;
 				list-style: none;
 			}
@@ -139,10 +143,11 @@
 				color: var(--text-dark) !important;
 				font-weight: 600;
 				font-size: 0.95rem;
-				padding: 8px 16px !important;
+				padding: 8px 18px !important;
 				border-radius: 8px;
 				transition: all 0.2s ease;
 				text-transform: none !important;
+				text-decoration: none;
 			}
 
 			#nav ul li.current > a,
@@ -151,14 +156,569 @@
 				color: var(--emerald-primary) !important;
 			}
 
-			/* Hero Banner with Eco Gradient Overlay */
+			/* Hero Banner (Pure CSS Gradient Background) */
 			#banner {
-				background-image: linear-gradient(135deg, rgba(6, 78, 59, 0.88), rgba(5, 150, 105, 0.78)), url('assets/css/images/banner.png') !important;
-				background-size: cover !important;
-				background-position: center !important;
+				background: linear-gradient(135deg, #064e3b 0%, #059669 50%, #022c22 100%) !important;
 				padding: 110px 20px !important;
 				text-align: center;
 				color: #ffffff;
+				position: relative;
 			}
 
-			#banner .slogan-pill {
+			#banner .slogan-badge {
+				display: inline-block;
+				background: rgba(255, 255, 255, 0.15);
+				backdrop-filter: blur(10px);
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				color: #ffffff;
+				font-size: 0.9rem;
+				font-weight: 700;
+				padding: 8px 24px;
+				border-radius: 50px;
+				margin-bottom: 25px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+			}
+
+			#banner header h2 {
+				font-size: 2.8rem !important;
+				font-weight: 800;
+				color: #ffffff !important;
+				max-width: 900px;
+				margin: 0 auto 20px auto;
+				line-height: 1.25;
+				letter-spacing: -1px;
+			}
+
+			#banner header p.sub-hero {
+				font-size: 1.2rem;
+				max-width: 750px;
+				margin: 0 auto 35px auto;
+				color: #e2e8f0;
+				font-weight: 400;
+			}
+
+			#banner .button {
+				background: #ffffff !important;
+				color: var(--emerald-dark) !important;
+				font-weight: 700 !important;
+				padding: 14px 36px !important;
+				border-radius: 50px !important;
+				border: none !important;
+				box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+				transition: all 0.3s ease !important;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				text-decoration: none;
+				display: inline-block;
+			}
+
+			#banner .button:hover {
+				transform: translateY(-3px) !important;
+				background: var(--emerald-soft) !important;
+				color: var(--emerald-primary) !important;
+			}
+
+			/* Core Services Section */
+			.wrapper.style1 {
+				padding: 80px 0 !important;
+				background: transparent !important;
+			}
+
+			.box.highlight {
+				background: var(--card-bg) !important;
+				border-radius: var(--radius) !important;
+				padding: 40px 30px !important;
+				border: 1px solid rgba(5, 150, 105, 0.08) !important;
+				box-shadow: var(--shadow) !important;
+				transition: all 0.3s ease !important;
+				height: 100%;
+				text-align: center;
+			}
+
+			.box.highlight:hover {
+				transform: translateY(-8px) !important;
+				box-shadow: 0 20px 40px rgba(5, 150, 105, 0.12) !important;
+				border-color: rgba(5, 150, 105, 0.3) !important;
+			}
+
+			.box.highlight .icon {
+				background: var(--emerald-soft) !important;
+				color: var(--emerald-primary) !important;
+				width: 75px !important;
+				height: 75px !important;
+				line-height: 75px !important;
+				border-radius: 50% !important;
+				margin: 0 auto 24px auto !important;
+				font-size: 1.8rem !important;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.box.highlight h3 {
+				color: var(--emerald-dark) !important;
+				font-weight: 700 !important;
+				font-size: 1.3rem !important;
+				margin-bottom: 15px !important;
+			}
+
+			.box.highlight p {
+				color: var(--text-muted) !important;
+				font-size: 0.95rem;
+			}
+
+			/* Green Economy & Youth Section */
+			.wrapper.style2 {
+				background: linear-gradient(135deg, var(--emerald-dark), #032e23) !important;
+				color: #ffffff !important;
+				padding: 70px 0 !important;
+				text-align: center;
+			}
+
+			.wrapper.style2 header.major h2 {
+				color: #ffffff !important;
+				font-size: 2.2rem !important;
+				font-weight: 800 !important;
+				letter-spacing: -0.5px;
+			}
+
+			.wrapper.style2 header.major p {
+				color: #a7f3d0 !important;
+				font-size: 1.15rem !important;
+				max-width: 800px;
+				margin: 15px auto 0 auto;
+			}
+
+			/* Clean Text Cards (No Extra Images) */
+			.box.post {
+				background: var(--card-bg) !important;
+				border-radius: var(--radius) !important;
+				padding: 35px 30px !important;
+				box-shadow: var(--shadow) !important;
+				border: 1px solid rgba(5, 150, 105, 0.08) !important;
+				margin-bottom: 30px !important;
+				transition: all 0.3s ease !important;
+				height: 100%;
+			}
+
+			.box.post:hover {
+				transform: translateY(-5px) !important;
+				box-shadow: 0 15px 35px rgba(5, 150, 105, 0.1) !important;
+			}
+
+			.box.post .card-icon {
+				font-size: 2.2rem;
+				color: var(--emerald-primary);
+				margin-bottom: 15px;
+			}
+
+			.box.post h3 {
+				color: var(--emerald-dark) !important;
+				font-weight: 700 !important;
+				font-size: 1.25rem !important;
+				margin-bottom: 12px;
+			}
+
+			/* Call To Action Banner */
+			#cta {
+				background: linear-gradient(135deg, var(--emerald-primary), var(--emerald-dark)) !important;
+				padding: 80px 20px !important;
+				text-align: center;
+			}
+
+			#cta h2 {
+				color: #ffffff !important;
+				font-weight: 800 !important;
+				font-size: 2.2rem !important;
+				margin-bottom: 15px !important;
+			}
+
+			#cta .button {
+				background: #ffffff !important;
+				color: var(--emerald-dark) !important;
+				font-weight: 700 !important;
+				padding: 15px 40px !important;
+				border-radius: 50px !important;
+				box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+				text-decoration: none;
+				display: inline-block;
+				margin-top: 15px;
+			}
+
+			#cta .button:hover {
+				background: var(--emerald-soft) !important;
+				color: var(--emerald-primary) !important;
+			}
+
+			/* Footer */
+			#footer {
+				background: #091e17 !important;
+				color: #94a3b8 !important;
+				padding-top: 80px !important;
+			}
+
+			#footer h3 {
+				color: #ffffff !important;
+				font-weight: 700 !important;
+				font-size: 1.2rem !important;
+				margin-bottom: 20px !important;
+				border-bottom: 2px solid var(--emerald-primary);
+				display: inline-block;
+				padding-bottom: 5px;
+			}
+
+			#footer p, #footer a {
+				color: #cbd5e1 !important;
+			}
+
+			#footer ul.links li a:hover {
+				color: var(--emerald-light) !important;
+			}
+
+			#footer input[type="text"],
+			#footer input[type="email"],
+			#footer textarea {
+				background: rgba(255, 255, 255, 0.05) !important;
+				border: 1px solid rgba(255, 255, 255, 0.15) !important;
+				color: #ffffff !important;
+				border-radius: 8px !important;
+				padding: 12px 16px !important;
+				width: 100%;
+			}
+
+			#footer input[type="text"]:focus,
+			#footer input[type="email"]:focus,
+			#footer textarea:focus {
+				border-color: var(--emerald-light) !important;
+				background: rgba(255, 255, 255, 0.1) !important;
+				outline: none;
+			}
+
+			#footer input[type="submit"] {
+				background: var(--emerald-primary) !important;
+				color: #ffffff !important;
+				font-weight: 700 !important;
+				border-radius: 8px !important;
+				border: none !important;
+				padding: 12px 30px !important;
+				transition: all 0.3s ease !important;
+				cursor: pointer;
+			}
+
+			#footer input[type="submit"]:hover {
+				background: var(--emerald-light) !important;
+			}
+
+			.board-card {
+				background: rgba(255, 255, 255, 0.03);
+				border-radius: 12px;
+				padding: 20px;
+				border: 1px solid rgba(255, 255, 255, 0.05);
+			}
+
+			.board-card h4 {
+				color: #ffffff !important;
+				font-weight: 700;
+			}
+
+			/* Mobile Responsiveness */
+			@media screen and (max-width: 768px) {
+				#header {
+					background: #ffffff !important;
+					padding-top: 0 !important;
+				}
+				#header .header-brand {
+					flex-direction: column;
+					align-items: center;
+					text-align: center;
+					padding: 15px 10px;
+				}
+				#header .logo-left {
+					margin-bottom: 10px;
+				}
+				#header .header-brand h1 {
+					font-size: 1.25em;
+				}
+
+				#nav > ul {
+					flex-direction: column;
+					gap: 5px;
+				}
+
+				#banner header h2 {
+					font-size: 1.8rem !important;
+				}
+
+				#navButton, .navButton, #titleBar, .titleBar, #navPanel, .navPanel {
+					display: none !important;
+					visibility: hidden !important;
+				}
+			}
+		</style>
+
+		<!-- Google Organization Schema Markup -->
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Organization",
+		  "name": "M And K Corporation (Pty) Ltd",
+		  "url": "https://www.mkcorp.co.za",
+		  "logo": "https://www.mkcorp.co.za/images/logo1.jpeg",
+		  "slogan": "Your Journey, Your Success, Our Commitment"
+		}
+		</script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header Section -->
+			<div id="header">
+				<div class="header-brand">
+					<div class="logo-left">
+						<img src="images/logo1.jpeg" alt="M AND K Corporation Logo - Green Economy & Youth Employment Cape Town">
+					</div>
+					<h1><a href="index.html" id="logo">M And K <em>Corporation (PTY) LTD</em></a></h1>
+				</div>
+
+				<nav id="nav">
+					<ul style="display: flex !important; visibility: visible !important; opacity: 1 !important;">
+						<li class="current"><a href="index.html">Home</a></li>
+						<li class="nav-dropdown-custom">
+							<a href="#" onclick="return false;">Our Services</a>
+							<ul>
+								<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+								<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
+								<li><a href="job-applications.html">Job Applications</a></li>
+							</ul>
+						</li>
+						<li><a href="letter-of-intent.html" id="loi-link" onmousedown="window.location.href='letter-of-intent.html'; return false;" onclick="return false;">Letter of Intent</a></li>
+						<li><a href="contact.html">Contact Us</a></li>
+						<li><a href="about-us.html">About Us</a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- Modern Gradient Hero Banner -->
+			<section id="banner">
+				<header>
+					<span class="slogan-badge">Your Journey. Your Success. Our Commitment.</span>
+					<h2>Driving South Africa’s Green Economy Through Youth Empowerment</h2>
+					<p class="sub-hero">Providing premier vehicle leasing & fleet management, transport logistics, and corporate staff transport while creating sustainable career pathways for Cape Town's youth.</p>
+					<a href="about-us.html" class="button">Explore Our Services</a>
+				</header>
+			</section>
+
+			<!-- 3 Core Services Cards -->
+			<section class="wrapper style1">
+				<div class="container">
+					<div class="row gtr-200">
+						<section class="col-4 col-12-narrower">
+							<div class="box highlight">
+								<div class="icon"><i class="fa-solid fa-car-side"></i></div>
+								<h3>Vehicle Leasing & Fleet Management</h3>
+								<p>Flexible leasing models, rent-to-own vehicle solutions, and real-time fleet management designed to empower drivers and maintain operational excellence.</p>
+							</div>
+						</section>
+
+						<section class="col-4 col-12-narrower">
+							<div class="box highlight">
+								<div class="icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
+								<h3>Transport Logistics</h3>
+								<p>High-efficiency, eco-friendly transport logistics for corporate cargo, document delivery, and optimized regional supply chain solutions across Cape Town.</p>
+							</div>
+						</section>
+
+						<section class="col-4 col-12-narrower">
+							<div class="box highlight">
+								<div class="icon"><i class="fa-solid fa-users"></i></div>
+								<h3>Corporate Staff Transport</h3>
+								<p>Premium 5-to-7 seater corporate shuttle transit ensuring safe, punctual, and comfortable daily commutes for business teams and shift staff.</p>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+
+			<!-- Green Vision Banner -->
+			<section class="wrapper style2">
+				<div class="container">
+					<header class="major">
+						<h2>Empowering Youth. Sustaining The Planet.</h2>
+						<p>Combining 100% Level 1 B-BBEE leadership with green mobility innovation to directly reduce youth unemployment in the Western Cape.</p>
+					</header>
+				</div>
+			</section>
+
+			<!-- Modern Text Grid (Clean Cards, No Extra Images) -->
+			<section class="wrapper style1">
+				<div class="container">
+					<div class="row">
+						<section class="col-6 col-12-narrower">
+							<div class="box post">
+								<div class="card-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+								<h3>Sustainable E-Hailing & Leasing Pathways</h3>
+								<p>We connect asset management with youth opportunity by scaling flexible vehicle leasing structures and rent-to-own programs for ambitious professional drivers.</p>
+							</div>
+						</section>
+						<section class="col-6 col-12-narrower">
+							<div class="box post">
+								<div class="card-icon"><i class="fa-solid fa-charging-station"></i></div>
+								<h3>Eco-Conscious Corporate Shuttles</h3>
+								<p>Our dedicated staff transit operates with minimal environmental impact, providing corporate partners with reliable, low-emission employee routing.</p>
+							</div>
+						</section>
+					</div>
+					<div class="row">
+						<section class="col-6 col-12-narrower">
+							<div class="box post">
+								<div class="card-icon"><i class="fa-solid fa-award"></i></div>
+								<h3>Level 1 B-BBEE ESD Advantage</h3>
+								<p>Partnering with M&K Corp grants 135% procurement recognition for your business while contributing directly to enterprise and supplier development initiatives.</p>
+							</div>
+						</section>
+						<section class="col-6 col-12-narrower">
+							<div class="box post">
+								<div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
+								<h3>Tackling Youth Unemployment</h3>
+								<p>Deeply rooted in Cape Town, our operations focus on upskilling young drivers and logistics talent, building long-term career stability in South Africa's green economy.</p>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+
+			<!-- Call To Action -->
+			<section id="cta" class="wrapper style3">
+				<div class="container">
+					<header>
+						<h2>Your Journey. Your Success. Our Commitment.</h2>
+						<p style="color: #e2e8f0; font-size: 1.1rem;">Ready to elevate your corporate logistics while driving youth employment?</p>
+						<a href="contact.html" class="button">Get In Touch Today</a>
+					</header>
+				</div>
+			</section>
+
+			<!-- Footer -->
+			<div id="footer">
+				<div class="container">
+					<div class="row">
+						<section class="col-4 col-12-narrower col-12-mobilep">
+							<h3>M AND K Corporation</h3>
+							<p>Leading vehicle leasing & fleet management, transport logistics, and corporate staff transport while expanding youth opportunities across the Green Economy.</p>
+						</section>
+
+						<section class="col-4 col-6-narrower col-12-mobilep">
+							<h3>Quick Links</h3>
+							<ul class="links">
+								<li><a href="#banner">Home</a></li>
+								<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+								<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
+								<li><a href="about-us.html">About Us</a></li>
+								<li><a href="contact.html">Contact Support</a></li>
+							</ul>
+						</section>
+
+						<section class="col-4 col-6-narrower col-12-mobilep">
+							<h3>Corporate Information</h3>
+							<p style="margin-bottom: 0.5rem;"><strong>M AND K Corporation (Pty) Ltd</strong></p>
+							<p style="margin-bottom: 0.5rem;">Reg No: 2026 / 417012 / 07</p>
+							<p>B-BBEE Status: Level 1 Contributor (100% Black Owned)</p>
+						</section>
+					</div>
+
+					<!-- Forminit Backend Contact Form -->
+					<div class="row">
+						<section class="col-12">
+							<h3>Connect With Us</h3>
+							<form action="https://forminit.com/f/5kzvzvvqjsy" method="POST">
+								<div class="row gtr-50">
+									<div class="col-6 col-12-mobile">
+										<input type="text" name="fi-sender-fullName" id="name" placeholder="Name" required />
+									</div>
+									<div class="col-6 col-12-mobile">
+										<input type="email" name="fi-sender-email" id="email" placeholder="Email" required />
+									</div>
+									<div class="col-12">
+										<input type="text" name="fi-text-subject" id="subject" placeholder="Subject" required />
+									</div>
+									<div class="col-12">
+										<textarea name="fi-text-message" id="message" placeholder="Message" rows="5" required></textarea>
+									</div>
+									<div class="col-12">
+										<ul class="actions">
+											<li><input type="submit" class="button alt" value="Send Message" /></li>
+										</ul>
+									</div>
+								</div>
+							</form>
+						</section>
+					</div>
+
+					<div class="row">
+						<div class="col-12">
+							<h3 style="text-align: center; margin-top: 2.5em; margin-bottom: 2em; letter-spacing: 2px; font-size: 1.2em; color: #ffffff; font-weight: bold;">BOARD OF DIRECTORS</h3>
+						</div>
+						
+						<div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
+							<div class="board-card">
+								<h4 style="margin-bottom: 0.3em;">Mustapha Jacobs</h4>
+								<p style="font-style: italic; color: #a7f3d0; margin: 0;">Co-Founder & Managing Director</p>
+							</div>
+						</div>
+
+						<div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
+							<div class="board-card">
+								<h4 style="margin-bottom: 0.3em;">Kaylim Clark</h4>
+								<p style="font-style: italic; color: #a7f3d0; margin: 0;">Co-Founder & Managing Director</p>
+							</div>
+						</div>
+
+						<div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
+							<div class="board-card">
+								<h4 style="margin-bottom: 0.3em;">Keathan Kester</h4>
+								<p style="font-style: italic; color: #a7f3d0; margin: 0;">Co-Founder & Managing Director</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<ul class="icons">
+					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+					<li><a href="#" class="icon brands fa-google-plus-g"><span class="label">Google+</span></a></li>
+				</ul>
+
+				<div class="copyright">
+					<ul class="menu">
+						<li>&copy; M AND K Corporation (Pty) Ltd. All rights reserved.</li>
+						<li>Reg No: 2026/417012/07</li>
+						<li>Design: <a href="http://html5up.net" target="_blank" rel="noopener noreferrer">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- WhatsApp Floating Link -->
+		<a href="https://wa.me/27663577165" class="whatsapp-float" target="_blank">
+			<i class="fab fa-whatsapp"></i>
+		</a>
+
+		<!-- Core Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.dropotron.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			document.getElementById('loi-link').addEventListener('click', function(e) {
+				e.stopPropagation(); 
+				window.location.href = 'letter-of-intent.html';
+			}, true);
+		</script>
+	</body>
+</html>

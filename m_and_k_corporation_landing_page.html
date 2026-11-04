@@ -1,0 +1,1439 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>M AND K CORPORATION (PTY) LTD | EV Fleets, Solar Mobility & Youth Empowerment South Africa</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="description" content="M And K Corporation offers zero-emission EV vehicle leasing, solar charging infrastructure, transport logistics, and corporate staff transport across South Africa. Empowering South Africa's Green Economy and youth." />
+		<meta name="keywords" content="M And K Corporation, EV Fleet, Electric Vehicles South Africa, Solar Charging Stations, EV Leasing, Fleet Management, Transport Logistics, Corporate Staff Transport, Green Economy, Youth Employment South Africa" />
+		<meta name="robots" content="index, follow" />
+		
+		<!-- Favicon Setup -->
+		<link rel="icon" href="images/logo1.jpeg" type="image/jpeg" sizes="48x48" />
+		<link rel="apple-touch-icon" href="images/logo1.jpeg" />
+		<meta name="google-site-verification" content="ywZyrobTieXK6nIrSvxVIWGjIZLcoyOp43exTFDae08" />
+		
+		<!-- Font Awesome & Modern Typography CDN -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+		
+		<!-- Three.js 3D/4D WebGL Engine -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+		
+		<style>
+			:root {
+				--ev-cyan: #06b6d4;
+				--ev-cyan-glow: rgba(6, 182, 212, 0.45);
+				--solar-gold: #f59e0b;
+				--solar-gold-glow: rgba(245, 158, 11, 0.4);
+				--emerald-primary: #10b981;
+				--emerald-glow: #059669;
+				--emerald-dark: #030712;
+				--emerald-deep: #064e3b;
+				--emerald-soft: rgba(16, 185, 129, 0.12);
+				--glass-bg: rgba(6, 24, 20, 0.7);
+				--glass-border: rgba(16, 185, 129, 0.25);
+				--text-light: #f8fafc;
+				--text-muted: #94a3b8;
+				--card-bg: rgba(15, 23, 42, 0.88);
+				--radius-lg: 24px;
+				--radius-md: 14px;
+				--transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+			}
+
+			*, *:before, *:after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			html {
+				scroll-behavior: smooth;
+				background-color: var(--emerald-dark);
+				color: var(--text-light);
+				font-family: 'Plus Jakarta Sans', sans-serif;
+			}
+
+			body {
+				overflow-x: hidden;
+				position: relative;
+				width: 100%;
+			}
+
+			/* Three.js Background Canvas */
+			#webgl-canvas {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				z-index: 1;
+				pointer-events: none;
+			}
+
+			.content-wrapper {
+				position: relative;
+				z-index: 10;
+			}
+
+			/* Floating WhatsApp Button */
+			.whatsapp-float {
+				position: fixed;
+				width: 60px;
+				height: 60px;
+				bottom: 30px;
+				right: 30px;
+				background: linear-gradient(135deg, #25d366, #128c7e);
+				color: #fff !important;
+				border-radius: 50%;
+				text-align: center;
+				font-size: 28px;
+				box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+				z-index: 999;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-decoration: none;
+				transition: var(--transition-smooth);
+			}
+			.whatsapp-float:hover {
+				transform: translateY(-5px) scale(1.1);
+				box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+				color: #fff !important;
+			}
+
+			/* Navigation Bar */
+			header#header {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				z-index: 100;
+				background: rgba(3, 7, 18, 0.88);
+				backdrop-filter: blur(20px);
+				border-bottom: 1px solid var(--glass-border);
+				transition: var(--transition-smooth);
+			}
+
+			.nav-container {
+				max-width: 1280px;
+				margin: 0 auto;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 15px 25px;
+			}
+
+			.header-brand {
+				display: flex;
+				align-items: center;
+				gap: 15px;
+			}
+
+			.logo-left img {
+				height: 52px;
+				width: auto;
+				border-radius: 10px;
+				box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+			}
+
+			.header-brand h1 {
+				font-size: 1.25rem;
+				font-weight: 800;
+				letter-spacing: -0.5px;
+				font-family: 'Space Grotesk', sans-serif;
+			}
+
+			.header-brand h1 a {
+				color: #ffffff;
+				text-decoration: none;
+			}
+
+			.header-brand h1 em {
+				color: var(--ev-cyan);
+				font-style: normal;
+				font-weight: 500;
+				display: block;
+				font-size: 0.75em;
+			}
+
+			nav#nav > ul {
+				display: flex;
+				list-style: none;
+				gap: 10px;
+				align-items: center;
+			}
+
+			nav#nav ul li {
+				position: relative;
+			}
+
+			nav#nav ul li a {
+				color: var(--text-light);
+				text-decoration: none;
+				font-weight: 600;
+				font-size: 0.9rem;
+				padding: 10px 18px;
+				border-radius: 50px;
+				transition: var(--transition-smooth);
+				display: inline-block;
+			}
+
+			nav#nav ul li.current > a,
+			nav#nav ul li:hover > a {
+				background: rgba(6, 182, 212, 0.15);
+				color: var(--ev-cyan);
+				box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+			}
+
+			nav#nav ul li.nav-dropdown-custom:hover > ul {
+				opacity: 1;
+				visibility: visible;
+				transform: translateY(0);
+			}
+
+			nav#nav ul li.nav-dropdown-custom > ul {
+				position: absolute;
+				top: 100%;
+				left: 0;
+				width: 250px;
+				background: rgba(3, 7, 18, 0.95);
+				backdrop-filter: blur(25px);
+				border: 1px solid var(--glass-border);
+				border-radius: var(--radius-md);
+				padding: 12px;
+				list-style: none;
+				box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+				opacity: 0;
+				visibility: hidden;
+				transform: translateY(15px);
+				transition: var(--transition-smooth);
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+			}
+
+			.mobile-toggle {
+				display: none;
+				font-size: 1.5rem;
+				color: #ffffff;
+				cursor: pointer;
+			}
+
+			/* Hero Section */
+			section#banner {
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				padding: 140px 20px 80px 20px;
+				position: relative;
+			}
+
+			.hero-content {
+				max-width: 980px;
+				margin: 0 auto;
+			}
+
+			.slogan-pill {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				background: rgba(245, 158, 11, 0.12);
+				border: 1px solid var(--solar-gold);
+				color: var(--solar-gold);
+				font-size: 0.85rem;
+				font-weight: 700;
+				padding: 8px 24px;
+				border-radius: 50px;
+				margin-bottom: 25px;
+				letter-spacing: 1.2px;
+				text-transform: uppercase;
+				box-shadow: 0 0 25px var(--solar-gold-glow);
+				animation: pulseGlow 3s infinite alternate;
+			}
+
+			@keyframes pulseGlow {
+				0% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+				100% { box-shadow: 0 0 35px rgba(245, 158, 11, 0.6); }
+			}
+
+			#banner h2 {
+				font-size: 3.6rem;
+				font-weight: 800;
+				line-height: 1.15;
+				letter-spacing: -1.5px;
+				margin-bottom: 25px;
+				font-family: 'Space Grotesk', sans-serif;
+				background: linear-gradient(135deg, #ffffff 20%, #67e8f9 50%, #f59e0b 80%, #10b981 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			#banner p.sub-hero {
+				font-size: 1.25rem;
+				color: var(--text-muted);
+				max-width: 840px;
+				margin: 0 auto 40px auto;
+				line-height: 1.7;
+			}
+
+			.cta-group {
+				display: flex;
+				gap: 20px;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+
+			.btn-primary {
+				background: linear-gradient(135deg, var(--ev-cyan), var(--emerald-primary));
+				color: #ffffff;
+				font-weight: 700;
+				padding: 16px 40px;
+				border-radius: 50px;
+				text-decoration: none;
+				box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+				transition: var(--transition-smooth);
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				border: none;
+				cursor: pointer;
+			}
+
+			.btn-primary:hover {
+				transform: translateY(-4px) scale(1.02);
+				box-shadow: 0 15px 40px rgba(6, 182, 212, 0.6);
+			}
+
+			.btn-secondary {
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				color: #ffffff;
+				font-weight: 700;
+				padding: 16px 40px;
+				border-radius: 50px;
+				text-decoration: none;
+				backdrop-filter: blur(10px);
+				transition: var(--transition-smooth);
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.btn-secondary:hover {
+				background: rgba(255, 255, 255, 0.15);
+				border-color: var(--solar-gold);
+				transform: translateY(-4px);
+			}
+
+			/* Container Sections */
+			.section-container {
+				max-width: 1280px;
+				margin: 0 auto;
+				padding: 100px 25px;
+			}
+
+			.section-header {
+				text-align: center;
+				max-width: 820px;
+				margin: 0 auto 60px auto;
+			}
+
+			.section-header span.tag {
+				color: var(--solar-gold);
+				font-weight: 700;
+				font-size: 0.85rem;
+				letter-spacing: 2.5px;
+				text-transform: uppercase;
+				display: block;
+				margin-bottom: 12px;
+			}
+
+			.section-header h2 {
+				font-size: 2.6rem;
+				font-weight: 800;
+				color: #ffffff;
+				letter-spacing: -1px;
+				margin-bottom: 15px;
+				font-family: 'Space Grotesk', sans-serif;
+			}
+
+			.section-header p {
+				color: var(--text-muted);
+				font-size: 1.1rem;
+			}
+
+			/* 3D Glass Tilt Cards */
+			.services-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+				gap: 30px;
+			}
+
+			.tilt-card {
+				background: var(--card-bg);
+				backdrop-filter: blur(25px);
+				border: 1px solid var(--glass-border);
+				border-radius: var(--radius-lg);
+				padding: 45px 35px;
+				transition: var(--transition-smooth);
+				position: relative;
+				overflow: hidden;
+				transform-style: preserve-3d;
+			}
+
+			.tilt-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 4px;
+				background: linear-gradient(90deg, transparent, var(--solar-gold), var(--ev-cyan), var(--emerald-primary), transparent);
+				opacity: 0;
+				transition: var(--transition-smooth);
+			}
+
+			.tilt-card:hover {
+				transform: translateY(-10px) rotateX(3deg);
+				border-color: var(--ev-cyan);
+				box-shadow: 0 20px 45px rgba(6, 182, 212, 0.25);
+			}
+
+			.tilt-card:hover::before {
+				opacity: 1;
+			}
+
+			.card-icon-wrapper {
+				width: 80px;
+				height: 80px;
+				background: rgba(6, 182, 212, 0.1);
+				border: 1px solid rgba(6, 182, 212, 0.3);
+				border-radius: 22px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 2.2rem;
+				color: var(--ev-cyan);
+				margin-bottom: 30px;
+				box-shadow: 0 10px 25px rgba(6, 182, 212, 0.2);
+			}
+
+			.tilt-card h3 {
+				font-size: 1.45rem;
+				font-weight: 700;
+				color: #ffffff;
+				margin-bottom: 15px;
+				font-family: 'Space Grotesk', sans-serif;
+			}
+
+			.tilt-card p {
+				color: var(--text-muted);
+				line-height: 1.7;
+				font-size: 0.95rem;
+			}
+
+			.badge-tag {
+				display: inline-block;
+				margin-top: 20px;
+				padding: 4px 12px;
+				background: rgba(16, 185, 129, 0.15);
+				border: 1px solid var(--emerald-primary);
+				color: var(--emerald-primary);
+				border-radius: 20px;
+				font-size: 0.75rem;
+				font-weight: 700;
+				text-transform: uppercase;
+			}
+
+			/* Interactive EV & Youth Showcase Tabs */
+			.showcase-wrapper {
+				background: rgba(15, 23, 42, 0.85);
+				border: 1px solid var(--glass-border);
+				border-radius: var(--radius-lg);
+				padding: 50px;
+				backdrop-filter: blur(30px);
+				margin: 40px 0;
+			}
+
+			.tab-buttons {
+				display: flex;
+				justify-content: center;
+				gap: 15px;
+				margin-bottom: 40px;
+				flex-wrap: wrap;
+			}
+
+			.tab-btn {
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(255, 255, 255, 0.15);
+				color: #ffffff;
+				padding: 14px 28px;
+				border-radius: 50px;
+				font-weight: 700;
+				font-size: 0.95rem;
+				cursor: pointer;
+				transition: var(--transition-smooth);
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.tab-btn.active, .tab-btn:hover {
+				background: linear-gradient(135deg, var(--ev-cyan), var(--emerald-primary));
+				border-color: transparent;
+				box-shadow: 0 10px 25px rgba(6, 182, 212, 0.4);
+			}
+
+			.tab-content {
+				display: none;
+				grid-template-columns: 1fr 1fr;
+				gap: 40px;
+				align-items: center;
+			}
+
+			.tab-content.active {
+				display: grid;
+			}
+
+			.showcase-info h3 {
+				font-size: 2rem;
+				font-weight: 800;
+				color: #ffffff;
+				margin-bottom: 20px;
+				font-family: 'Space Grotesk', sans-serif;
+			}
+
+			.showcase-info p {
+				color: var(--text-muted);
+				line-height: 1.8;
+				margin-bottom: 25px;
+			}
+
+			.spec-list {
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+			}
+
+			.spec-list li {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				color: #e2e8f0;
+				font-weight: 600;
+			}
+
+			.spec-list li i {
+				color: var(--solar-gold);
+			}
+
+			.visual-card-box {
+				background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(245, 158, 11, 0.1));
+				border: 1px solid var(--glass-border);
+				border-radius: var(--radius-md);
+				padding: 40px;
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.visual-card-box i.big-icon {
+				font-size: 5rem;
+				color: var(--solar-gold);
+				margin-bottom: 20px;
+				text-shadow: 0 0 30px var(--solar-gold-glow);
+			}
+
+			/* Live Metrics Section */
+			.metrics-wrapper {
+				background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(3, 7, 18, 0.95));
+				border: 1px solid var(--glass-border);
+				border-radius: var(--radius-lg);
+				padding: 60px 40px;
+				backdrop-filter: blur(20px);
+				margin: 60px 0;
+			}
+
+			.metrics-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+				gap: 40px;
+				text-align: center;
+			}
+
+			.metric-item h4 {
+				font-size: 3.2rem;
+				font-weight: 800;
+				color: var(--ev-cyan);
+				margin-bottom: 5px;
+				letter-spacing: -1px;
+				font-family: 'Space Grotesk', sans-serif;
+				text-shadow: 0 0 25px var(--ev-cyan-glow);
+			}
+
+			.metric-item p {
+				color: #e2e8f0;
+				font-weight: 600;
+				font-size: 0.95rem;
+			}
+
+			/* Board of Directors */
+			.board-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 30px;
+			}
+
+			.board-card {
+				background: var(--card-bg);
+				border: 1px solid var(--glass-border);
+				border-radius: var(--radius-lg);
+				padding: 40px 30px;
+				text-align: center;
+				backdrop-filter: blur(20px);
+				transition: var(--transition-smooth);
+			}
+
+			.board-card:hover {
+				transform: translateY(-8px);
+				box-shadow: 0 15px 35px rgba(6, 182, 212, 0.25);
+				border-color: var(--ev-cyan);
+			}
+
+			.avatar-placeholder {
+				width: 90px;
+				height: 90px;
+				border-radius: 50%;
+				background: linear-gradient(135deg, var(--emerald-deep), var(--ev-cyan));
+				margin: 0 auto 20px auto;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 2.2rem;
+				color: #ffffff;
+				box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+			}
+
+			.board-card h4 {
+				font-size: 1.3rem;
+				font-weight: 700;
+				color: #ffffff;
+				margin-bottom: 5px;
+				font-family: 'Space Grotesk', sans-serif;
+			}
+
+			.board-card p.role {
+				color: var(--ev-cyan);
+				font-size: 0.9rem;
+				font-weight: 600;
+			}
+
+			/* Call To Action */
+			#cta {
+				background: linear-gradient(135deg, #030712 0%, #064e3b 50%, #030712 100%);
+				border-top: 1px solid var(--glass-border);
+				border-bottom: 1px solid var(--glass-border);
+				text-align: center;
+				padding: 90px 20px;
+			}
+
+			/* Footer Section */
+			footer#footer {
+				background: #010409;
+				padding-top: 80px;
+				padding-bottom: 40px;
+				border-top: 1px solid rgba(16, 185, 129, 0.1);
+			}
+
+			.footer-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 40px;
+				margin-bottom: 60px;
+			}
+
+			.footer-col h3 {
+				color: #ffffff;
+				font-size: 1.2rem;
+				font-weight: 700;
+				margin-bottom: 25px;
+				position: relative;
+				padding-bottom: 10px;
+				font-family: 'Space Grotesk', sans-serif;
+			}
+
+			.footer-col h3::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 40px;
+				height: 3px;
+				background: var(--ev-cyan);
+				border-radius: 2px;
+			}
+
+			.footer-col p {
+				color: var(--text-muted);
+				font-size: 0.95rem;
+				line-height: 1.7;
+			}
+
+			.footer-links {
+				list-style: none;
+			}
+
+			.footer-links li {
+				margin-bottom: 12px;
+			}
+
+			.footer-links li a {
+				color: var(--text-muted);
+				text-decoration: none;
+				transition: var(--transition-smooth);
+			}
+
+			.footer-links li a:hover {
+				color: var(--ev-cyan);
+				padding-left: 5px;
+			}
+
+			/* Forminit Contact Form */
+			.contact-form {
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+			}
+
+			.form-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 15px;
+			}
+
+			.contact-form input,
+			.contact-form textarea {
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(255, 255, 255, 0.15);
+				border-radius: var(--radius-md);
+				padding: 14px 18px;
+				color: #ffffff;
+				font-family: inherit;
+				font-size: 0.95rem;
+				transition: var(--transition-smooth);
+			}
+
+			.contact-form input:focus,
+			.contact-form textarea:focus {
+				outline: none;
+				border-color: var(--ev-cyan);
+				background: rgba(255, 255, 255, 0.08);
+				box-shadow: 0 0 15px var(--ev-cyan-glow);
+			}
+
+			.social-icons {
+				display: flex;
+				gap: 15px;
+				justify-content: center;
+				margin: 40px 0 20px 0;
+			}
+
+			.social-icons a {
+				width: 45px;
+				height: 45px;
+				border-radius: 50%;
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				color: #ffffff;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-decoration: none;
+				transition: var(--transition-smooth);
+			}
+
+			.social-icons a:hover {
+				background: var(--ev-cyan);
+				color: #ffffff;
+				transform: translateY(-5px);
+				box-shadow: 0 10px 20px var(--ev-cyan-glow);
+			}
+
+			.copyright {
+				text-align: center;
+				padding-top: 30px;
+				border-top: 1px solid rgba(255, 255, 255, 0.05);
+				color: var(--text-muted);
+				font-size: 0.85rem;
+			}
+
+			@media screen and (max-width: 992px) {
+				#banner h2 { font-size: 2.7rem; }
+				.tab-content { grid-template-columns: 1fr; }
+				.form-row { grid-template-columns: 1fr; }
+			}
+
+			@media screen and (max-width: 768px) {
+				.mobile-toggle { display: block; }
+				
+				nav#nav {
+					position: absolute;
+					top: 100%;
+					left: 0;
+					width: 100%;
+					background: rgba(3, 7, 18, 0.98);
+					backdrop-filter: blur(20px);
+					border-bottom: 1px solid var(--glass-border);
+					padding: 20px;
+					display: none;
+				}
+
+				nav#nav.active { display: block; }
+
+				nav#nav > ul {
+					flex-direction: column;
+					align-items: stretch;
+					gap: 10px;
+				}
+
+				#banner h2 { font-size: 2.1rem; }
+				#banner p.sub-hero { font-size: 1rem; }
+				.section-header h2 { font-size: 1.8rem; }
+				.showcase-wrapper { padding: 25px; }
+			}
+		</style>
+
+		<!-- Google Organization Schema Markup -->
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Organization",
+		  "name": "M And K Corporation (Pty) Ltd",
+		  "url": "https://www.mkcorp.co.za",
+		  "logo": "https://www.mkcorp.co.za/images/logo1.jpeg",
+		  "slogan": "Your Journey, Your Success, Our Commitment"
+		}
+		</script>
+	</head>
+	<body>
+
+		<!-- 3D WebGL Background Canvas -->
+		<canvas id="webgl-canvas"></canvas>
+
+		<div class="content-wrapper">
+
+			<!-- Navigation Header -->
+			<header id="header">
+				<div class="nav-container">
+					<div class="header-brand">
+						<div class="logo-left">
+							<img src="images/logo1.jpeg" alt="M AND K Corporation Logo - EV Fleet & Green Economy South Africa">
+						</div>
+						<h1>
+							<a href="index.html">M AND K <em>Corporation (PTY) LTD</em></a>
+						</h1>
+					</div>
+
+					<div class="mobile-toggle" id="mobile-toggle">
+						<i class="fa-solid fa-bars"></i>
+					</div>
+
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="index.html">Home</a></li>
+							<li class="nav-dropdown-custom">
+								<a href="#" onclick="return false;">Our Services <i class="fa-solid fa-chevron-down" style="font-size: 0.7em; margin-left: 5px;"></i></a>
+								<ul>
+									<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+									<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
+									<li><a href="job-applications.html">Job Applications</a></li>
+								</ul>
+							</li>
+							<li><a href="letter-of-intent.html" id="loi-link">Letter of Intent</a></li>
+							<li><a href="contact.html">Contact Us</a></li>
+							<li><a href="about-us.html">About Us</a></li>
+						</ul>
+					</nav>
+				</div>
+			</header>
+
+			<!-- Hero Section -->
+			<section id="banner">
+				<div class="hero-content">
+					<div class="slogan-pill">
+						<i class="fa-solid fa-sun"></i> Your Journey. Your Success. Our Commitment.
+					</div>
+					<h2>Accelerating South Africa’s EV Revolution & Solar Mobility Grid</h2>
+					<p class="sub-hero">Leading South Africa's green transport sector with zero-emission EV fleet leasing, solar charging infrastructure, smart transport logistics, and high-impact youth empowerment.</p>
+					<div class="cta-group">
+						<a href="#services" class="btn-primary"><i class="fa-solid fa-bolt"></i> Explore EV Services</a>
+						<a href="job-applications.html" class="btn-secondary"><i class="fa-solid fa-user-plus"></i> Apply for Youth EV Drivers</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- 3 Core Services Cards -->
+			<section id="services" class="section-container">
+				<div class="section-header">
+					<span class="tag">National Mobility Infrastructure</span>
+					<h2>Core EV, Solar & Logistics Solutions</h2>
+					<p>Building clean transportation systems and sustainable youth employment pathways across South Africa.</p>
+				</div>
+
+				<div class="services-grid">
+					<!-- Service 1 -->
+					<div class="tilt-card">
+						<div class="card-icon-wrapper">
+							<i class="fa-solid fa-charging-station"></i>
+						</div>
+						<h3>Vehicle Leasing & Fleet Management</h3>
+						<p>Zero-emission Electric Vehicle leasing, solar-supported fleet packages, rent-to-own models, and telematics management for operators across South Africa.</p>
+						<span class="badge-tag">Zero Emissions</span>
+					</div>
+
+					<!-- Service 2 -->
+					<div class="tilt-card">
+						<div class="card-icon-wrapper">
+							<i class="fa-solid fa-truck-fast"></i>
+						</div>
+						<h3>Transport Logistics</h3>
+						<p>Carbon-neutral parcel delivery, eco-conscious dispatching, and high-priority cargo logistics engineered for South Africa's growing supply chain.</p>
+						<span class="badge-tag">Green Logistics</span>
+					</div>
+
+					<!-- Service 3 -->
+					<div class="tilt-card">
+						<div class="card-icon-wrapper">
+							<i class="fa-solid fa-bus-simple"></i>
+						</div>
+						<h3>Corporate Staff Transport</h3>
+						<p>Premium 5-to-7 seater electric and hybrid corporate shuttles delivering safe, quiet, and punctual staff commutes for enterprise partners nationwide.</p>
+						<span class="badge-tag">Corporate Transit</span>
+					</div>
+				</div>
+			</section>
+
+			<!-- Interactive EV, Solar & Youth Impact Showcase -->
+			<section class="section-container" style="padding-top: 0;">
+				<div class="showcase-wrapper">
+					<div class="section-header" style="margin-bottom: 30px;">
+						<span class="tag">Eco-City Infrastructure</span>
+						<h2>EV Innovation, Solar Hubs & Youth Empowerment</h2>
+					</div>
+
+					<div class="tab-buttons">
+						<button class="tab-btn active" onclick="openTab(event, 'ev-tech')">
+							<i class="fa-solid fa-car"></i> EV Fleet Leasing
+						</button>
+						<button class="tab-btn" onclick="openTab(event, 'solar-charging')">
+							<i class="fa-solid fa-solar-panel"></i> Solar Charging Grid
+						</button>
+						<button class="tab-btn" onclick="openTab(event, 'youth-empower')">
+							<i class="fa-solid fa-user-graduate"></i> Youth Pathways
+						</button>
+					</div>
+
+					<!-- Tab 1: EV Fleet Leasing -->
+					<div id="ev-tech" class="tab-content active">
+						<div class="showcase-info">
+							<h3>Zero-Emission EV Mobility Grid</h3>
+							<p>We are actively transforming South Africa’s transport sector into clean electric mobility. Our fleet models drastically lower operating expenses for drivers while reducing carbon emissions in urban centers.</p>
+							<ul class="spec-list">
+								<li><i class="fa-solid fa-circle-check"></i> 100% Zero-Emission Electric Vehicles & Clean Shuttles</li>
+								<li><i class="fa-solid fa-circle-check"></i> Integrated Battery Health Analytics & Telematics</li>
+								<li><i class="fa-solid fa-circle-check"></i> Accessible Rent-to-Own EV Driver Programs Across South Africa</li>
+							</ul>
+						</div>
+						<div class="visual-card-box">
+							<i class="fa-solid fa-car-side big-icon"></i>
+							<h4 style="font-size: 1.4rem; color: #fff;">Electric Fleet Fleetways</h4>
+							<p style="color: var(--text-muted); margin-top: 8px;">South Africa Green Transit Grid</p>
+						</div>
+					</div>
+
+					<!-- Tab 2: Solar Charging Grid -->
+					<div id="solar-charging" class="tab-content">
+						<div class="showcase-info">
+							<h3>Solar-Powered Charging Infrastructure</h3>
+							<p>To ensure true zero-emission mobility, M AND K Corporation supports solar charging stations across key transport corridors, harnessing South Africa's abundant solar energy to power electric vehicles independently.</p>
+							<ul class="spec-list">
+								<li><i class="fa-solid fa-circle-check"></i> Solar Array Microgrids with Energy Storage</li>
+								<li><i class="fa-solid fa-circle-check"></i> High-Speed EV Charging Plugs for Corporate Fleets</li>
+								<li><i class="fa-solid fa-circle-check"></i> Grid-Independent Clean Power Generation</li>
+							</ul>
+						</div>
+						<div class="visual-card-box">
+							<i class="fa-solid fa-solar-panel big-icon"></i>
+							<h4 style="font-size: 1.4rem; color: #fff;">Solar Hub Network</h4>
+							<p style="color: var(--text-muted); margin-top: 8px;">Renewable Power for EV Transportation</p>
+						</div>
+					</div>
+
+					<!-- Tab 3: Youth Empower -->
+					<div id="youth-empower" class="tab-content">
+						<div class="showcase-info">
+							<h3>Empowering Youth Across South Africa</h3>
+							<p>Youth unemployment is one of South Africa’s greatest challenges. M AND K Corporation creates direct employment opportunities by training young South Africans as certified EV drivers, logistics managers, and green fleet specialists.</p>
+							<ul class="spec-list">
+								<li><i class="fa-solid fa-circle-check"></i> Certified EV Fleet & Solar Operations Training</li>
+								<li><i class="fa-solid fa-circle-check"></i> Sustainable Entrepreneurial Driver Leasing</li>
+								<li><i class="fa-solid fa-circle-check"></i> 100% Level 1 B-BBEE Youth Upskilling Initiatives</li>
+							</ul>
+						</div>
+						<div class="visual-card-box">
+							<i class="fa-solid fa-graduation-cap big-icon"></i>
+							<h4 style="font-size: 1.4rem; color: #fff;">Youth EV Academy</h4>
+							<p style="color: var(--text-muted); margin-top: 8px;">Building Green Careers for South Africa</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Live Impact Metrics -->
+			<section class="section-container" style="padding-top: 0;">
+				<div class="metrics-wrapper">
+					<div class="section-header" style="margin-bottom: 40px;">
+						<span class="tag">Empowerment & Sustainability</span>
+						<h2>Measurable Impact In Numbers</h2>
+					</div>
+					<div class="metrics-grid">
+						<div class="metric-item">
+							<h4 class="counter" data-target="100">0%</h4>
+							<p>Level 1 B-BBEE Contributor</p>
+						</div>
+						<div class="metric-item">
+							<h4 class="counter" data-target="135">0%</h4>
+							<p>Procurement ESD Score</p>
+						</div>
+						<div class="metric-item">
+							<h4 class="counter" data-target="2500">0+</h4>
+							<p>Youth Jobs & Driver Pathways</p>
+						</div>
+						<div class="metric-item">
+							<h4 class="counter" data-target="50000">0</h4>
+							<p>Solar Energy Generated (kWh)</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Executive Leadership -->
+			<section class="section-container">
+				<div class="section-header">
+					<span class="tag">Leadership</span>
+					<h2>Board of Directors</h2>
+				</div>
+				<div class="board-grid">
+					<div class="board-card">
+						<div class="avatar-placeholder">
+							<i class="fa-solid fa-user-tie"></i>
+						</div>
+						<h4>Mustapha Jacobs</h4>
+						<p class="role">Co-Founder & Managing Director</p>
+					</div>
+
+					<div class="board-card">
+						<div class="avatar-placeholder">
+							<i class="fa-solid fa-user-tie"></i>
+						</div>
+						<h4>Kaylim Clark</h4>
+						<p class="role">Co-Founder & Managing Director</p>
+					</div>
+
+					<div class="board-card">
+						<div class="avatar-placeholder">
+							<i class="fa-solid fa-user-tie"></i>
+						</div>
+						<h4>Keathan Kester</h4>
+						<p class="role">Co-Founder & Managing Director</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Call To Action -->
+			<section id="cta">
+				<div class="hero-content">
+					<div class="slogan-pill" style="margin-bottom: 15px;">Your Journey. Your Success. Our Commitment.</div>
+					<h2 style="font-size: 2.5rem; color: #fff; margin-bottom: 20px;">Ready to Elevate Your Fleet Logistics & Solar EV Impact Across South Africa?</h2>
+					<a href="contact.html" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Connect With Us Today</a>
+				</div>
+			</section>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<div class="section-container" style="padding-top: 0; padding-bottom: 0;">
+					<div class="footer-grid">
+						<div class="footer-col">
+							<h3>M AND K Corporation</h3>
+							<p>Leading EV vehicle leasing & fleet management, solar charging infrastructure, transport logistics, and corporate staff transport while expanding youth employment across South Africa's Green Economy.</p>
+						</div>
+
+						<div class="footer-col">
+							<h3>Quick Links</h3>
+							<ul class="footer-links">
+								<li><a href="#banner">Home</a></li>
+								<li><a href="ehailing-partnerships.html">E-Hailing Partnerships</a></li>
+								<li><a href="corporate-fleet.html">Corporate Fleet Services</a></li>
+								<li><a href="about-us.html">About Us</a></li>
+								<li><a href="contact.html">Contact Support</a></li>
+							</ul>
+						</div>
+
+						<div class="footer-col">
+							<h3>Corporate Information</h3>
+							<p><strong>M AND K Corporation (Pty) Ltd</strong></p>
+							<p>Reg No: 2026 / 417012 / 07</p>
+							<p>B-BBEE Status: Level 1 Contributor (100% Black Owned)</p>
+							<p style="margin-top: 8px; color: var(--ev-cyan);">Operating Across South Africa</p>
+						</div>
+
+						<!-- Forminit Form -->
+						<div class="footer-col">
+							<h3>Get In Touch</h3>
+							<form class="contact-form" action="https://forminit.com/f/5kzvzvvqjsy" method="POST">
+								<div class="form-row">
+									<input type="text" name="fi-sender-fullName" placeholder="Name" required />
+									<input type="email" name="fi-sender-email" placeholder="Email" required />
+								</div>
+								<input type="text" name="fi-text-subject" placeholder="Subject" required />
+								<textarea name="fi-text-message" placeholder="Message" rows="3" required></textarea>
+								<button type="submit" class="btn-primary" style="padding: 12px 25px; border-radius: 8px; justify-content: center;">Send Message</button>
+							</form>
+						</div>
+					</div>
+
+					<div class="social-icons">
+						<a href="#"><i class="fa-brands fa-twitter"></i></a>
+						<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+						<a href="#"><i class="fa-brands fa-github"></i></a>
+						<a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+					</div>
+
+					<div class="copyright">
+						<p>&copy; M AND K Corporation (Pty) Ltd. All rights reserved. | Reg No: 2026/417012/07 | South Africa</p>
+					</div>
+				</div>
+			</footer>
+
+		</div>
+
+		<!-- Floating WhatsApp Link -->
+		<a href="https://wa.me/27663577165" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+			<i class="fab fa-whatsapp"></i>
+		</a>
+
+		<!-- Scripts & 3D Eco-City EV / Solar / Tree Scene -->
+		<script>
+			// Mandatory LOI Event Handler to prevent navigation block
+			document.getElementById('loi-link').addEventListener('click', function(e) {
+				e.stopPropagation(); 
+				window.location.href = 'letter-of-intent.html';
+			}, true);
+
+			// Mobile Menu Toggle logic
+			const mobileToggle = document.getElementById('mobile-toggle');
+			const nav = document.getElementById('nav');
+			if(mobileToggle && nav) {
+				mobileToggle.addEventListener('click', () => {
+					nav.classList.toggle('active');
+				});
+			}
+
+			// Showcase Tab Switcher
+			function openTab(evt, tabName) {
+				const tabContents = document.getElementsByClassName("tab-content");
+				for (let i = 0; i < tabContents.length; i++) {
+					tabContents[i].classList.remove("active");
+				}
+				const tabBtns = document.getElementsByClassName("tab-btn");
+				for (let i = 0; i < tabBtns.length; i++) {
+					tabBtns[i].classList.remove("active");
+				}
+				document.getElementById(tabName).classList.add("active");
+				evt.currentTarget.classList.add("active");
+			}
+
+			// Three.js 3D/4D Eco-City WebGL Scene: EV Vehicles, Solar Charging Stations & Trees
+			let scene, camera, renderer;
+			let evCars = [];
+			let solarPanels = [];
+			let energyParticles;
+			let mouseX = 0, mouseY = 0;
+			let targetX = 0, targetY = 0;
+			const windowHalfX = window.innerWidth / 2;
+			const windowHalfY = window.innerHeight / 2;
+
+			// Helper to create low-poly 3D Trees
+			function createTree(x, z) {
+				const treeGroup = new THREE.Group();
+				
+				// Trunk
+				const trunkGeo = new THREE.CylinderGeometry(4, 7, 35, 6);
+				const trunkMat = new THREE.MeshLambertMaterial({ color: 0x4a2e18 });
+				const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+				trunk.position.y = 17.5;
+				treeGroup.add(trunk);
+
+				// Foliage Layers (Eco Emerald Green)
+				const foliageMat = new THREE.MeshLambertMaterial({ color: 0x10b981, flatShading: true });
+				const layer1 = new THREE.Mesh(new THREE.ConeGeometry(25, 45, 6), foliageMat);
+				layer1.position.y = 45;
+				
+				const layer2 = new THREE.Mesh(new THREE.ConeGeometry(20, 35, 6), foliageMat);
+				layer2.position.y = 65;
+
+				treeGroup.add(layer1);
+				treeGroup.add(layer2);
+
+				treeGroup.position.set(x, -250, z);
+				return treeGroup;
+			}
+
+			// Helper to create Solar Charging Stations
+			function createSolarStation(x, z) {
+				const stationGroup = new THREE.Group();
+
+				// Station Base & Charging Pole
+				const poleGeo = new THREE.CylinderGeometry(5, 5, 80, 8);
+				const poleMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.8, roughness: 0.2 });
+				const pole = new THREE.Mesh(poleGeo, poleMat);
+				pole.position.y = 40;
+				stationGroup.add(pole);
+
+				// Solar Panel Array (Gold / Cyan Glow)
+				const panelGeo = new THREE.BoxGeometry(70, 4, 45);
+				const panelMat = new THREE.MeshStandardMaterial({ 
+					color: 0x06b6d4, 
+					emissive: 0xf59e0b, 
+					emissiveIntensity: 0.3,
+					metalness: 0.9, 
+					roughness: 0.1 
+				});
+				const panel = new THREE.Mesh(panelGeo, panelMat);
+				panel.position.y = 82;
+				panel.rotation.x = Math.PI / 6;
+				solarPanels.push(panel);
+				stationGroup.add(panel);
+
+				// Glowing Charging Cable / Node
+				const nodeGeo = new THREE.SphereGeometry(10, 16, 16);
+				const nodeMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true });
+				const node = new THREE.Mesh(nodeGeo, nodeMat);
+				node.position.y = 35;
+				stationGroup.add(node);
+
+				stationGroup.position.set(x, -250, z);
+				return stationGroup;
+			}
+
+			// Helper to create Futuristic EV Vehicle
+			function createEVCar(colorHex, speed) {
+				const carGroup = new THREE.Group();
+
+				// Body
+				const bodyGeo = new THREE.BoxGeometry(70, 20, 35);
+				const bodyMat = new THREE.MeshStandardMaterial({ color: colorHex, metalness: 0.8, roughness: 0.2 });
+				const body = new THREE.Mesh(bodyGeo, bodyMat);
+				body.position.y = 15;
+				carGroup.add(body);
+
+				// Glass Cabin
+				const cabinGeo = new THREE.BoxGeometry(38, 16, 28);
+				const cabinMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, transparent: true, opacity: 0.7, wireframe: true });
+				const cabin = new THREE.Mesh(cabinGeo, cabinMat);
+				cabin.position.set(-5, 30, 0);
+				carGroup.add(cabin);
+
+				// Headlights Energy Glow
+				const lightGeo = new THREE.SphereGeometry(4, 8, 8);
+				const lightMat = new THREE.MeshBasicMaterial({ color: 0x67e8f9 });
+				const light1 = new THREE.Mesh(lightGeo, lightMat);
+				light1.position.set(35, 15, 10);
+				const light2 = new THREE.Mesh(lightGeo, lightMat);
+				light2.position.set(35, 15, -10);
+				carGroup.add(light1);
+				carGroup.add(light2);
+
+				carGroup.userData = { speed: speed, distance: 0 };
+				return carGroup;
+			}
+
+			function init3D() {
+				const canvas = document.getElementById('webgl-canvas');
+				scene = new THREE.Scene();
+				scene.fog = new THREE.FogExp2(0x030712, 0.001);
+
+				camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 3000);
+				camera.position.set(0, 220, 800);
+
+				renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+				// Lighting Setup
+				const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+				scene.add(ambientLight);
+
+				const dirLight = new THREE.DirectionalLight(0xf59e0b, 1.2);
+				dirLight.position.set(200, 500, 200);
+				scene.add(dirLight);
+
+				const cyanLight = new THREE.PointLight(0x06b6d4, 2, 800);
+				cyanLight.position.set(0, 50, 0);
+				scene.add(cyanLight);
+
+				// 1. Eco Energy Grid Floor & Roads
+				const gridHelper = new THREE.GridHelper(2400, 48, 0x06b6d4, 0x064e3b);
+				gridHelper.position.y = -250;
+				scene.add(gridHelper);
+
+				// 2. Add Trees along eco avenues
+				for (let i = -1000; i <= 1000; i += 250) {
+					scene.add(createTree(i, -350));
+					scene.add(createTree(i, 350));
+				}
+
+				// 3. Add Solar Charging Stations
+				scene.add(createSolarStation(-450, -100));
+				scene.add(createSolarStation(450, 100));
+
+				// 4. Add Moving EV Vehicles
+				const car1 = createEVCar(0x10b981, 2.5);
+				car1.position.set(-900, -235, -150);
+				car1.rotation.y = Math.PI / 2;
+				evCars.push(car1);
+				scene.add(car1);
+
+				const car2 = createEVCar(0x06b6d4, 3.2);
+				car2.position.set(900, -235, 150);
+				car2.rotation.y = -Math.PI / 2;
+				evCars.push(car2);
+				scene.add(car2);
+
+				// 5. Floating Solar Energy Particle Field (4D Effect)
+				const particleCount = 1000;
+				const geometry = new THREE.BufferGeometry();
+				const positions = new Float32Array(particleCount * 3);
+				const colors = new Float32Array(particleCount * 3);
+
+				const colorCyan = new THREE.Color(0x06b6d4);
+				const colorGold = new THREE.Color(0xf59e0b);
+				const colorEmerald = new THREE.Color(0x10b981);
+
+				for (let i = 0; i < particleCount * 3; i += 3) {
+					positions[i] = (Math.random() - 0.5) * 2000;
+					positions[i + 1] = (Math.random() - 0.5) * 1600;
+					positions[i + 2] = (Math.random() - 0.5) * 2000;
+
+					const rand = Math.random();
+					const c = rand > 0.6 ? colorGold : (rand > 0.3 ? colorCyan : colorEmerald);
+					colors[i] = c.r;
+					colors[i + 1] = c.g;
+					colors[i + 2] = c.b;
+				}
+
+				geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+				geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+				const pMaterial = new THREE.PointsMaterial({
+					size: 4,
+					vertexColors: true,
+					transparent: true,
+					opacity: 0.8
+				});
+
+				energyParticles = new THREE.Points(geometry, pMaterial);
+				scene.add(energyParticles);
+
+				document.addEventListener('mousemove', onDocumentMouseMove);
+				window.addEventListener('resize', onWindowResize);
+			}
+
+			function onDocumentMouseMove(event) {
+				mouseX = (event.clientX - windowHalfX) * 0.3;
+				mouseY = (event.clientY - windowHalfY) * 0.3;
+			}
+
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize(window.innerWidth, window.innerHeight);
+			}
+
+			function animate() {
+				requestAnimationFrame(animate);
+
+				targetX += (mouseX - targetX) * 0.05;
+				targetY += (mouseY - targetY) * 0.05;
+
+				camera.position.x += (targetX - camera.position.x) * 0.05;
+				camera.position.y += (-targetY + 220 - camera.position.y) * 0.05;
+				camera.lookAt(scene.position);
+
+				// Drive EV Vehicles across roads
+				evCars.forEach(car => {
+					if (car.rotation.y > 0) {
+						car.position.x += car.userData.speed;
+						if (car.position.x > 1000) car.position.x = -1000;
+					} else {
+						car.position.x -= car.userData.speed;
+						if (car.position.x < -1000) car.position.x = 1000;
+					}
+				});
+
+				// Gently rotate Solar Panels
+				solarPanels.forEach(panel => {
+					panel.rotation.y += 0.005;
+				});
+
+				// 4D Solar Particles Rotation
+				if (energyParticles) {
+					energyParticles.rotation.y += 0.0008;
+					energyParticles.rotation.x += 0.0003;
+				}
+
+				renderer.render(scene, camera);
+			}
+
+			window.onload = function() {
+				init3D();
+				animate();
+			};
+
+			// Animated Impact Counters
+			const counters = document.querySelectorAll('.counter');
+			let hasAnimated = false;
+
+			window.addEventListener('scroll', () => {
+				const metricsSection = document.querySelector('.metrics-wrapper');
+				if (metricsSection) {
+					const rect = metricsSection.getBoundingClientRect();
+					if (rect.top <= window.innerHeight && !hasAnimated) {
+						hasAnimated = true;
+						counters.forEach(counter => {
+							const target = +counter.getAttribute('data-target');
+							let count = 0;
+							const speed = target / 60;
+							const updateCount = () => {
+								count += speed;
+								if (count < target) {
+									counter.innerText = Math.ceil(count) + (target === 2500 ? '+' : (target === 50000 ? ' kWh' : '%'));
+									setTimeout(updateCount, 30);
+								} else {
+									counter.innerText = target + (target === 2500 ? '+' : (target === 50000 ? ' kWh' : '%'));
+								}
+							};
+							updateCount();
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

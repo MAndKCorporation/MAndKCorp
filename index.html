@@ -4,8 +4,8 @@
 		<title>M AND K CORPORATION (PTY) LTD | Your Journey, Your Success, Our Commitment</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta name="description" content="M And K Corporation offers vehicle leasing, fleet management, transport logistics, and corporate staff transport in Cape Town. Empowering South Africa's Green Economy and youth." />
-		<meta name="keywords" content="M And K Corporation, Vehicle Leasing, Fleet Management, Transport Logistics, Corporate Staff Transport, Green Economy, Youth Employment Cape Town" />
+		<meta name="description" content="M And K Corporation offers EV vehicle leasing, fleet management, transport logistics, and corporate staff transport across South Africa. Empowering the Green Economy and youth employment." />
+		<meta name="keywords" content="M And K Corporation, EV Fleet, Solar Charging, Vehicle Leasing, Fleet Management, Transport Logistics, Corporate Staff Transport, Green Economy, Youth Employment South Africa" />
 		<meta name="robots" content="index, follow" />
 		
 		<!-- Search Engine Profile Picture / Favicon Setup -->
@@ -13,25 +13,27 @@
 		<link rel="apple-touch-icon" href="images/logo1.jpeg" />
 		<meta name="google-site-verification" content="ywZyrobTieXK6nIrSvxVIWGjIZLcoyOp43exTFDae08" />
 		
-		<!-- Font Awesome & Modern Typography CDN -->
+		<!-- Font Awesome, Google Fonts & Three.js 3D Engine -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 		<link rel="stylesheet" href="assets/css/main.css" />
 		
 		<style>
 			:root {
-				--emerald-primary: #059669;
+				--emerald-primary: #10b981;
 				--emerald-dark: #064e3b;
-				--emerald-light: #10b981;
-				--emerald-soft: #ecfdf5;
-				--text-dark: #0f172a;
-				--text-muted: #475569;
-				--bg-light: #f8fafc;
-				--card-bg: #ffffff;
-				--radius: 16px;
-				--shadow: 0 10px 30px -5px rgba(5, 150, 105, 0.08), 0 4px 12px -2px rgba(0,0,0,0.05);
+				--cyan-accent: #06b6d4;
+				--solar-gold: #f59e0b;
+				--dark-bg: #030712;
+				--card-bg: rgba(15, 23, 42, 0.75);
+				--card-border: rgba(16, 185, 129, 0.2);
+				--text-light: #f8fafc;
+				--text-muted: #94a3b8;
+				--radius: 14px;
+				--shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.15);
 			}
 
 			*, *:before, *:after {
@@ -40,28 +42,40 @@
 
 			body {
 				font-family: 'Plus Jakarta Sans', sans-serif !important;
-				background-color: var(--bg-light) !important;
+				background-color: var(--dark-bg) !important;
 				color: var(--text-muted) !important;
-				line-height: 1.6;
+				line-height: 1.5;
 				margin: 0;
 				padding: 0;
+				overflow-x: hidden;
 				display: block !important;
 				visibility: visible !important;
 				opacity: 1 !important;
 			}
 
-			/* Modern Floating WhatsApp Button */
+			/* 4D Architecture Canvas Container */
+			#canvas-container {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 1;
+				pointer-events: none;
+			}
+
+			/* WhatsApp Button */
 			.whatsapp-float {
 				position: fixed;
-				width: 60px;
-				height: 60px;
-				bottom: 30px;
-				right: 30px;
+				width: 56px;
+				height: 56px;
+				bottom: 25px;
+				right: 25px;
 				background: linear-gradient(135deg, #25d366, #128c7e);
 				color: #fff !important;
 				border-radius: 50%;
 				text-align: center;
-				font-size: 28px;
+				font-size: 26px;
 				box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
 				z-index: 999;
 				display: flex;
@@ -78,9 +92,12 @@
 
 			/* Header Navigation */
 			#header {
-				background: #ffffff !important;
-				border-bottom: 1px solid rgba(5, 150, 105, 0.1);
-				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+				background: rgba(3, 7, 18, 0.85) !important;
+				backdrop-filter: blur(12px);
+				border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+				position: sticky;
+				top: 0;
+				z-index: 100;
 				padding: 0 !important;
 			}
 
@@ -90,122 +107,125 @@
 				justify-content: space-between;
 				max-width: 1200px;
 				margin: 0 auto;
-				padding: 15px 25px;
-				background: #ffffff;
+				padding: 12px 25px;
 			}
 
 			#header .logo-left img {
-				height: 65px;
+				height: 55px;
 				width: auto;
 				border-radius: 8px;
-				transition: transform 0.3s ease;
-			}
-
-			#header .logo-left img:hover {
-				transform: scale(1.02);
 			}
 
 			#header .header-brand h1 {
 				margin: 0;
-				font-size: 1.4rem;
+				font-size: 1.3rem;
 				font-weight: 800;
-				letter-spacing: -0.5px;
+				font-family: 'Space Grotesk', sans-serif;
 			}
 
 			#header .header-brand h1 a {
-				color: var(--emerald-dark) !important;
+				color: #ffffff !important;
 				text-decoration: none !important;
 			}
 
 			#header .header-brand h1 em {
 				color: var(--emerald-primary) !important;
 				font-style: normal;
-				font-weight: 500;
 				font-size: 0.85em;
 			}
 
 			#nav {
-				background: #ffffff;
-				border-top: 1px solid var(--emerald-soft);
+				background: transparent;
+				border-top: 1px solid rgba(255, 255, 255, 0.05);
 			}
 
 			#nav > ul {
 				display: flex !important;
 				justify-content: center;
 				align-items: center;
-				gap: 15px;
-				padding: 12px 0;
+				gap: 10px;
+				padding: 8px 0;
 				margin: 0;
 				list-style: none;
 			}
 
 			#nav ul li a {
-				color: var(--text-dark) !important;
+				color: var(--text-light) !important;
 				font-weight: 600;
-				font-size: 0.95rem;
-				padding: 8px 18px !important;
-				border-radius: 8px;
+				font-size: 0.88rem;
+				padding: 6px 14px !important;
+				border-radius: 6px;
 				transition: all 0.2s ease;
-				text-transform: none !important;
 				text-decoration: none;
 			}
 
 			#nav ul li.current > a,
 			#nav ul li:hover > a {
-				background: var(--emerald-soft) !important;
+				background: rgba(16, 185, 129, 0.15) !important;
 				color: var(--emerald-primary) !important;
+				border: 1px solid rgba(16, 185, 129, 0.3);
 			}
 
-			/* Hero Banner (Pure CSS Gradient Background) */
+			/* 4D Hero Banner */
 			#banner {
-				background: linear-gradient(135deg, #064e3b 0%, #059669 50%, #022c22 100%) !important;
-				padding: 110px 20px !important;
-				text-align: center;
-				color: #ffffff;
 				position: relative;
+				min-height: 80vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				padding: 80px 20px;
+				background: radial-gradient(circle at center, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
 			}
 
-			#banner .slogan-badge {
-				display: inline-block;
-				background: rgba(255, 255, 255, 0.15);
+			#banner .hero-content {
+				position: relative;
+				z-index: 10;
+				max-width: 900px;
+			}
+
+			.slogan-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				background: rgba(16, 185, 129, 0.1);
 				backdrop-filter: blur(10px);
-				border: 1px solid rgba(255, 255, 255, 0.3);
-				color: #ffffff;
-				font-size: 0.9rem;
+				border: 1px solid rgba(16, 185, 129, 0.3);
+				color: var(--emerald-primary);
+				font-size: 0.85rem;
 				font-weight: 700;
-				padding: 8px 24px;
+				padding: 6px 20px;
 				border-radius: 50px;
-				margin-bottom: 25px;
+				margin-bottom: 20px;
 				letter-spacing: 1px;
 				text-transform: uppercase;
 			}
 
 			#banner header h2 {
+				font-family: 'Space Grotesk', sans-serif;
 				font-size: 2.8rem !important;
-				font-weight: 800;
+				font-weight: 700;
 				color: #ffffff !important;
-				max-width: 900px;
-				margin: 0 auto 20px auto;
-				line-height: 1.25;
+				margin: 0 auto 15px auto;
+				line-height: 1.2;
 				letter-spacing: -1px;
 			}
 
 			#banner header p.sub-hero {
-				font-size: 1.2rem;
-				max-width: 750px;
-				margin: 0 auto 35px auto;
-				color: #e2e8f0;
-				font-weight: 400;
+				font-size: 1.1rem;
+				max-width: 700px;
+				margin: 0 auto 30px auto;
+				color: var(--text-muted);
 			}
 
-			#banner .button {
-				background: #ffffff !important;
-				color: var(--emerald-dark) !important;
-				font-weight: 700 !important;
-				padding: 14px 36px !important;
+			.button-glow {
+				background: linear-gradient(135deg, var(--emerald-primary), var(--cyan-accent)) !important;
+				color: #030712 !important;
+				font-weight: 800 !important;
+				padding: 12px 32px !important;
 				border-radius: 50px !important;
 				border: none !important;
-				box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+				box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) !important;
 				transition: all 0.3s ease !important;
 				text-transform: uppercase;
 				letter-spacing: 0.5px;
@@ -213,251 +233,220 @@
 				display: inline-block;
 			}
 
-			#banner .button:hover {
-				transform: translateY(-3px) !important;
-				background: var(--emerald-soft) !important;
-				color: var(--emerald-primary) !important;
+			.button-glow:hover {
+				transform: translateY(-3px) scale(1.02);
+				box-shadow: 0 0 30px rgba(16, 185, 129, 0.6) !important;
 			}
 
-			/* Core Services Section */
-			.wrapper.style1 {
-				padding: 80px 0 !important;
-				background: transparent !important;
+			/* 3-Column Compact Core Services Grid */
+			.services-section {
+				padding: 60px 0;
+				position: relative;
+				z-index: 10;
 			}
 
-			.box.highlight {
-				background: var(--card-bg) !important;
-				border-radius: var(--radius) !important;
-				padding: 40px 30px !important;
-				border: 1px solid rgba(5, 150, 105, 0.08) !important;
-				box-shadow: var(--shadow) !important;
-				transition: all 0.3s ease !important;
-				height: 100%;
+			.section-header {
 				text-align: center;
+				margin-bottom: 40px;
 			}
 
-			.box.highlight:hover {
-				transform: translateY(-8px) !important;
-				box-shadow: 0 20px 40px rgba(5, 150, 105, 0.12) !important;
-				border-color: rgba(5, 150, 105, 0.3) !important;
+			.section-header h2 {
+				font-family: 'Space Grotesk', sans-serif;
+				color: #ffffff;
+				font-size: 2rem;
+				font-weight: 700;
 			}
 
-			.box.highlight .icon {
-				background: var(--emerald-soft) !important;
-				color: var(--emerald-primary) !important;
-				width: 75px !important;
-				height: 75px !important;
-				line-height: 75px !important;
-				border-radius: 50% !important;
-				margin: 0 auto 24px auto !important;
-				font-size: 1.8rem !important;
+			.services-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 20px;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 20px;
+			}
+
+			.service-card-compact {
+				background: var(--card-bg);
+				backdrop-filter: blur(12px);
+				border-radius: var(--radius);
+				padding: 24px 20px;
+				border: 1px solid var(--card-border);
+				box-shadow: var(--shadow);
+				transition: all 0.3s ease;
+				text-align: center;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.service-card-compact:hover {
+				transform: translateY(-6px);
+				border-color: var(--emerald-primary);
+				box-shadow: 0 15px 35px rgba(16, 185, 129, 0.25);
+			}
+
+			.service-icon-compact {
+				width: 54px;
+				height: 54px;
+				background: rgba(16, 185, 129, 0.12);
+				border: 1px solid rgba(16, 185, 129, 0.3);
+				color: var(--emerald-primary);
+				border-radius: 50%;
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				font-size: 1.3rem;
+				margin-bottom: 16px;
 			}
 
-			.box.highlight h3 {
-				color: var(--emerald-dark) !important;
+			.service-card-compact h3 {
+				color: #ffffff !important;
 				font-weight: 700 !important;
-				font-size: 1.3rem !important;
-				margin-bottom: 15px !important;
+				font-size: 1.05rem !important;
+				margin-bottom: 10px !important;
+				line-height: 1.3;
 			}
 
-			.box.highlight p {
+			.service-card-compact p {
 				color: var(--text-muted) !important;
-				font-size: 0.95rem;
+				font-size: 0.85rem !important;
+				margin: 0;
+				line-height: 1.4;
 			}
 
-			/* Green Economy & Youth Section */
-			.wrapper.style2 {
-				background: linear-gradient(135deg, var(--emerald-dark), #032e23) !important;
-				color: #ffffff !important;
-				padding: 70px 0 !important;
+			/* 3-Column Compact Board of Directors */
+			.board-section {
+				padding: 50px 0;
+				position: relative;
+				z-index: 10;
+			}
+
+			.board-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 20px;
+				max-width: 1000px;
+				margin: 0 auto;
+				padding: 0 20px;
+			}
+
+			.board-card-compact {
+				background: rgba(15, 23, 42, 0.6);
+				backdrop-filter: blur(10px);
+				border-radius: 12px;
+				padding: 20px 15px;
+				border: 1px solid rgba(255, 255, 255, 0.08);
 				text-align: center;
+				transition: all 0.3s ease;
 			}
 
-			.wrapper.style2 header.major h2 {
+			.board-card-compact:hover {
+				border-color: var(--cyan-accent);
+				transform: translateY(-4px);
+			}
+
+			.board-card-compact h4 {
 				color: #ffffff !important;
-				font-size: 2.2rem !important;
-				font-weight: 800 !important;
-				letter-spacing: -0.5px;
+				font-weight: 700;
+				font-size: 1rem;
+				margin-bottom: 4px;
 			}
 
-			.wrapper.style2 header.major p {
-				color: #a7f3d0 !important;
-				font-size: 1.15rem !important;
-				max-width: 800px;
-				margin: 15px auto 0 auto;
-			}
-
-			/* Clean Text Cards (No Extra Images) */
-			.box.post {
-				background: var(--card-bg) !important;
-				border-radius: var(--radius) !important;
-				padding: 35px 30px !important;
-				box-shadow: var(--shadow) !important;
-				border: 1px solid rgba(5, 150, 105, 0.08) !important;
-				margin-bottom: 30px !important;
-				transition: all 0.3s ease !important;
-				height: 100%;
-			}
-
-			.box.post:hover {
-				transform: translateY(-5px) !important;
-				box-shadow: 0 15px 35px rgba(5, 150, 105, 0.1) !important;
-			}
-
-			.box.post .card-icon {
-				font-size: 2.2rem;
-				color: var(--emerald-primary);
-				margin-bottom: 15px;
-			}
-
-			.box.post h3 {
-				color: var(--emerald-dark) !important;
-				font-weight: 700 !important;
-				font-size: 1.25rem !important;
-				margin-bottom: 12px;
-			}
-
-			/* Call To Action Banner */
-			#cta {
-				background: linear-gradient(135deg, var(--emerald-primary), var(--emerald-dark)) !important;
-				padding: 80px 20px !important;
-				text-align: center;
-			}
-
-			#cta h2 {
-				color: #ffffff !important;
-				font-weight: 800 !important;
-				font-size: 2.2rem !important;
-				margin-bottom: 15px !important;
-			}
-
-			#cta .button {
-				background: #ffffff !important;
-				color: var(--emerald-dark) !important;
-				font-weight: 700 !important;
-				padding: 15px 40px !important;
-				border-radius: 50px !important;
-				box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
-				text-decoration: none;
-				display: inline-block;
-				margin-top: 15px;
-			}
-
-			#cta .button:hover {
-				background: var(--emerald-soft) !important;
+			.board-card-compact p {
+				font-style: italic;
 				color: var(--emerald-primary) !important;
+				font-size: 0.8rem;
+				margin: 0;
 			}
 
-			/* Footer */
+			/* Modern Form & Footer Styling */
 			#footer {
-				background: #091e17 !important;
-				color: #94a3b8 !important;
-				padding-top: 80px !important;
+				background: #020617 !important;
+				color: var(--text-muted) !important;
+				padding-top: 60px !important;
+				border-top: 1px solid rgba(16, 185, 129, 0.15);
+				position: relative;
+				z-index: 10;
 			}
 
 			#footer h3 {
 				color: #ffffff !important;
 				font-weight: 700 !important;
-				font-size: 1.2rem !important;
-				margin-bottom: 20px !important;
+				font-size: 1.1rem !important;
+				margin-bottom: 15px !important;
 				border-bottom: 2px solid var(--emerald-primary);
 				display: inline-block;
-				padding-bottom: 5px;
+				padding-bottom: 4px;
 			}
 
 			#footer p, #footer a {
 				color: #cbd5e1 !important;
-			}
-
-			#footer ul.links li a:hover {
-				color: var(--emerald-light) !important;
+				font-size: 0.9rem;
 			}
 
 			#footer input[type="text"],
 			#footer input[type="email"],
 			#footer textarea {
-				background: rgba(255, 255, 255, 0.05) !important;
-				border: 1px solid rgba(255, 255, 255, 0.15) !important;
+				background: rgba(15, 23, 42, 0.8) !important;
+				border: 1px solid rgba(16, 185, 129, 0.2) !important;
 				color: #ffffff !important;
 				border-radius: 8px !important;
-				padding: 12px 16px !important;
+				padding: 10px 14px !important;
 				width: 100%;
 			}
 
 			#footer input[type="text"]:focus,
 			#footer input[type="email"]:focus,
 			#footer textarea:focus {
-				border-color: var(--emerald-light) !important;
-				background: rgba(255, 255, 255, 0.1) !important;
+				border-color: var(--emerald-primary) !important;
 				outline: none;
 			}
 
 			#footer input[type="submit"] {
-				background: var(--emerald-primary) !important;
-				color: #ffffff !important;
-				font-weight: 700 !important;
+				background: linear-gradient(135deg, var(--emerald-primary), var(--cyan-accent)) !important;
+				color: #030712 !important;
+				font-weight: 800 !important;
 				border-radius: 8px !important;
 				border: none !important;
-				padding: 12px 30px !important;
-				transition: all 0.3s ease !important;
+				padding: 10px 24px !important;
 				cursor: pointer;
+				transition: all 0.3s ease !important;
 			}
 
-			#footer input[type="submit"]:hover {
-				background: var(--emerald-light) !important;
+			/* Tablet & Mobile Responsiveness */
+			@media screen and (max-width: 900px) {
+				.services-grid, .board-grid {
+					grid-template-columns: repeat(3, 1fr);
+					gap: 12px;
+				}
+				.service-card-compact {
+					padding: 16px 12px;
+				}
+				.service-card-compact h3 {
+					font-size: 0.95rem !important;
+				}
+				.service-card-compact p {
+					font-size: 0.8rem !important;
+				}
 			}
 
-			.board-card {
-				background: rgba(255, 255, 255, 0.03);
-				border-radius: 12px;
-				padding: 20px;
-				border: 1px solid rgba(255, 255, 255, 0.05);
-			}
-
-			.board-card h4 {
-				color: #ffffff !important;
-				font-weight: 700;
-			}
-
-			/* Mobile Responsiveness */
-			@media screen and (max-width: 768px) {
-				#header {
-					background: #ffffff !important;
-					padding-top: 0 !important;
+			@media screen and (max-width: 640px) {
+				.services-grid, .board-grid {
+					grid-template-columns: 1fr;
+					gap: 15px;
 				}
-				#header .header-brand {
-					flex-direction: column;
-					align-items: center;
-					text-align: center;
-					padding: 15px 10px;
+				#banner header h2 {
+					font-size: 2rem !important;
 				}
-				#header .logo-left {
-					margin-bottom: 10px;
-				}
-				#header .header-brand h1 {
-					font-size: 1.25em;
-				}
-
 				#nav > ul {
 					flex-direction: column;
 					gap: 5px;
 				}
-
-				#banner header h2 {
-					font-size: 1.8rem !important;
-				}
-
-				#navButton, .navButton, #titleBar, .titleBar, #navPanel, .navPanel {
-					display: none !important;
-					visibility: hidden !important;
-				}
 			}
 		</style>
 
-		<!-- Google Organization Schema Markup -->
+		<!-- Schema Markup -->
 		<script type="application/ld+json">
 		{
 		  "@context": "https://schema.org",
@@ -472,11 +461,11 @@
 	<body>
 		<div id="page-wrapper">
 
-			<!-- Header Section -->
+			<!-- Header -->
 			<div id="header">
 				<div class="header-brand">
 					<div class="logo-left">
-						<img src="images/logo1.jpeg" alt="M AND K Corporation Logo - Green Economy & Youth Employment Cape Town">
+						<img src="images/logo1.jpeg" alt="M AND K Corporation Logo - EV Green Economy South Africa">
 					</div>
 					<h1><a href="index.html" id="logo">M And K <em>Corporation (PTY) LTD</em></a></h1>
 				</div>
@@ -499,113 +488,50 @@
 				</nav>
 			</div>
 
-			<!-- Modern Gradient Hero Banner -->
+			<!-- 4D Interactive Scene Hero -->
 			<section id="banner">
-				<header>
-					<span class="slogan-badge">Your Journey. Your Success. Our Commitment.</span>
-					<h2>Driving South Africa’s Green Economy Through Youth Empowerment</h2>
-					<p class="sub-hero">Providing premier vehicle leasing & fleet management, transport logistics, and corporate staff transport while creating sustainable career pathways for Cape Town's youth.</p>
-					<a href="about-us.html" class="button">Explore Our Services</a>
-				</header>
+				<div id="canvas-container"></div>
+				<div class="hero-content">
+					<span class="slogan-badge"><i class="fa-solid fa-bolt"></i> Your Journey. Your Success. Our Commitment.</span>
+					<h2>Pioneering EV Mobility & Youth Employment in South Africa</h2>
+					<p class="sub-hero">Accelerating South Africa's transition to zero-emission electric fleets, solar charging infrastructure, and high-impact green job pathways for South African youth.</p>
+					<a href="about-us.html" class="button-glow">Explore Green Vision</a>
+				</div>
 			</section>
 
-			<!-- 3 Core Services Cards -->
-			<section class="wrapper style1">
-				<div class="container">
-					<div class="row gtr-200">
-						<section class="col-4 col-12-narrower">
-							<div class="box highlight">
-								<div class="icon"><i class="fa-solid fa-car-side"></i></div>
-								<h3>Vehicle Leasing & Fleet Management</h3>
-								<p>Flexible leasing models, rent-to-own vehicle solutions, and real-time fleet management designed to empower drivers and maintain operational excellence.</p>
-							</div>
-						</section>
+			<!-- 3 Side-by-Side Core Services -->
+			<section class="services-section">
+				<div class="section-header">
+					<h2>Our Core Services</h2>
+				</div>
+				<div class="services-grid">
+					<div class="service-card-compact">
+						<div class="service-icon-compact"><i class="fa-solid fa-car-battery"></i></div>
+						<h3>Vehicle Leasing & Fleet Management</h3>
+						<p>Flexible EV leasing models, rent-to-own programs, and smart battery fleet analytics designed to empower youth drivers across South Africa.</p>
+					</div>
 
-						<section class="col-4 col-12-narrower">
-							<div class="box highlight">
-								<div class="icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
-								<h3>Transport Logistics</h3>
-								<p>High-efficiency, eco-friendly transport logistics for corporate cargo, document delivery, and optimized regional supply chain solutions across Cape Town.</p>
-							</div>
-						</section>
+					<div class="service-card-compact">
+						<div class="service-icon-compact"><i class="fa-solid fa-solar-panel"></i></div>
+						<h3>Transport Logistics</h3>
+						<p>Zero-emission transport logistics powered by solar charging avenues, delivering fast corporate package and freight solutions nationwide.</p>
+					</div>
 
-						<section class="col-4 col-12-narrower">
-							<div class="box highlight">
-								<div class="icon"><i class="fa-solid fa-users"></i></div>
-								<h3>Corporate Staff Transport</h3>
-								<p>Premium 5-to-7 seater corporate shuttle transit ensuring safe, punctual, and comfortable daily commutes for business teams and shift staff.</p>
-							</div>
-						</section>
+					<div class="service-card-compact">
+						<div class="service-icon-compact"><i class="fa-solid fa-charging-station"></i></div>
+						<h3>Corporate Staff Transport</h3>
+						<p>Premium 5-to-7 seater electric shuttle solutions providing safe, silent, and clean employee commuter routing for corporate partners.</p>
 					</div>
 				</div>
 			</section>
 
-			<!-- Green Vision Banner -->
-			<section class="wrapper style2">
-				<div class="container">
-					<header class="major">
-						<h2>Empowering Youth. Sustaining The Planet.</h2>
-						<p>Combining 100% Level 1 B-BBEE leadership with green mobility innovation to directly reduce youth unemployment in the Western Cape.</p>
-					</header>
-				</div>
-			</section>
-
-			<!-- Modern Text Grid (Clean Cards, No Extra Images) -->
-			<section class="wrapper style1">
-				<div class="container">
-					<div class="row">
-						<section class="col-6 col-12-narrower">
-							<div class="box post">
-								<div class="card-icon"><i class="fa-solid fa-handshake-angle"></i></div>
-								<h3>Sustainable E-Hailing & Leasing Pathways</h3>
-								<p>We connect asset management with youth opportunity by scaling flexible vehicle leasing structures and rent-to-own programs for ambitious professional drivers.</p>
-							</div>
-						</section>
-						<section class="col-6 col-12-narrower">
-							<div class="box post">
-								<div class="card-icon"><i class="fa-solid fa-charging-station"></i></div>
-								<h3>Eco-Conscious Corporate Shuttles</h3>
-								<p>Our dedicated staff transit operates with minimal environmental impact, providing corporate partners with reliable, low-emission employee routing.</p>
-							</div>
-						</section>
-					</div>
-					<div class="row">
-						<section class="col-6 col-12-narrower">
-							<div class="box post">
-								<div class="card-icon"><i class="fa-solid fa-award"></i></div>
-								<h3>Level 1 B-BBEE ESD Advantage</h3>
-								<p>Partnering with M&K Corp grants 135% procurement recognition for your business while contributing directly to enterprise and supplier development initiatives.</p>
-							</div>
-						</section>
-						<section class="col-6 col-12-narrower">
-							<div class="box post">
-								<div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
-								<h3>Tackling Youth Unemployment</h3>
-								<p>Deeply rooted in Cape Town, our operations focus on upskilling young drivers and logistics talent, building long-term career stability in South Africa's green economy.</p>
-							</div>
-						</section>
-					</div>
-				</div>
-			</section>
-
-			<!-- Call To Action -->
-			<section id="cta" class="wrapper style3">
-				<div class="container">
-					<header>
-						<h2>Your Journey. Your Success. Our Commitment.</h2>
-						<p style="color: #e2e8f0; font-size: 1.1rem;">Ready to elevate your corporate logistics while driving youth employment?</p>
-						<a href="contact.html" class="button">Get In Touch Today</a>
-					</header>
-				</div>
-			</section>
-
-			<!-- Footer -->
+			<!-- 3 Side-by-Side Board of Directors in Footer Section -->
 			<div id="footer">
 				<div class="container">
 					<div class="row">
 						<section class="col-4 col-12-narrower col-12-mobilep">
 							<h3>M AND K Corporation</h3>
-							<p>Leading vehicle leasing & fleet management, transport logistics, and corporate staff transport while expanding youth opportunities across the Green Economy.</p>
+							<p>Leading South Africa's green mobility transformation with EV fleet leasing, solar logistics infrastructure, and youth empowerment projects.</p>
 						</section>
 
 						<section class="col-4 col-6-narrower col-12-mobilep">
@@ -628,7 +554,7 @@
 					</div>
 
 					<!-- Forminit Backend Contact Form -->
-					<div class="row">
+					<div class="row" style="margin-top: 30px;">
 						<section class="col-12">
 							<h3>Connect With Us</h3>
 							<form action="https://forminit.com/f/5kzvzvvqjsy" method="POST">
@@ -643,7 +569,7 @@
 										<input type="text" name="fi-text-subject" id="subject" placeholder="Subject" required />
 									</div>
 									<div class="col-12">
-										<textarea name="fi-text-message" id="message" placeholder="Message" rows="5" required></textarea>
+										<textarea name="fi-text-message" id="message" placeholder="Message" rows="4" required></textarea>
 									</div>
 									<div class="col-12">
 										<ul class="actions">
@@ -655,35 +581,27 @@
 						</section>
 					</div>
 
-					<div class="row">
-						<div class="col-12">
-							<h3 style="text-align: center; margin-top: 2.5em; margin-bottom: 2em; letter-spacing: 2px; font-size: 1.2em; color: #ffffff; font-weight: bold;">BOARD OF DIRECTORS</h3>
-						</div>
-						
-						<div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
-							<div class="board-card">
-								<h4 style="margin-bottom: 0.3em;">Mustapha Jacobs</h4>
-								<p style="font-style: italic; color: #a7f3d0; margin: 0;">Co-Founder & Managing Director</p>
+					<!-- 3 Side-by-Side Directors Row -->
+					<div class="board-section">
+						<h3 style="text-align: center; display: block; margin-bottom: 25px; color: #ffffff;">BOARD OF DIRECTORS</h3>
+						<div class="board-grid">
+							<div class="board-card-compact">
+								<h4>Mustapha Jacobs</h4>
+								<p>Co-Founder & Managing Director</p>
 							</div>
-						</div>
-
-						<div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
-							<div class="board-card">
-								<h4 style="margin-bottom: 0.3em;">Kaylim Clark</h4>
-								<p style="font-style: italic; color: #a7f3d0; margin: 0;">Co-Founder & Managing Director</p>
+							<div class="board-card-compact">
+								<h4>Kaylim Clark</h4>
+								<p>Co-Founder & Managing Director</p>
 							</div>
-						</div>
-
-						<div class="col-4 col-12-small" style="text-align: center; margin-bottom: 2em;">
-							<div class="board-card">
-								<h4 style="margin-bottom: 0.3em;">Keathan Kester</h4>
-								<p style="font-style: italic; color: #a7f3d0; margin: 0;">Co-Founder & Managing Director</p>
+							<div class="board-card-compact">
+								<h4>Keathan Kester</h4>
+								<p>Co-Founder & Managing Director</p>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<ul class="icons">
+				<ul class="icons" style="margin-top: 30px;">
 					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 					<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
 					<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
@@ -702,7 +620,7 @@
 
 		</div>
 
-		<!-- WhatsApp Floating Link -->
+		<!-- WhatsApp Link -->
 		<a href="https://wa.me/27663577165" class="whatsapp-float" target="_blank">
 			<i class="fab fa-whatsapp"></i>
 		</a>
@@ -714,7 +632,117 @@
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
+
+		<!-- 3D/4D Three.js Eco-City Engine (EV Vehicles, Solar Hubs & Trees) -->
 		<script>
+			let scene, camera, renderer, evVehicles = [], solarPanels = [];
+			
+			function init4D() {
+				const container = document.getElementById('canvas-container');
+				if(!container) return;
+
+				scene = new THREE.Scene();
+				camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+				camera.position.set(0, 15, 35);
+				camera.lookAt(0, 0, 0);
+
+				renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				renderer.setPixelRatio(window.devicePixelRatio);
+				container.appendChild(renderer.domElement);
+
+				// Ambient & Directional Lights
+				const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+				scene.add(ambientLight);
+				const dirLight = new THREE.DirectionalLight(0x10b981, 1.2);
+				dirLight.position.set(20, 40, 20);
+				scene.add(dirLight);
+
+				// Grid Ground
+				const gridHelper = new THREE.GridHelper(100, 40, 0x10b981, 0x064e3b);
+				gridHelper.position.y = -2;
+				scene.add(gridHelper);
+
+				// Create 3D EV Wireframe Vehicles
+				for(let i = 0; i < 5; i++) {
+					const carGroup = new THREE.Group();
+					const bodyGeo = new THREE.BoxGeometry(3, 1.2, 1.8);
+					const bodyMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true });
+					const carBody = new THREE.Mesh(bodyGeo, bodyMat);
+					carGroup.add(carBody);
+
+					// EV Battery Core
+					const coreGeo = new THREE.SphereGeometry(0.5, 8, 8);
+					const coreMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
+					const core = new THREE.Mesh(coreGeo, coreMat);
+					carGroup.add(core);
+
+					carGroup.position.set((Math.random() - 0.5) * 60, -1, (Math.random() - 0.5) * 40);
+					scene.add(carGroup);
+					evVehicles.push({ mesh: carGroup, speed: 0.15 + Math.random() * 0.1 });
+				}
+
+				// Create 3D Solar Stations with Trees
+				for(let i = 0; i < 8; i++) {
+					const stationGroup = new THREE.Group();
+					
+					// Tree Trunk & Canopy
+					const trunkGeo = new THREE.CylinderGeometry(0.2, 0.3, 2);
+					const trunkMat = new THREE.MeshBasicMaterial({ color: 0x064e3b });
+					const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+					trunk.position.y = 1;
+					stationGroup.add(trunk);
+
+					const leafGeo = new THREE.ConeGeometry(1.2, 3, 6);
+					const leafMat = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true });
+					const leaves = new THREE.Mesh(leafGeo, leafMat);
+					leaves.position.y = 3;
+					stationGroup.add(leaves);
+
+					// Solar Panel Canopy
+					const solarGeo = new THREE.BoxGeometry(2, 0.1, 1.2);
+					const solarMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true });
+					const solar = new THREE.Mesh(solarGeo, solarMat);
+					solar.position.set(1.5, 2.5, 0);
+					solar.rotation.x = 0.3;
+					stationGroup.add(solar);
+					solarPanels.push(solar);
+
+					stationGroup.position.set((Math.random() - 0.5) * 70, -2, (Math.random() - 0.5) * 50);
+					scene.add(stationGroup);
+				}
+
+				window.addEventListener('resize', onWindowResize);
+				animate();
+			}
+
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize(window.innerWidth, window.innerHeight);
+			}
+
+			function animate() {
+				requestAnimationFrame(animate);
+
+				// Move EV Vehicles along axis
+				evVehicles.forEach(ev => {
+					ev.mesh.position.x += ev.speed;
+					if(ev.mesh.position.x > 35) ev.mesh.position.x = -35;
+				});
+
+				// Rotate Solar Panels slowly
+				solarPanels.forEach(panel => {
+					panel.rotation.y += 0.01;
+				});
+
+				scene.rotation.y += 0.0015;
+				renderer.render(scene, camera);
+			}
+
+			window.addEventListener('DOMContentLoaded', init4D);
+
+			// LOI Link Handler
 			document.getElementById('loi-link').addEventListener('click', function(e) {
 				e.stopPropagation(); 
 				window.location.href = 'letter-of-intent.html';
